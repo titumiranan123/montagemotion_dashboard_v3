@@ -1,18 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {  Inter } from "next/font/google";
 import "./globals.css";
-import Mainlayout from "@/component/Mainlayout";
-import Provider from "./Provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+
+const interFont = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,11 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-[#000000]`}
+        className={`${interFont.variable} ${interFont.className} bg-[#000000]`}
       >
-        <Provider>
-          <Mainlayout>{children}</Mainlayout>
-        </Provider>
+        {children}
       </body>
     </html>
   );

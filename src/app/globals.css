@@ -5,13 +5,25 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;  /* Color of the track */
+  background: #f1f1f1; /* Color of the track */
   border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: rgb(51, 30, 240);
   border-radius: 6px;
-  
 }
 
+@layer base {
+  h1 {
+    background: linear-gradient(
+      90deg,
+      #ffffff 0%,
+      #ffffff 49.89%,
+      #1fb5dd 100%
+    );
+    background-clip: text;
+    color: transparent;
+
+  }
+}

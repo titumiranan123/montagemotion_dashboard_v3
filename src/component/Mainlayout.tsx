@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -18,9 +18,11 @@ import {
   FiLogOut
 } from "react-icons/fi";
 
+
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+ 
 
   const pathname = usePathname();
 
@@ -30,7 +32,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   const toggleSidebar = () => setIsOpen(!isOpen);
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
-
+ 
   const menuItems = [
     { href: "/", label: "Dashboard", icon: <FiHome /> },
     { href: "/works", label: "Works", icon: <FiBriefcase /> },
@@ -88,7 +90,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 <FiUser />
               </div>
               <div className="absolute right-0 mt-2 w-48   rounded-md shadow-lg py-1 z-40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200">
-                <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-[#1FB5DD]/10">Profile</a>
+                <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-[#1FB5DD]/10">hhf</a>
                 <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-[#1FB5DD]/10">Settings</a>
                 <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-[#1FB5DD]/10">Logout</a>
               </div>
@@ -187,7 +189,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
 
         {/* Main Content */}
-        <main className="flex-1 overflow-y-auto p-4 bg-[#58585833]">{children}</main>
+        <main className="flex-1 border max-w-[1530px] md:mt-8 rounded-2xl shadow-2xl mx-auto border-white overflow-y-auto p-4 bg-[#58585833]">{children}</main>
       </div>
     </div>
   );
