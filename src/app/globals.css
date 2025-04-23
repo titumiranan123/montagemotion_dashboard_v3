@@ -13,7 +13,9 @@
   background-color: rgb(51, 30, 240);
   border-radius: 6px;
 }
-
+.swal2-container{
+  z-index: 9999!important;
+}
 @layer base {
   h1 {
     background: linear-gradient(

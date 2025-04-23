@@ -18,7 +18,7 @@ interface ITestimonial {
 
 interface ITestimonialFormProps {
   onSubmit: (data: ITestimonial) => Promise<void> | void;
-  initialData?: Partial<ITestimonial>;
+  initialData?: Partial<ITestimonial | null>;
   onCancel?: () => void;
 }
 
@@ -174,11 +174,12 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-6 max-w-3xl mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-6 grid grid-cols-1 lg:grid-cols-2 max-w-7xl gap-7 mx-auto p-5 mt-20">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 col-span-1 lg:col-span-2">
+      <h1 className='col-span-3 text-white font-bold text-2xl'>Create Testimonial</h1>
         {/* Name */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-100 mb-1">
             Name <span className="text-red-500">*</span>
           </label>
           <input
@@ -197,7 +198,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
 
         {/* Designation */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-100 mb-1">
             Designation <span className="text-red-500">*</span>
           </label>
           <input
@@ -216,7 +217,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
 
         {/* Type */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-100 mb-1">
             Type <span className="text-red-500">*</span>
           </label>
           <select
@@ -235,13 +236,12 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
           </select>
           {errors.type && <p className="text-sm text-red-600 mt-1">{errors.type.message}</p>}
         </div>
-
       </div>
 
       {/* Image Upload */}
-      <h2 className='text-white font-[600] text-2xl'>Image upload progress: {imageuploadProgress}%</h2>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+      <h2 className='text-white font-[600] text-2xl'>Image upload progress: {imageuploadProgress}%</h2>
+        <label className="block text-sm font-medium text-gray-100 mb-1">
           Image <span className="text-red-500">*</span>
         </label>
         <div className="flex items-center gap-4">
@@ -296,7 +296,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
           </label>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-100 mb-1">
             Image url  
           </label>
           <input
@@ -313,7 +313,8 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
 
       {/* Video Upload */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+       <h2 className='text-white font-[600] text-2xl'>Video upload progress: {imageuploadProgress}%</h2>
+        <label className="block text-sm font-medium text-gray-100 mb-1">
           Video Message (if Text testimonial avoid it)
         </label>
         <div className="flex items-center gap-4">
@@ -372,23 +373,22 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
             />
           </label>
         </div>
-      </div>
-
-      {/* Text Message (optional) */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          video message
+        <label className="block text-sm font-medium text-gray-100 mb-1">
+          video message (url)
         </label>
-        <textarea
+        <input
           {...register('video_message')}
           placeholder="Enter testimonial message (optional)"
-          rows={4}
+      
           className="w-full rounded-md p-2 border border-gray-300"
         />
       </div>
+      </div>
+
       {/* Text Message (optional) */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+      <div className=' lg:col-span-2 col-span-1'>
+        <label className="block text-sm font-medium text-gray-100 mb-1">
           Text message
         </label>
         <textarea
