@@ -1,7 +1,9 @@
+"use client"
 import { api_url } from "@/hook/Apiurl";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2"
+import ServiceForm from "./Serviceform";
 interface serviceCardProps {
   service: {
     id: string;
@@ -14,6 +16,7 @@ interface serviceCardProps {
 }
 
 const Servicecard: React.FC<serviceCardProps> = ({ service }) => {
+   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
     const handleDelete = async (id: string): Promise<void> => {
         const result = await Swal.fire({
           title: 'Are you sure?',
@@ -60,7 +63,29 @@ const Servicecard: React.FC<serviceCardProps> = ({ service }) => {
           }
         }
       };
-
+ const handleSubmit = async (data: any) => {
+     try {
+       const res = await api_url.patch(`/api/service/${data.id}`, data);
+       Swal.fire({
+         title: res.data.message,
+         icon: "success",
+         background: '#1f2937',
+         color: '#fff',
+         confirmButtonColor: '#6366f1'
+       });
+       setIsUpdateModalOpen(false);
+     } catch (err: any) {
+      console.log(err)
+       Swal.fire({
+         title: "Something went wrong!",
+         text: err.message,
+         icon: "error",
+         background: '#1f2937',
+         color: '#fff',
+         confirmButtonColor: '#6366f1'
+       });
+     }
+   };
   return (
     <div className="md:w-[488px] md:h-[254px] w-full h-auto md:px-[22px] md:py-[66px] px-4 py-10 flex justify-between items-center gap-5 bg-[#58585833] rounded-[9.91px]">
       <Image
@@ -81,7 +106,10 @@ const Servicecard: React.FC<serviceCardProps> = ({ service }) => {
         </div>
         <p>{service.description}</p>
       <div className="flex justify-between items-center border-t pt-4">
-        <button className="text-white hover:text-blue-800 font-medium text-sm flex items-center">
+        <button   onClick={()=>{
+              setIsUpdateModalOpen(true)
+           
+            }} className="text-white hover:text-blue-800 font-medium text-sm flex items-center">
           <svg
             className="w-4 h-4 mr-1"
             fill="none"
@@ -118,7 +146,9 @@ const Servicecard: React.FC<serviceCardProps> = ({ service }) => {
         </button>
       </div>
       </div>
-
+      {isUpdateModalOpen && (
+         <div className="fixed inset-0  bg-black bg-opacity-80 backdrop-blur-sm flex items-start justify-center p-4 z-50 overflow-y-scroll"> <ServiceForm initialData={service} onCancel={()=>setIsUpdateModalOpen(false)} onSubmit={handleSubmit} /> </div>
+        )}
     </div>
   );
 };

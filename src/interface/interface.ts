@@ -23,3 +23,12 @@ export interface IHeader {
     | "advertising"
     | "website";
 }
+
+export interface IService {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  isPublish: boolean;
+  position: number;
+}

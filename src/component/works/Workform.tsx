@@ -1,24 +1,29 @@
-'use client';
-import React, { useState, useCallback } from 'react';
-import { useForm } from 'react-hook-form';
-import  { AxiosError } from 'axios';
-import Swal from 'sweetalert2';
-import { api_url } from '@/hook/Apiurl';
+"use client";
+import React, { useState, useCallback } from "react";
+import { useForm } from "react-hook-form";
+import { AxiosError } from "axios";
+import Swal from "sweetalert2";
+import { api_url } from "@/hook/Apiurl";
 import ReactPlayer from "react-player";
 
-
-    interface IWork {
-        id?: string;
-        title:string
-        description:string;
-        thumbnail: string;
-        video_link: string;
-        isVisible: boolean;
-        isFeature:boolean
-        position?: number;
-        type: "main" |"shorts" | "talking" | "podcast" | "graphic" | "advertising" | "website" ; 
-      }
-
+interface IWork {
+  id?: string;
+  title: string;
+  description: string;
+  thumbnail: string;
+  video_link: string;
+  isVisible: boolean;
+  isFeature: boolean;
+  position?: number;
+  type:
+    | "main"
+    | "shorts"
+    | "talking"
+    | "podcast"
+    | "graphic"
+    | "advertising"
+    | "website";
+}
 
 interface IWorkFormProps {
   onSubmit: (data: IWork) => Promise<void> | void;
@@ -28,8 +33,8 @@ interface IWorkFormProps {
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const MAX_VIDEO_SIZE = 100 * 1024 * 1024; // 100MB
-const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
-const ALLOWED_VIDEO_TYPES = ['video/mp4', 'video/quicktime'];
+const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp"];
+const ALLOWED_VIDEO_TYPES = ["video/mp4", "video/quicktime"];
 
 const Workform: React.FC<IWorkFormProps> = ({
   onSubmit,
@@ -45,21 +50,25 @@ const Workform: React.FC<IWorkFormProps> = ({
     formState: { errors, isSubmitting },
   } = useForm<IWork>({
     defaultValues: {
-      type: 'main',
+      type: "main",
       ...initialData,
     },
   });
 
-  const [imagePreview, setImagePreview] = useState<string | null>(initialData?.thumbnail || null);
-  const [videoPreview, setVideoPreview] = useState<string | null>(initialData?.video_link || null);
+  const [imagePreview, setImagePreview] = useState<string | null>(
+    initialData?.thumbnail || null
+  );
+  const [videoPreview, setVideoPreview] = useState<string | null>(
+    initialData?.video_link || null
+  );
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [isUploadingVideo, setIsUploadingVideo] = useState(false);
   const [imageuploadProgress, setImageUploadProgress] = useState(0);
   const [videouploadProgress, setVideoUploadProgress] = useState(0);
-  
-  const selectedType = watch('type');
-  const currentImage = watch('thumbnail');
-  const currentVideo = watch('video_link');
+
+  const selectedType = watch("type");
+  const currentImage = watch("thumbnail");
+  const currentVideo = watch("video_link");
 
   const handleImageUpload = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,12 +76,16 @@ const Workform: React.FC<IWorkFormProps> = ({
       if (!file) return;
 
       if (!ALLOWED_FILE_TYPES.includes(file.type)) {
-        Swal.fire('Invalid File', 'Only JPG, PNG, and WEBP images are allowed', 'error');
+        Swal.fire(
+          "Invalid File",
+          "Only JPG, PNG, and WEBP images are allowed",
+          "error"
+        );
         return;
       }
 
       if (file.size > MAX_FILE_SIZE) {
-        Swal.fire('File Too Large', 'Maximum file size is 5MB', 'error');
+        Swal.fire("File Too Large", "Maximum file size is 5MB", "error");
         return;
       }
 
@@ -85,20 +98,26 @@ const Workform: React.FC<IWorkFormProps> = ({
       setIsUploadingImage(true);
       try {
         const formData = new FormData();
-        formData.append('thumbnail', file);
+        formData.append("file", file);
 
-        const response = await api_url.post<{ url: string }>('/api/upload', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-          onUploadProgress: (progressEvent) => {
-            const percentCompleted = Math.round((progressEvent.loaded * 100) / (progressEvent.total || 1));
-            setImageUploadProgress(percentCompleted)
-          },
-        });
-        setValue('thumbnail', response.data.url, { shouldValidate: true });
-        await Swal.fire('Success!', 'Image uploaded successfully', 'success');
+        const response = await api_url.post<{ url: string }>(
+          "/api/upload",
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+            onUploadProgress: (progressEvent) => {
+              const percentCompleted = Math.round(
+                (progressEvent.loaded * 100) / (progressEvent.total || 1)
+              );
+              setImageUploadProgress(percentCompleted);
+            },
+          }
+        );
+        setValue("thumbnail", response.data.url, { shouldValidate: true });
+        await Swal.fire("Success!", "Image uploaded successfully", "success");
       } catch (error: any) {
         setImagePreview(currentImage || null);
-        await Swal.fire('Upload Failed', 'Failed to upload image', 'error');
+        await Swal.fire("Upload Failed", "Failed to upload image", "error");
       } finally {
         setIsUploadingImage(false);
       }
@@ -112,12 +131,16 @@ const Workform: React.FC<IWorkFormProps> = ({
       if (!file) return;
 
       if (!ALLOWED_VIDEO_TYPES.includes(file.type)) {
-        Swal.fire('Invalid File', 'Only MP4 and MOV videos are allowed', 'error');
+        Swal.fire(
+          "Invalid File",
+          "Only MP4 and MOV videos are allowed",
+          "error"
+        );
         return;
       }
 
       if (file.size > MAX_VIDEO_SIZE) {
-        Swal.fire('File Too Large', 'Maximum video size is 100MB', 'error');
+        Swal.fire("File Too Large", "Maximum video size is 100MB", "error");
         return;
       }
 
@@ -130,23 +153,29 @@ const Workform: React.FC<IWorkFormProps> = ({
       setIsUploadingVideo(true);
       try {
         const formData = new FormData();
-        formData.append('video_link', file);
+        formData.append("file", file);
 
-        const response = await api_url.post<{ url: string }>('/api/upload', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-          onUploadProgress: (progressEvent) => {
-            const percentCompleted = Math.round((progressEvent.loaded * 100) / (progressEvent.total || 1));
-            setVideoUploadProgress(percentCompleted)
-          },
-        });
+        const response = await api_url.post<{ url: string }>(
+          "/api/upload",
+          formData,
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+            onUploadProgress: (progressEvent) => {
+              const percentCompleted = Math.round(
+                (progressEvent.loaded * 100) / (progressEvent.total || 1)
+              );
+              setVideoUploadProgress(percentCompleted);
+            },
+          }
+        );
 
-        setValue('video_link', response.data.url, { shouldValidate: true });
-        await Swal.fire('Success!', 'Video uploaded successfully', 'success');
+        setValue("video_link", response.data.url, { shouldValidate: true });
+        await Swal.fire("Success!", "Video uploaded successfully", "success");
       } catch (error: any) {
         const err = error as AxiosError;
-        console.error('Video upload failed:', err);
+        console.error("Video upload failed:", err);
         setVideoPreview(currentVideo || null);
-        await Swal.fire('Upload Failed',  'Failed to upload video', 'error');
+        await Swal.fire("Upload Failed", "Failed to upload video", "error");
       } finally {
         setIsUploadingVideo(false);
       }
@@ -156,66 +185,87 @@ const Workform: React.FC<IWorkFormProps> = ({
 
   const onSubmitHandler = async (data: IWork) => {
     try {
-        onSubmit(data)
-        // reset()
-        // onCancel?.()
+      onSubmit(data);
+      // reset()
+      // onCancel?.()
     } catch (error) {
       const err = error as Error;
-      console.error('Submission error:', err);
-      await Swal.fire('Error!', err.message || 'Failed to submit form', 'error');
+      console.error("Submission error:", err);
+      await Swal.fire(
+        "Error!",
+        err.message || "Failed to submit form",
+        "error"
+      );
     }
   };
 
   const handleRemoveImage = () => {
     setImagePreview(null);
-    setValue('thumbnail', '', { shouldValidate: true });
+    setValue("thumbnail", "", { shouldValidate: true });
   };
 
   const handleRemoveVideo = () => {
     setVideoPreview(null);
-    setValue('video_link', '', { shouldValidate: true });
+    setValue("video_link", "", { shouldValidate: true });
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-6 grid grid-cols-1 lg:grid-cols-2 max-w-7xl gap-7 mx-auto p-5 mt-20">
+    <form
+      onSubmit={handleSubmit(onSubmitHandler)}
+      className="space-y-6 grid grid-cols-1 lg:grid-cols-2 max-w-7xl gap-7 mx-auto p-5 mt-20"
+    >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 col-span-1 lg:col-span-2">
-      <h1 className='lg:col-span-3 text-white font-bold text-2xl'>Create Work</h1>
+        <h1 className="lg:col-span-3 text-white font-bold text-2xl">
+          Create Work
+        </h1>
         {/* Name */}
-        <div >
+        <div>
           <label className="block text-sm font-medium text-gray-100 mb-1">
             Name <span className="text-red-500">*</span>
           </label>
           <input
-            {...register('title', {
-              required: 'Title is required',
-              minLength: { value: 2, message: 'Name must be at least 2 characters' },
+            {...register("title", {
+              required: "Title is required",
+              minLength: {
+                value: 2,
+                message: "Name must be at least 2 characters",
+              },
             })}
             type="text"
             placeholder="John Doe"
             className={`w-full rounded-md p-2 border ${
-              errors.title ? 'border-red-500' : 'border-gray-300'
+              errors.title ? "border-red-500" : "border-gray-300"
             }`}
           />
-          {errors.title && <p className="text-sm text-red-600 mt-1">{errors.title.message}</p>}
+          {errors.title && (
+            <p className="text-sm text-red-600 mt-1">{errors.title.message}</p>
+          )}
         </div>
 
         {/* Description */}
         <div>
           <label className="block text-sm font-medium text-gray-100 mb-1">
-          Description <span className="text-red-500">*</span>
+            Description <span className="text-red-500">*</span>
           </label>
           <input
-            {...register('description', {
-              required: 'Description is required',
-              minLength: { value: 2, message: 'Designation must be at least 2 characters' },
+            {...register("description", {
+              required: "Description is required",
+              minLength: {
+                value: 2,
+                message: "Designation must be at least 2 characters",
+              },
             })}
             type="text"
             placeholder="CEO, Company Inc."
             className={`w-full rounded-md p-2 border ${
-              errors.description ? 'border-red-500' : 'border-gray-300'
+              errors.description ? "border-red-500" : "border-gray-300"
             }`}
           />
-          {errors.description && <p className="text-sm text-red-600 mt-1">{errors.description.message}</p>}
+          {errors.description && (
+            <p className="text-sm text-red-600 mt-1">
+              {errors.description.message}
+            </p>
+          )}
         </div>
 
         {/* Type */}
@@ -224,9 +274,9 @@ const Workform: React.FC<IWorkFormProps> = ({
             Type <span className="text-red-500">*</span>
           </label>
           <select
-            {...register('type', { required: 'Type is required' })}
+            {...register("type", { required: "Type is required" })}
             className={`w-full rounded-md p-2 border bg-[#101828] ${
-              errors.type ? 'border-red-500' : 'border-gray-300'
+              errors.type ? "border-red-500" : "border-gray-300"
             }`}
           >
             <option value="main">Main Testimonial</option>
@@ -237,25 +287,35 @@ const Workform: React.FC<IWorkFormProps> = ({
             <option value="advertising">Advertising</option>
             <option value="website">Website</option>
           </select>
-          {errors.type && <p className="text-sm text-red-600 mt-1">{errors.type.message}</p>}
+          {errors.type && (
+            <p className="text-sm text-red-600 mt-1">{errors.type.message}</p>
+          )}
         </div>
       </div>
 
       {/* Image Upload */}
       <div>
-      <h2 className='text-white font-[600] text-lg'>Image upload progress: {imageuploadProgress}%</h2>
+        <h2 className="text-white font-[600] text-lg">
+          Image upload progress: {imageuploadProgress}%
+        </h2>
         <label className="block mt-1 text-sm font-medium text-gray-100 mb-1">
-          Thumbnail  <span className="text-red-500">*</span>
+          Thumbnail <span className="text-red-500">*</span>
         </label>
         <div className="flex items-center gap-4 mt-2">
           <label
             htmlFor="image-upload"
-            className={`cursor-pointer flex-1 ${isUploadingImage ? 'opacity-50 pointer-events-none' : ''}`}
+            className={`cursor-pointer flex-1 ${
+              isUploadingImage ? "opacity-50 pointer-events-none" : ""
+            }`}
           >
             <div className="flex flex-col items-center justify-center px-6 py-8 border-2 border-dashed border-gray-300 rounded-md hover:border-gray-400">
               {imagePreview ? (
                 <div className="relative group">
-                  <img src={imagePreview} alt="Preview" className="h-32 w-full object-cover rounded-md" />
+                  <img
+                    src={imagePreview}
+                    alt="Preview"
+                    className="h-32 w-full object-cover rounded-md"
+                  />
                   <button
                     type="button"
                     onClick={(e) => {
@@ -283,8 +343,12 @@ const Workform: React.FC<IWorkFormProps> = ({
                       strokeLinejoin="round"
                     />
                   </svg>
-                  <p className="text-sm text-gray-600 mt-2">Click to upload image</p>
-                  <p className="text-xs text-gray-500">JPG, PNG, WEBP up to 5MB</p>
+                  <p className="text-sm text-gray-600 mt-2">
+                    Click to upload image
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    JPG, PNG, WEBP up to 5MB
+                  </p>
                 </>
               )}
             </div>
@@ -298,38 +362,46 @@ const Workform: React.FC<IWorkFormProps> = ({
             />
           </label>
         </div>
-        <div className='mt-5'>
+        <div className="mt-5">
           <label className="block text-sm font-medium text-gray-100 mb-1">
-            Thumbnail URL :   
+            Thumbnail URL :
           </label>
           <input
-            {...register('thumbnail')}
+            {...register("thumbnail")}
             type="text"
             placeholder="CEO, Company Inc."
             className={`w-full rounded-md p-2 border ${
-              errors.thumbnail ? 'border-red-500' : 'border-gray-300'
+              errors.thumbnail ? "border-red-500" : "border-gray-300"
             }`}
           />
-          {errors.thumbnail && <p className="text-sm text-red-600 mt-1">{errors.thumbnail.message}</p>}
+          {errors.thumbnail && (
+            <p className="text-sm text-red-600 mt-1">
+              {errors.thumbnail.message}
+            </p>
+          )}
         </div>
       </div>
 
       {/* Video Upload */}
       <div>
-       <h2 className='text-white font-[600] text-lg'>Video upload progress: {videouploadProgress}%</h2>
+        <h2 className="text-white font-[600] text-lg">
+          Video upload progress: {videouploadProgress}%
+        </h2>
         <label className="block text-sm font-medium text-gray-100  mt-2 mb-4">
-          Upload Video : 
+          Upload Video :
         </label>
         <div className="flex items-center gap-4">
           <label
             htmlFor="video-upload"
-            className={`cursor-pointer flex-1 ${isUploadingVideo ? 'opacity-50 pointer-events-none' : ''}`}
+            className={`cursor-pointer flex-1 ${
+              isUploadingVideo ? "opacity-50 pointer-events-none" : ""
+            }`}
           >
             <div className="flex flex-col items-center justify-center px-6 py-8 border-2 border-dashed border-gray-300 rounded-md hover:border-gray-400">
               {videoPreview ? (
                 <div className="relative group w-full">
-                  <ReactPlayer 
-                    url={videoPreview} 
+                  <ReactPlayer
+                    url={videoPreview}
                     width="100%"
                     height="200px"
                     controls
@@ -361,7 +433,9 @@ const Workform: React.FC<IWorkFormProps> = ({
                       strokeLinejoin="round"
                     />
                   </svg>
-                  <p className="text-sm text-gray-600 mt-2">Click to upload video</p>
+                  <p className="text-sm text-gray-600 mt-2">
+                    Click to upload video
+                  </p>
                   <p className="text-xs text-gray-500">MP4, MOV up to 100MB</p>
                 </>
               )}
@@ -376,18 +450,44 @@ const Workform: React.FC<IWorkFormProps> = ({
             />
           </label>
         </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-100 mb-3 mt-4">
-       Video Url  (url)
-        </label>
-        <input
-          {...register('video_link')}
-          placeholder="Enter testimonial message (optional)"
-      
-          className="w-full rounded-md p-2 border border-gray-300"
-        />
+        <div>
+          <label className="block text-sm font-medium text-gray-100 mb-3 mt-4">
+            Video Url (url)
+          </label>
+          <input
+            {...register("video_link")}
+            placeholder="Enter testimonial message (optional)"
+            className="w-full rounded-md p-2 border border-gray-300"
+          />
+        </div>
       </div>
-      </div>
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center gap-4">
+          <label className="inline-flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              {...register("isVisible")}
+              className="sr-only peer"
+            />
+            <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+            <span className="ms-3 text-sm font-medium text-gray-100">
+              Visible
+            </span>
+          </label>
+
+          <label className="inline-flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              {...register("isFeature")}
+              className="sr-only peer"
+            />
+            <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+            <span className="ms-3 text-sm font-medium text-gray-100">
+              Featured
+            </span>
+          </label>
+        </div>
+        </div>
       {/* Submit/Cancel */}
       <div className="flex justify-end gap-4">
         {onCancel && (
@@ -404,12 +504,11 @@ const Workform: React.FC<IWorkFormProps> = ({
           disabled={isSubmitting || isUploadingImage || isUploadingVideo}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
         >
-          {isSubmitting ? 'Submitting...' : 'Submit'}
+          {isSubmitting ? "Submitting..." : "Submit"}
         </button>
       </div>
     </form>
   );
 };
-
 
 export default Workform;
