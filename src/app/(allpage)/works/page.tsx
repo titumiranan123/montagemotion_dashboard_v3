@@ -22,9 +22,8 @@ interface IVideo {
 
 const Works = () => {
   const [isWork, setWorkModal] = useState(false);
-  const [isEditWork, setEditWorkModal] = useState(false);
   const [editData, setEditData] = useState<IVideo | null>(null);
-  console.log(editData) 
+ 
   const [activeFilter, setActiveFilter] = useState("all");
   const { data = [], isLoading } = useWorks();
   const [parent, tapes, setTapes] = useDragAndDrop<HTMLDivElement, IVideo>(data || []);
@@ -185,7 +184,7 @@ const Works = () => {
 
         {/* Modal */}
         {isWork && (
-          <div className="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center p-4 z-50 overflow-y-scroll">
+          <div className="fixed inset-0  bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center p-4 z-50 overflow-y-scroll">
           <Workform
             onSubmit={handleSubmit}
             initialData={editData}

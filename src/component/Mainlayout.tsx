@@ -15,7 +15,11 @@ import {
   FiChevronLeft,
   FiUser,
   FiSettings,
-  FiLogOut
+  FiLogOut,
+  FiLayers,
+  FiFolder,
+  FiDollarSign,
+  FiHelpCircle
 } from "react-icons/fi";
 
 
@@ -33,13 +37,19 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const toggleSidebar = () => setIsOpen(!isOpen);
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
  
-  const menuItems = [
-    { href: "/", label: "Dashboard", icon: <FiHome /> },
-    { href: "/works", label: "Works", icon: <FiBriefcase /> },
-    { href: "/testimonials", label: "Testimonials", icon: <FiMessageSquare /> },
-    { href: "/contacts", label: "Contacts", icon: <FiMail /> },
-    { href: "/chat", label: "Chat", icon: <FiMessageCircle /> },
+ 
+    const menuItems = [
+      { href: "/", label: "Dashboard", icon: <FiHome /> },
+      { href: "/headers", label: "Header", icon: <FiLayers /> },
+      { href: "/services", label: "Services", icon: <FiSettings /> },
+      { href: "/works", label: "Works", icon: <FiFolder /> },
+      { href: "/pricing", label: "Prices", icon: <FiDollarSign /> },
+      { href: "/faqs", label: "Faqs", icon: <FiHelpCircle /> },
+      { href: "/testimonials", label: "Testimonials", icon: <FiMessageSquare /> },
+      { href: "/contacts", label: "Contacts", icon: <FiMail /> },
+      { href: "/chat", label: "Chat", icon: <FiMessageCircle /> },
   ];
+ 
 
   return (
     <div className="flex flex-col h-screen ">
