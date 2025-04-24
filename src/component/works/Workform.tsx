@@ -6,19 +6,23 @@ import Swal from 'sweetalert2';
 import { api_url } from '@/hook/Apiurl';
 import ReactPlayer from "react-player";
 
-interface ITestimonial {
-  id?: string;
-  name: string;
-  designation: string;
-  message:string
-  image: string;
-  video_message?: string;
-  type: 'main' | 'shorts' | 'talking' | 'podcast' | 'graphic' | 'advertising' | 'website';
-}
 
-interface ITestimonialFormProps {
-  onSubmit: (data: ITestimonial) => Promise<void> | void;
-  initialData?: Partial<ITestimonial | null>;
+    interface IWork {
+        id?: string;
+        title:string
+        description:string;
+        thumbnail: string;
+        video_link: string;
+        isVisible: boolean;
+        isFeature:boolean
+        position?: number;
+        type: "main" |"shorts" | "talking" | "podcast" | "graphic" | "advertising" | "website" ; 
+      }
+
+
+interface IWorkFormProps {
+  onSubmit: (data: IWork) => Promise<void> | void;
+  initialData?: Partial<IWork | null>;
   onCancel?: () => void;
 }
 
@@ -27,7 +31,7 @@ const MAX_VIDEO_SIZE = 100 * 1024 * 1024; // 100MB
 const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 const ALLOWED_VIDEO_TYPES = ['video/mp4', 'video/quicktime'];
 
-const TestimonialForm: React.FC<ITestimonialFormProps> = ({
+const Workform: React.FC<IWorkFormProps> = ({
   onSubmit,
   initialData,
   onCancel,
@@ -39,23 +43,23 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
     watch,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<ITestimonial>({
+  } = useForm<IWork>({
     defaultValues: {
       type: 'main',
       ...initialData,
     },
   });
 
-  const [imagePreview, setImagePreview] = useState<string | null>(initialData?.image || null);
-  const [videoPreview, setVideoPreview] = useState<string | null>(initialData?.video_message || null);
+  const [imagePreview, setImagePreview] = useState<string | null>(initialData?.thumbnail || null);
+  const [videoPreview, setVideoPreview] = useState<string | null>(initialData?.video_link || null);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [isUploadingVideo, setIsUploadingVideo] = useState(false);
   const [imageuploadProgress, setImageUploadProgress] = useState(0);
   const [videouploadProgress, setVideoUploadProgress] = useState(0);
   
   const selectedType = watch('type');
-  const currentImage = watch('image');
-  const currentVideo = watch('video_message');
+  const currentImage = watch('thumbnail');
+  const currentVideo = watch('video_link');
 
   const handleImageUpload = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,7 +85,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
       setIsUploadingImage(true);
       try {
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('thumbnail', file);
 
         const response = await api_url.post<{ url: string }>('/api/upload', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
@@ -90,7 +94,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
             setImageUploadProgress(percentCompleted)
           },
         });
-        setValue('image', response.data.url, { shouldValidate: true });
+        setValue('thumbnail', response.data.url, { shouldValidate: true });
         await Swal.fire('Success!', 'Image uploaded successfully', 'success');
       } catch (error: any) {
         setImagePreview(currentImage || null);
@@ -126,7 +130,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
       setIsUploadingVideo(true);
       try {
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('video_link', file);
 
         const response = await api_url.post<{ url: string }>('/api/upload', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
@@ -136,7 +140,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
           },
         });
 
-        setValue('video_message', response.data.url, { shouldValidate: true });
+        setValue('video_link', response.data.url, { shouldValidate: true });
         await Swal.fire('Success!', 'Video uploaded successfully', 'success');
       } catch (error: any) {
         const err = error as AxiosError;
@@ -150,9 +154,8 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
     [currentVideo, setValue]
   );
 
-  const onSubmitHandler = async (data: ITestimonial) => {
+  const onSubmitHandler = async (data: IWork) => {
     try {
-        console.log(data)
         onSubmit(data)
         // reset()
         // onCancel?.()
@@ -165,64 +168,64 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
 
   const handleRemoveImage = () => {
     setImagePreview(null);
-    setValue('image', '', { shouldValidate: true });
+    setValue('thumbnail', '', { shouldValidate: true });
   };
 
   const handleRemoveVideo = () => {
     setVideoPreview(null);
-    setValue('video_message', '', { shouldValidate: true });
+    setValue('video_link', '', { shouldValidate: true });
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-6 grid grid-cols-1 lg:grid-cols-2 max-w-7xl gap-7 mx-auto p-5 mt-20">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 col-span-1 lg:col-span-2">
-      <h1 className='col-span-3 text-white font-bold text-2xl'>Create Testimonial</h1>
+      <h1 className='lg:col-span-3 text-white font-bold text-2xl'>Create Work</h1>
         {/* Name */}
-        <div>
+        <div >
           <label className="block text-sm font-medium text-gray-100 mb-1">
             Name <span className="text-red-500">*</span>
           </label>
           <input
-            {...register('name', {
-              required: 'Name is required',
+            {...register('title', {
+              required: 'Title is required',
               minLength: { value: 2, message: 'Name must be at least 2 characters' },
             })}
             type="text"
             placeholder="John Doe"
             className={`w-full rounded-md p-2 border ${
-              errors.name ? 'border-red-500' : 'border-gray-300'
+              errors.title ? 'border-red-500' : 'border-gray-300'
             }`}
           />
-          {errors.name && <p className="text-sm text-red-600 mt-1">{errors.name.message}</p>}
+          {errors.title && <p className="text-sm text-red-600 mt-1">{errors.title.message}</p>}
         </div>
 
-        {/* Designation */}
+        {/* Description */}
         <div>
           <label className="block text-sm font-medium text-gray-100 mb-1">
-            Designation <span className="text-red-500">*</span>
+          Description <span className="text-red-500">*</span>
           </label>
           <input
-            {...register('designation', {
-              required: 'Designation is required',
+            {...register('description', {
+              required: 'Description is required',
               minLength: { value: 2, message: 'Designation must be at least 2 characters' },
             })}
             type="text"
             placeholder="CEO, Company Inc."
             className={`w-full rounded-md p-2 border ${
-              errors.designation ? 'border-red-500' : 'border-gray-300'
+              errors.description ? 'border-red-500' : 'border-gray-300'
             }`}
           />
-          {errors.designation && <p className="text-sm text-red-600 mt-1">{errors.designation.message}</p>}
+          {errors.description && <p className="text-sm text-red-600 mt-1">{errors.description.message}</p>}
         </div>
 
         {/* Type */}
         <div>
-          <label className="block text-sm font-medium text-gray-100 mb-1">
+          <label className="block text-sm font-medium text-gray-100  mb-1">
             Type <span className="text-red-500">*</span>
           </label>
           <select
             {...register('type', { required: 'Type is required' })}
-            className={`w-full rounded-md p-2 border ${
+            className={`w-full rounded-md p-2 border bg-[#101828] ${
               errors.type ? 'border-red-500' : 'border-gray-300'
             }`}
           >
@@ -240,11 +243,11 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
 
       {/* Image Upload */}
       <div>
-      <h2 className='text-white font-[600] text-2xl'>Image upload progress: {imageuploadProgress}%</h2>
-        <label className="block text-sm font-medium text-gray-100 mb-1">
-          Image <span className="text-red-500">*</span>
+      <h2 className='text-white font-[600] text-lg'>Image upload progress: {imageuploadProgress}%</h2>
+        <label className="block mt-1 text-sm font-medium text-gray-100 mb-1">
+          Thumbnail  <span className="text-red-500">*</span>
         </label>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 mt-2">
           <label
             htmlFor="image-upload"
             className={`cursor-pointer flex-1 ${isUploadingImage ? 'opacity-50 pointer-events-none' : ''}`}
@@ -295,27 +298,27 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
             />
           </label>
         </div>
-        <div>
+        <div className='mt-5'>
           <label className="block text-sm font-medium text-gray-100 mb-1">
-            Image url  
+            Thumbnail URL :   
           </label>
           <input
-            {...register('image')}
+            {...register('thumbnail')}
             type="text"
             placeholder="CEO, Company Inc."
             className={`w-full rounded-md p-2 border ${
-              errors.designation ? 'border-red-500' : 'border-gray-300'
+              errors.thumbnail ? 'border-red-500' : 'border-gray-300'
             }`}
           />
-          {errors.designation && <p className="text-sm text-red-600 mt-1">{errors.designation.message}</p>}
+          {errors.thumbnail && <p className="text-sm text-red-600 mt-1">{errors.thumbnail.message}</p>}
         </div>
       </div>
 
       {/* Video Upload */}
       <div>
-       <h2 className='text-white font-[600] text-2xl'>Video upload progress: {videouploadProgress}%</h2>
-        <label className="block text-sm font-medium text-gray-100 mb-1">
-          Video Message (if Text testimonial avoid it)
+       <h2 className='text-white font-[600] text-lg'>Video upload progress: {videouploadProgress}%</h2>
+        <label className="block text-sm font-medium text-gray-100  mt-2 mb-4">
+          Upload Video : 
         </label>
         <div className="flex items-center gap-4">
           <label
@@ -374,31 +377,17 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
           </label>
         </div>
       <div>
-        <label className="block text-sm font-medium text-gray-100 mb-1">
-          video message (url)
+        <label className="block text-sm font-medium text-gray-100 mb-3 mt-4">
+       Video Url  (url)
         </label>
         <input
-          {...register('video_message')}
+          {...register('video_link')}
           placeholder="Enter testimonial message (optional)"
       
           className="w-full rounded-md p-2 border border-gray-300"
         />
       </div>
       </div>
-
-      {/* Text Message (optional) */}
-      <div className=' lg:col-span-2 col-span-1'>
-        <label className="block text-sm font-medium text-gray-100 mb-1">
-          Text message
-        </label>
-        <textarea
-          {...register('message')}
-          placeholder="Enter testimonial message (optional)"
-          rows={4}
-          className="w-full rounded-md p-2 border border-gray-300"
-        />
-      </div>
-
       {/* Submit/Cancel */}
       <div className="flex justify-end gap-4">
         {onCancel && (
@@ -422,4 +411,5 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
   );
 };
 
-export default TestimonialForm;
+
+export default Workform;

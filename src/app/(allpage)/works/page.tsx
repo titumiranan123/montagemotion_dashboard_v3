@@ -2,11 +2,11 @@
 import { useDragAndDrop } from "@formkit/drag-and-drop/react";
 import CampaignCardSkeleton from "@/component/service/ServiceSkeleton";
 import VideoCard from "@/component/works/Workcard";
-import TestimonialForm from "@/component/testimonials/TestimonialForm";
 import { api_url } from "@/hook/Apiurl";
 import useWorks from "@/hook/useWorks";
 import Swal from "sweetalert2";
 import React, { useEffect, useState } from "react";
+import Workform from "@/component/works/Workform";
 
 interface IVideo {
   id?: string;
@@ -21,8 +21,10 @@ interface IVideo {
 }
 
 const Works = () => {
-  const [isTestimonial, setTestimonial] = useState(false);
+  const [isWork, setWorkModal] = useState(false);
+  const [isEditWork, setEditWorkModal] = useState(false);
   const [editData, setEditData] = useState<IVideo | null>(null);
+  console.log(editData) 
   const [activeFilter, setActiveFilter] = useState("all");
   const { data = [], isLoading } = useWorks();
   const [parent, tapes, setTapes] = useDragAndDrop<HTMLDivElement, IVideo>(data || []);
@@ -48,7 +50,7 @@ const Works = () => {
         color: '#fff',
         confirmButtonColor: '#6366f1'
       });
-      setTestimonial(false);
+      setWorkModal(false);
       setEditData(null);
     } catch (err: any) {
       Swal.fire({
@@ -105,11 +107,12 @@ const Works = () => {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
             {/* Filter */}
-            <div className="flex gap-2 overflow-x-auto pb-2">
+            <select onClick={(e:any) => setActiveFilter(e.target.value)} className="flex gap-2 overflow-x-auto pb-2 bg-[#101828] w-[200px] border border-slate-300 rounded-lg p-1">
               {["all", "main", "shorts", "talking", "podcast", "graphic", "advertising", "website"].map((type) => (
-                <button
+                <option
                   key={type}
-                  onClick={() => setActiveFilter(type)}
+                  value={type}
+                  
                   className={`px-3 py-1 rounded-full text-sm whitespace-nowrap transition-colors ${
                     activeFilter === type
                       ? "bg-indigo-600 text-white"
@@ -117,14 +120,14 @@ const Works = () => {
                   }`}
                 >
                   {type.charAt(0).toUpperCase() + type.slice(1)}
-                </button>
+                </option>
               ))}
-            </div>
+            </select>
             {/* Add Button */}
             <button
               onClick={() => {
                 setEditData(null);
-                setTestimonial(true);
+                setWorkModal(true);
               }}
               className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap"
             >
@@ -156,6 +159,10 @@ const Works = () => {
                 <VideoCard 
                   key={works.id} 
                   video={works}
+                  onEdit={()=>{
+                    setEditData(works)
+                    setWorkModal(true)
+                  }}
                 />
               ))}
             </div>
@@ -166,7 +173,7 @@ const Works = () => {
               <button
                 onClick={() => {
                   setEditData(null);
-                  setTestimonial(true);
+                  setWorkModal(true);
                 }}
                 className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg"
               >
@@ -177,12 +184,14 @@ const Works = () => {
         </div>
 
         {/* Modal */}
-        {isTestimonial && (
-          <TestimonialForm
+        {isWork && (
+          <div className="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center p-4 z-50 overflow-y-scroll">
+          <Workform
             onSubmit={handleSubmit}
             initialData={editData}
-            onCancel={() => setTestimonial(false)}
+            onCancel={() => setWorkModal(false)}
           />
+          </div>
         )}
       </div>
     </div>
