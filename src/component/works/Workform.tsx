@@ -23,6 +23,16 @@ interface IWork {
     | "graphic"
     | "advertising"
     | "website";
+    subType?: 
+    | "full"
+    | "short"
+    | "hook"
+    | "thumbnail"
+    | "poster"
+    | "uiux_design"
+    | "web_development"
+    | "ovc"
+    | "reels";
 }
 
 interface IWorkFormProps {
@@ -279,7 +289,7 @@ const Workform: React.FC<IWorkFormProps> = ({
               errors.type ? "border-red-500" : "border-gray-300"
             }`}
           >
-            <option value="main">Main Testimonial</option>
+            <option value="main">Main</option>
             <option value="shorts">Shorts</option>
             <option value="talking">Talking Head</option>
             <option value="podcast">Podcast</option>
@@ -291,6 +301,32 @@ const Workform: React.FC<IWorkFormProps> = ({
             <p className="text-sm text-red-600 mt-1">{errors.type.message}</p>
           )}
         </div>
+        <div>
+  <label className="block text-sm font-medium text-gray-100 mb-1">
+    Sub Type <span className="text-red-500">*</span>
+  </label>
+  <select
+    {...register("subType", { required: "Sub Type is required" })}
+    className={`w-full rounded-md p-2 border bg-[#101828] ${
+      errors.subType ? "border-red-500" : "border-gray-300"
+    }`}
+  >
+    <option value="">Select Sub Type</option>
+    <option value="full">Full</option>
+    <option value="short">Short</option>
+    <option value="hook">Hook</option>
+    <option value="thumbnail">Thumbnail</option>
+    <option value="poster">Poster</option>
+    <option value="uiux_design">UI/UX Design</option>
+    <option value="web_development">Web Development</option>
+    <option value="ovc">OVC</option>
+    <option value="reels">Reels</option>
+  </select>
+  {errors.subType && (
+    <p className="text-sm text-red-600 mt-1">{errors.subType.message}</p>
+  )}
+</div>
+
       </div>
 
       {/* Image Upload */}

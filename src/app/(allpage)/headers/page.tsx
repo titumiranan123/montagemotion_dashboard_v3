@@ -15,43 +15,43 @@ const Header = () => {
   const [isHeader, setHeaderModal] = useState(false);
   const [activeFilter, setActiveFilter] = useState("all");
   const [editData, setEditData] = useState<IHeader>({
-        title: '',
-        description: '',
-        thumbnail: '',
-        video_link: '',
-        type: 'main'
-      });
+    title: "",
+    description: "",
+    thumbnail: "",
+    video_link: "",
+    type: "main",
+  });
 
   const filteredData =
     activeFilter === "all"
       ? data
       : data?.filter((item: IHeader) => item.type === activeFilter);
- const handleSubmit = async (data: any) => {
+  const handleSubmit = async (data: any) => {
     try {
       const res = await api_url.post(`/api/header`, data);
       Swal.fire({
         title: res.data.message,
         icon: "success",
-        background: '#1f2937',
-        color: '#fff',
-        confirmButtonColor: '#6366f1'
+        background: "#1f2937",
+        color: "#fff",
+        confirmButtonColor: "#6366f1",
       });
       setHeaderModal(false);
       setEditData({
-        title: '',
-        description: '',
-        thumbnail: '',
-        video_link: '',
-        type: 'main'
+        title: "",
+        description: "",
+        thumbnail: "",
+        video_link: "",
+        type: "main",
       });
     } catch (err: any) {
       Swal.fire({
         title: "Something went wrong!",
         text: err.message,
         icon: "error",
-        background: '#1f2937',
-        color: '#fff',
-        confirmButtonColor: '#6366f1'
+        background: "#1f2937",
+        color: "#fff",
+        confirmButtonColor: "#6366f1",
       });
     }
   };
@@ -99,11 +99,11 @@ const Header = () => {
             <button
               onClick={() => {
                 setEditData({
-                  title: '',
-                  description: '',
-                  thumbnail: '',
-                  video_link: '',
-                  type: 'main'
+                  title: "",
+                  description: "",
+                  thumbnail: "",
+                  video_link: "",
+                  type: "main",
                 });
                 setHeaderModal(true);
               }}
@@ -116,96 +116,103 @@ const Header = () => {
         {isLoading ? (
           <Headersskeleton />
         ) : (
-          <> {filteredData.length >0 ?filteredData.map((header:IHeader,idx:number)=>
-          <div
-          key={idx}
-            className="relative w-full min-h-screen  overflow-hidden"
-            style={{
-              backgroundImage: "url(/assets/logobackgourd.png)",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "50% 10px", // Moves it to the top
-              backgroundSize: "contain", // Ensures the image fits well
-            }}
-          >
+          <>
+            {" "}
+            {filteredData.length > 0 ? (
+              filteredData.map((header: IHeader, idx: number) => (
+                <div
+                  key={idx}
+                  className="relative w-full min-h-screen  overflow-hidden"
+                  style={{
+                    backgroundImage: "url(/assets/logobackgourd.png)",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "50% 10px",
+                    backgroundSize: "contain",
+                  }}
+                >
+                  <div className="max-w-[800px] mx-auto mt-[120px]">
+                    <h1 className="text-[#d8d6d6] poppins uppercase z-20 text-[21px] md:text-[45px] lg:text-[64px] font-bold md:leading-[72px] text-center">
+                      {header.title}
+                    </h1>
 
-            <div className="max-w-[800px] mx-auto mt-[120px]">
-              <h1 className="text-[#d8d6d6] poppins uppercase z-20 text-[21px] md:text-[45px] lg:text-[64px] font-bold md:leading-[72px] text-center">
-                {header.title}
-              </h1>
+                    <p className=" text-[#E4E8F7] text-[12px] md:text-[16px] font-[400] mt-[23px] text-center md:text-left">
+                      {header.description}
+                    </p>
+                  </div>
 
-              <p className=" text-[#E4E8F7] text-[12px] md:text-[16px] font-[400] mt-[23px] text-center md:text-left">
-                {header.description}
-              </p>
-            </div>
+                  <div className="mx-auto  mt-[100px] rounded-xl overflow-hidden lg:w-[794px] lg:h-[447px] md:h-[400px] h-[210px] w-full">
+                    {header.thumbnail && (
+                      <div className="relative w-full h-full bg-black aspect-video">
+                        <ReactPlayer
+                          url={header.video_link}
+                          playing={false}
+                          light={header.thumbnail}
+                          playIcon={
+                            <Image
+                              src="/assets/playbutton.png"
+                              width={80}
+                              height={80}
+                              alt="Play"
+                              className="z-10"
+                            />
+                          }
+                          width="100%"
+                          height="100%"
+                          controls
+                          config={{
+                            youtube: {
+                              playerVars: {
+                                modestbranding: 1,
+                                showinfo: 0,
+                                rel: 0,
+                                controls: 0,
+                                fs: 0,
+                              },
+                            },
+                          }}
+                          className="absolute top-0 left-0"
+                        />
+                      </div>
+                    )}
+                  </div>
 
-            <div className="mx-auto  mt-[100px] rounded-xl overflow-hidden lg:w-[794px] lg:h-[447px] md:h-[400px] h-[210px] w-full">
-              {header.thumbnail && (
-                <div className="relative w-full h-full bg-black aspect-video">
-                  <ReactPlayer
-                    url={header.video_link}
-                    playing={false}
-                    light={header.thumbnail}
-                    playIcon={
-                      <Image
-                        src="/assets/playbutton.png"
-                        width={80}
-                        height={80}
-                        alt="Play"
-                        className="z-10"
-                      />
-                    }
-                    width="100%"
-                    height="100%"
-                    controls
-                    config={{
-                      youtube: {
-                        playerVars: {
-                          modestbranding: 1,
-                          showinfo: 0,
-                          rel: 0,
-                          controls: 0,
-                          fs: 0,
-                        },
-                      },
+                  <button
+                    onClick={() => {
+                      setEditData(header);
+                      setHeaderModal(true);
                     }}
-                    className="absolute top-0 left-0"
-                  />
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap justify-end"
+                  >
+                    Edit Header
+                  </button>
                 </div>
-              )}
-            </div>
-         
-              <button
-              onClick={() => {
-                setEditData(header);
-                setHeaderModal(true);
-              }}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap justify-end"
-            >
-               Edit Header
-            </button>
-          </div>
-          
-        ):<div className="flex justify-center in-checked: gap-10 p-10 text-white">No Videos</div>}</>
-
+              ))
+            ) : (
+              <div className="flex justify-center in-checked: gap-10 p-10 text-white">
+                No Videos
+              </div>
+            )}
+          </>
         )}
       </div>
-      {
-        isHeader &&  <div className="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-start justify-center p-4 z-50 overflow-y-auto w-full">
-        <div className="w-full max-w-7xl my-8 relative">
-          <button 
-            onClick={() => setHeaderModal(false)}
-            className="absolute top-8 right-0 m-4 text-3xl text-white hover:text-gray-300"
-          >
-            ×
-          </button>
-          <HeaderForm
-            defaultValues={editData}
-            isSubmitting={false}
-            onSubmit={handleSubmit}
-            onCancel={() => setHeaderModal(false)}
-          />
+      {isHeader && (
+        <div className="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-start justify-center p-4 z-50 overflow-y-auto w-full">
+          <div className="w-full max-w-7xl my-8 relative">
+            <button
+              onClick={() => setHeaderModal(false)}
+              className="absolute top-8 right-0 m-4 text-3xl text-white hover:text-gray-300"
+            >
+              ×
+            </button>
+            <HeaderForm
+              defaultValues={editData}
+              isSubmitting={false}
+              onSubmit={handleSubmit}
+              onCancel={() => setHeaderModal(false)}
+            />
+          </div>
         </div>
-      </div>}
+      )}
     </section>
   );
 };

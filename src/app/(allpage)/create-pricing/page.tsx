@@ -1,13 +1,14 @@
 "use client";
 import { api_url } from "@/hook/Apiurl";
 import { useDragAndDrop } from "@formkit/drag-and-drop/react";
+import { animations } from "@formkit/drag-and-drop";
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 
 export interface IFeature {
   feature: string;
-  is_present: string;
+  is_present: boolean;
   is_active: boolean;
   position: number;
 }
@@ -30,7 +31,7 @@ export interface IPackage {
 
 const defaultFeature: IFeature = {
   feature: "",
-  is_present: "included",
+  is_present: true,
   is_active: true,
   position: 0,
 };
@@ -52,25 +53,35 @@ const defaultPackage: IPackage = {
 };
 
 const PricingForm = () => {
-    const { register, handleSubmit, setValue, watch } = useForm<IPackage>({
-        defaultValues: defaultPackage
-      });
-    
-      const formValues = watch();
-    const [isHaschange, setHasChanges] = useState<boolean>(false);
- 
+  const { register, handleSubmit, setValue, watch } = useForm<IPackage>({
+    defaultValues: defaultPackage
+  });
+
+  const formValues = watch();
+  const [isHaschange, setHasChanges] = useState<boolean>(false);
+
   const [parent, tapes, setTapes] = useDragAndDrop<HTMLDivElement, IFeature>(
-    formValues.features || []
-  );
-  useEffect(() => {
-    if (formValues) {
-      setTapes(formValues.features);
+    formValues.features || [],
+    {
+      group: "features",
+      dragHandle: ".drag-handle",
+      plugins: [animations()],
     }
-  }, [formValues]);
-   useEffect(() => {
-      setHasChanges(true);
-    }, [tapes]);
- 
+  );
+
+  useEffect(() => {
+    if (tapes.length > 0) {
+      const featuresWithUpdatedPositions = tapes.map((feature, index) => ({
+        ...feature,
+        position: index
+      }));
+      setValue("features", featuresWithUpdatedPositions, { shouldDirty: true });
+    }
+  }, [tapes, setValue]);
+
+  useEffect(() => {
+    setHasChanges(true);
+  }, [tapes]);
 
   const onSubmit: SubmitHandler<IPackage> = async (data) => {
     console.log("Form submitted:", data);
@@ -90,11 +101,23 @@ const PricingForm = () => {
       position: formValues.features.length,
     }];
     setValue("features", newFeatures);
+    setTapes(newFeatures);
   };
 
   const removeFeature = (featureIndex: number) => {
     const newFeatures = formValues.features.filter((_, i) => i !== featureIndex);
     setValue("features", newFeatures);
+    setTapes(newFeatures);
+  };
+
+  const handleFeatureChange = (index: number, field: keyof IFeature, value: any) => {
+    const updatedFeatures = [...tapes];
+    updatedFeatures[index] = {
+      ...updatedFeatures[index],
+      [field]: value
+    };
+    setTapes(updatedFeatures);
+    setValue("features", updatedFeatures);
   };
 
   return (
@@ -274,12 +297,24 @@ const PricingForm = () => {
               {formValues.features.length > 0 ? (
                 <div ref={parent} className="space-y-3">
                   {tapes.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="grid grid-cols-12 gap-3 items-center bg-gray-700/30 p-3 rounded-lg">
+                    <div 
+                      key={featureIndex} 
+                      className="grid grid-cols-12 gap-3 items-center bg-gray-700/30 p-3 rounded-lg"
+                      data-drag-item
+                    >
+                      {/* Drag Handle */}
+                      <div className="col-span-1 flex items-center justify-center drag-handle cursor-move">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+
                       {/* Feature Name */}
-                      <div className="col-span-5">
+                      <div className="col-span-4">
                         <input
                           type="text"
-                          {...register(`features.${featureIndex}.feature`)}
+                          value={feature.feature}
+                          onChange={(e) => handleFeatureChange(featureIndex, "feature", e.target.value)}
                           className="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                           placeholder="Feature description"
                         />
@@ -290,7 +325,8 @@ const PricingForm = () => {
                         <label className="flex items-center gap-2">
                           <input
                             type="checkbox"
-                            {...register(`features.${featureIndex}.is_present`)}
+                            checked={feature.is_present}
+                            onChange={(e) => handleFeatureChange(featureIndex, "is_present", e.target.checked)}
                             className="h-5 w-5 text-blue-600 rounded focus:ring-blue-500 border-gray-600 bg-gray-700"
                           />
                           <span>Is Present</span>
@@ -302,7 +338,8 @@ const PricingForm = () => {
                         <label className="inline-flex items-center gap-2.5">
                           <input
                             type="checkbox"
-                            {...register(`features.${featureIndex}.is_active`)}
+                            checked={feature.is_active}
+                            onChange={(e) => handleFeatureChange(featureIndex, "is_active", e.target.checked)}
                             className="h-5 w-5 text-blue-600 rounded focus:ring-blue-500 border-gray-600 bg-gray-700"
                           />
                           <span>Is Active</span>
