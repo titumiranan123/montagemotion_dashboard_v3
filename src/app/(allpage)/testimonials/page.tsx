@@ -150,7 +150,7 @@ const Testimonial = () => {
 
         {/* Modal Form */}
         {isTestimonial && (
-          <div className="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center p-4 z-50 overflow-y-scroll">
+          <div className="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-start justify-center p-4 z-50 overflow-y-auto w-full">
           <TestimonialForm
             onSubmit={handleSubmit}
             initialData={editData}

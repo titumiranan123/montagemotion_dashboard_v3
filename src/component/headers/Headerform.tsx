@@ -32,8 +32,8 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
   );
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [isUploadingVideo, setIsUploadingVideo] = useState(false);
-  const [imageuploadProgress, setImageUploadProgress] = useState(0);
-  const [videouploadProgress, setVideoUploadProgress] = useState(0);
+  const [imageUploadProgress, setImageUploadProgress] = useState(0);
+  const [videoUploadProgress, setVideoUploadProgress] = useState(0);
 
   const {
     register,
@@ -46,24 +46,15 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
     defaultValues: defaultValues,
   });
 
-  const [selectedType, setSelectedType] = useState<
-    | "main"
-    | "shorts"
-    | "talking"
-    | "podcast"
-    | "graphic"
-    | "advertising"
-    | "website"
-  >(defaultValues?.type || "main");
+  const currentImage = watch("thumbnail");
+  const currentVideo = watch("video_link");
+  const currentType = watch("type");
 
   useEffect(() => {
     if (defaultValues) {
       reset(defaultValues);
-      setSelectedType(defaultValues.type);
     }
   }, [defaultValues, reset]);
-  const currentImage = watch("thumbnail");
-  const currentVideo = watch("video_link");
 
   const handleImageUpload = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -189,6 +180,7 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
     setVideoPreview(null);
     setValue("video_link", "", { shouldValidate: true });
   };
+
   const typeOptions = [
     { value: "main", label: "Main" },
     { value: "shorts", label: "Shorts" },
@@ -202,88 +194,114 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6  w-full max-w-7xl mt-10 bg-[#1E2939] lg:px-10 lg:py-4 px-2 py-2 grid grid-cols-1 lg:grid-cols-2 gap-10"
+      className="space-y-6 w-full max-w-6xl mx-auto mt-8 bg-gray-900 rounded-xl shadow-xl p-6 lg:p-8"
     >
-      <div>
-        <label
-          htmlFor="title"
-          className="block text-sm font-medium text-gray-100"
-        >
-          Title *
-        </label>
-        <input
-          id="title"
-          type="text"
-          {...register("title", { required: "Title is required" })}
-          className={`mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm bg-[#101828] focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
-            errors.title ? "border-red-500" : "border"
-          }`}
-        />
-        {errors.title && (
-          <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
-        )}
-      </div>
+      <h2 className="text-2xl font-bold text-white mb-6 pb-4 border-b border-gray-700">
+        {defaultValues?.id ? "Edit Header" : "Create New Header"}
+      </h2>
 
-      <div>
-        <label
-          htmlFor="description"
-          className="block text-sm font-medium text-gray-100 rounded-lg"
-        >
-          Description *
-        </label>
-        <textarea
-          id="description"
-          rows={3}
-          {...register("description", { required: "Description is required" })}
-          className={`mt-1 p-2 block bg-[#101828] w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
-            errors.description ? "border-red-500" : "border"
-          }`}
-        />
-        {errors.description && (
-          <p className="mt-1 text-sm text-red-600">
-            {errors.description.message}
-          </p>
-        )}
-      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Title */}
+        <div className="space-y-2">
+          <label htmlFor="title" className="block text-sm font-medium text-gray-300">
+            Title <span className="text-red-500">*</span>
+          </label>
+          <input
+            id="title"
+            type="text"
+            {...register("title", { required: "Title is required" })}
+            className={`w-full px-4 py-2.5 rounded-lg bg-gray-800 border ${
+              errors.title ? "border-red-500" : "border-gray-700"
+            } text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all`}
+            placeholder="Enter header title"
+          />
+          {errors.title && (
+            <p className="mt-1 text-sm text-red-400">{errors.title.message}</p>
+          )}
+        </div>
 
-      {/* Image Upload */}
-      <div>
-        <h2 className="text-white font-[600] text-lg ">
-          Image upload progress: {imageuploadProgress}%
-        </h2>
-        <label className="block mt-1 text-sm font-medium text-gray-100 mb-1">
-          Thumbnail <span className="text-red-500">*</span>
-        </label>
-        <div className="flex items-center gap-4 mt-2 bg-[#101828]">
+        {/* Type */}
+        <div className="space-y-2">
+          <label htmlFor="type" className="block text-sm font-medium text-gray-300">
+            Type <span className="text-red-500">*</span>
+          </label>
+          <select
+            id="type"
+            {...register("type", { required: "Type is required" })}
+            className={`w-full px-4 py-2.5 rounded-lg bg-gray-800 border ${
+              errors.type ? "border-red-500" : "border-gray-700"
+            } text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent appearance-none`}
+          >
+            {typeOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+          {errors.type && (
+            <p className="mt-1 text-sm text-red-400">{errors.type.message}</p>
+          )}
+        </div>
+
+        {/* Description (full width) */}
+        <div className="space-y-2 lg:col-span-2">
+          <label htmlFor="description" className="block text-sm font-medium text-gray-300">
+            Description <span className="text-red-500">*</span>
+          </label>
+          <textarea
+            id="description"
+            rows={4}
+            {...register("description", { required: "Description is required" })}
+            className={`w-full px-4 py-2.5 rounded-lg bg-gray-800 border ${
+              errors.description ? "border-red-500" : "border-gray-700"
+            } text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all`}
+            placeholder="Enter detailed description"
+          />
+          {errors.description && (
+            <p className="mt-1 text-sm text-red-400">{errors.description.message}</p>
+          )}
+        </div>
+
+        {/* Image Upload */}
+        <div className="space-y-4 bg-gray-800 p-4 rounded-xl lg:col-span-2">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-medium text-white">Thumbnail</h3>
+              <p className="text-sm text-gray-400">
+                {imageUploadProgress > 0 ? `Uploading: ${imageUploadProgress}%` : "JPG, PNG, WEBP up to 5MB"}
+              </p>
+            </div>
+            {imagePreview && (
+              <button
+                type="button"
+                onClick={handleRemoveImage}
+                className="text-sm text-red-400 hover:text-red-300 flex items-center"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+                </svg>
+                Remove
+              </button>
+            )}
+          </div>
+          
           <label
             htmlFor="image-upload"
-            className={`cursor-pointer flex-1 ${
-              isUploadingImage ? "opacity-50 pointer-events-none" : ""
-            }`}
+            className={`block cursor-pointer ${isUploadingImage ? "opacity-50 pointer-events-none" : ""}`}
           >
-            <div className="flex flex-col items-center justify-center px-6 py-8 border-2 border-dashed border-gray-300 rounded-md hover:border-gray-400">
+            <div className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-600 rounded-lg hover:border-gray-500 transition-colors">
               {imagePreview ? (
-                <div className="relative group bg-[#101828]">
+                <div className="relative w-full h-48">
                   <img
                     src={imagePreview}
                     alt="Preview"
-                    className="h-32 w-full object-cover rounded-md"
+                    className="w-full h-full object-contain rounded-md"
                   />
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleRemoveImage();
-                    }}
-                    className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                  >
-                    ×
-                  </button>
                 </div>
               ) : (
-                <>
+                <div className="text-center">
                   <svg
-                    className="mx-auto h-12 w-12 text-gray-400"
+                    className="mx-auto h-12 w-12 text-gray-500"
                     stroke="currentColor"
                     fill="none"
                     viewBox="0 0 48 48"
@@ -296,13 +314,10 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
                       strokeLinejoin="round"
                     />
                   </svg>
-                  <p className="text-sm text-gray-600 mt-2">
-                    Click to upload image
+                  <p className="mt-2 text-sm text-gray-300">
+                    Click to upload or drag and drop
                   </p>
-                  <p className="text-xs text-gray-500">
-                    JPG, PNG, WEBP up to 5MB
-                  </p>
-                </>
+                </div>
               )}
             </div>
             <input
@@ -314,66 +329,67 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
               disabled={isUploadingImage}
             />
           </label>
+          
+          <div className="mt-2">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Thumbnail URL
+            </label>
+            <input
+              {...register("thumbnail", { required: "Thumbnail is required" })}
+              type="text"
+              className={`w-full px-4 py-2 rounded-lg bg-gray-700 border ${
+                errors.thumbnail ? "border-red-500" : "border-gray-600"
+              } text-white focus:outline-none focus:ring-1 focus:ring-blue-500`}
+              placeholder="https://example.com/image.jpg"
+            />
+            {errors.thumbnail && (
+              <p className="mt-1 text-sm text-red-400">{errors.thumbnail.message}</p>
+            )}
+          </div>
         </div>
-        <div className="mt-5">
-          <label className="block text-sm font-medium text-gray-100 mb-1">
-            Thumbnail URL :
-          </label>
-          <input
-            {...register("thumbnail")}
-            type="text"
-            placeholder="CEO, Company Inc."
-            className={`w-full bg-[#101828] rounded-md p-2 border ${
-              errors.thumbnail ? "border-red-500" : "border-gray-300"
-            }`}
-          />
-          {errors.thumbnail && (
-            <p className="text-sm text-red-600 mt-1">
-              {errors.thumbnail.message}
-            </p>
-          )}
-        </div>
-      </div>
 
-      {/* Video Upload */}
-      <div>
-        <h2 className="text-white font-[600] text-lg">
-          Video upload progress: {videouploadProgress}%
-        </h2>
-        <label className="block text-sm font-medium text-gray-100  mt-2 mb-4">
-          Upload Video :
-        </label>
-        <div className="flex items-center gap-4 bg-[#101828]">
+        {/* Video Upload */}
+        <div className="space-y-4 bg-gray-800 p-4 rounded-xl lg:col-span-2">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-medium text-white">Video</h3>
+              <p className="text-sm text-gray-400">
+                {videoUploadProgress > 0 ? `Uploading: ${videoUploadProgress}%` : "MP4, MOV up to 100MB"}
+              </p>
+            </div>
+            {videoPreview && (
+              <button
+                type="button"
+                onClick={handleRemoveVideo}
+                className="text-sm text-red-400 hover:text-red-300 flex items-center"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+                </svg>
+                Remove
+              </button>
+            )}
+          </div>
+          
           <label
             htmlFor="video-upload"
-            className={`cursor-pointer flex-1 ${
-              isUploadingVideo ? "opacity-50 pointer-events-none" : ""
-            }`}
+            className={`block cursor-pointer ${isUploadingVideo ? "opacity-50 pointer-events-none" : ""}`}
           >
-            <div className="flex flex-col items-center justify-center px-6 py-8 border-2 border-dashed border-gray-300 rounded-md hover:border-gray-400">
+            <div className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-600 rounded-lg hover:border-gray-500 transition-colors">
               {videoPreview ? (
-                <div className="relative group w-full">
+                <div className="relative w-full">
                   <ReactPlayer
                     url={videoPreview}
                     width="100%"
                     height="200px"
                     controls
+                    light={imagePreview || true}
                   />
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleRemoveVideo();
-                    }}
-                    className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                  >
-                    ×
-                  </button>
                 </div>
               ) : (
-                <>
+                <div className="text-center">
                   <svg
-                    className="mx-auto h-12 w-12 text-gray-400"
+                    className="mx-auto h-12 w-12 text-gray-500"
                     stroke="currentColor"
                     fill="none"
                     viewBox="0 0 48 48"
@@ -386,99 +402,73 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
                       strokeLinejoin="round"
                     />
                   </svg>
-                  <p className="text-sm text-gray-600 mt-2">
-                    Click to upload video
+                  <p className="mt-2 text-sm text-gray-300">
+                    Click to upload or drag and drop
                   </p>
-                  <p className="text-xs text-gray-500">MP4, MOV up to 100MB</p>
-                </>
+                </div>
               )}
             </div>
             <input
               id="video-upload"
               type="file"
               accept="video/*"
-              className="hidden "
+              className="hidden"
               onChange={handleVideoUpload}
               disabled={isUploadingVideo}
             />
           </label>
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-100 mb-3 mt-4">
-            Video Url (url)
-          </label>
-          <input
-            {...register("video_link")}
-            placeholder="Enter testimonial message (optional)"
-            className="w-full rounded-md p-2 border border-gray-300 bg-[#101828]"
-          />
-        </div>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-gray-100">
-          Active Status *
-        </label>
-        <div className="mt-1 space-x-4">
-          <label className="inline-flex items-center">
+          
+          <div className="mt-2">
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Video URL
+            </label>
             <input
-              type="radio"
-              value="true"
-              {...register("isActive", {
-                required: "Active status is required",
-              })}
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
+              {...register("video_link")}
+              type="text"
+              className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+              placeholder="https://example.com/video.mp4"
             />
-            <span className="ml-2 text-sm text-gray-100">Active</span>
-          </label>
-          <label className="inline-flex items-center">
-            <input
-              type="radio"
-              value="false"
-              {...register("isActive")}
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
-            />
-            <span className="ml-2 text-sm text-gray-100">Inactive</span>
-          </label>
+          </div>
         </div>
-        {errors.isActive && (
-          <p className="mt-1 text-sm text-red-600">{errors.isActive.message}</p>
-        )}
+
+        {/* Active Status */}
+        <div className="space-y-2 bg-gray-800 p-4 rounded-xl">
+          <label className="block text-sm font-medium text-gray-300">
+            Status <span className="text-red-500">*</span>
+          </label>
+          <div className="mt-2 space-y-2">
+            <label className="flex items-center space-x-3 cursor-pointer">
+              <input
+                type="radio"
+                value="true"
+                {...register("isActive", { required: "Status is required" })}
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-600"
+              />
+              <span className="text-gray-300">Active</span>
+            </label>
+            <label className="flex items-center space-x-3 cursor-pointer">
+              <input
+                type="radio"
+                value="false"
+                {...register("isActive")}
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-600"
+              />
+              <span className="text-gray-300">Inactive</span>
+            </label>
+          </div>
+          {errors.isActive && (
+            <p className="mt-1 text-sm text-red-400">{errors.isActive.message}</p>
+          )}
+        </div>
       </div>
 
-      <div>
-        <label
-          htmlFor="type"
-          className="block text-sm font-medium text-gray-100"
-        >
-          Type *
-        </label>
-        <select
-          id="type"
-          {...register("type", { required: "Type is required" })}
-          value={selectedType}
-          onChange={(e) => setSelectedType(e.target.value as any)}
-          className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-[#101828] focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 ${
-            errors.type ? "border-red-500" : "border"
-          }`}
-        >
-          {typeOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        {errors.type && (
-          <p className="mt-1 text-sm text-red-600">{errors.type.message}</p>
-        )}
-      </div>
-
-      <div className="flex justify-center items-center col-span-2 gap-2">
+      {/* Form Actions */}
+      <div className="flex justify-end space-x-4 pt-6 border-t border-gray-700">
         {onCancel && (
           <button
             type="button"
             onClick={onCancel}
-            className="px-4 py-2 bg-gray-200 text-gray-900 rounded hover:bg-gray-300"
+            className="px-6 py-2.5 rounded-lg border border-gray-600 text-gray-300 hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900"
           >
             Cancel
           </button>
@@ -486,9 +476,19 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
         <button
           type="submit"
           disabled={isSubmitting}
-          className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-6 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
         >
-          {isSubmitting ? "Saving..." : "Save"}
+          {isSubmitting ? (
+            <>
+              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Saving...
+            </>
+          ) : (
+            "Save Changes"
+          )}
         </button>
       </div>
     </form>
