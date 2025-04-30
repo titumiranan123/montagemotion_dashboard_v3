@@ -13,7 +13,7 @@ import { api_url } from "@/hook/Apiurl";
 const Header = () => {
   const { data, isLoading } = useIntro();
   const [isHeader, setHeaderModal] = useState(false);
-  const [activeFilter, setActiveFilter] = useState("all");
+  const [activeFilter, setActiveFilter] = useState("main");
   const [editData, setEditData] = useState<IHeader>({
     title: "",
     description: "",
@@ -22,10 +22,7 @@ const Header = () => {
     type: "main",
   });
 
-  const filteredData =
-    activeFilter === "all"
-      ? data
-      : data?.filter((item: IHeader) => item.type === activeFilter);
+  const filteredData = data?.filter((item: IHeader) => item.type === activeFilter);
   const handleSubmit = async (data: any) => {
     try {
       const res = await api_url.post(`/api/header`, data);
@@ -73,7 +70,6 @@ const Header = () => {
               className="flex gap-2 overflow-x-auto pb-2 bg-[#101828] w-[200px] border border-slate-300 rounded-lg p-1"
             >
               {[
-                "all",
                 "main",
                 "shorts",
                 "talking",

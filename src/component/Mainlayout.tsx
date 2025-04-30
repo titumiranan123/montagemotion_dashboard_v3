@@ -19,7 +19,10 @@ import {
   FiLayers,
   FiFolder,
   FiDollarSign,
-  FiHelpCircle
+  FiHelpCircle,
+  FiInfo,
+  FiFileText,
+  FiCreditCard
 } from "react-icons/fi";
 
 
@@ -38,16 +41,20 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
  
  
-    const menuItems = [
-      { href: "/", label: "Dashboard", icon: <FiHome /> },
-      { href: "/headers", label: "Header", icon: <FiLayers /> },
-      { href: "/services", label: "Services", icon: <FiSettings /> },
-      { href: "/works", label: "Works", icon: <FiFolder /> },
-      { href: "/pricing", label: "Prices", icon: <FiDollarSign /> },
-      { href: "/faqs", label: "Faqs", icon: <FiHelpCircle /> },
-      { href: "/testimonials", label: "Testimonials", icon: <FiMessageSquare /> },
-      { href: "/contacts", label: "Contacts", icon: <FiMail /> },
-      { href: "/chat", label: "Chat", icon: <FiMessageCircle /> },
+ 
+  
+  const menuItems = [
+    { href: "/", label: "Dashboard", icon: <FiHome /> },
+    { href: "/headers", label: "Header", icon: <FiLayers /> },
+    { href: "/abouts", label: "Abouts", icon: <FiInfo /> },
+    { href: "/blogs", label: "Blogs", icon: <FiFileText /> },
+    { href: "/services", label: "Services", icon: <FiSettings /> },
+    { href: "/works", label: "Works", icon: <FiBriefcase /> },
+    { href: "/pricing", label: "Prices", icon: <FiCreditCard /> },
+    { href: "/faqs", label: "Faqs", icon: <FiHelpCircle /> },
+    { href: "/testimonials", label: "Testimonials", icon: <FiMessageSquare /> },
+    { href: "/contacts", label: "Contacts", icon: <FiMail /> },
+    { href: "/chat", label: "Chat", icon: <FiMessageCircle /> },
   ];
  
 
