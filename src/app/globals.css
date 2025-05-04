@@ -16,6 +16,19 @@
 .swal2-container{
   z-index: 9999!important;
 }
+.ohNo {
+  top: 50% !important;
+}
+
+.testimonialTextcard {
+  width: 448px;
+  height: 308px;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: inset #0A303A 0 0 60px 4px;
+}
+
+
 @layer base {
   h1 {
     background: linear-gradient(

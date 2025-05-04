@@ -45,8 +45,7 @@ const BlogForm:React.FC<BlogFormProps> = ({ initialData, onSuccess }) => {
 
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [imageUploadProgress, setImageUploadProgress] = useState(0);
-  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-  const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+  
 
   // Set initial data if provided
   useEffect(() => {
@@ -56,6 +55,8 @@ const BlogForm:React.FC<BlogFormProps> = ({ initialData, onSuccess }) => {
   }, [initialData, reset]);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+    const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
     const file = e.target.files?.[0];
     if (!file) return;
     

@@ -194,7 +194,7 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6 w-full max-w-2xl mx-auto mt-8 bg-gray-900 rounded-xl shadow-xl p-6 lg:p-8"
+      className="space-y-6 w-full max-w-2xl mx-auto mt-8   rounded-xl shadow-xl p-6 lg:p-8"
     >
       <h2 className="text-2xl font-bold text-white mb-6 pb-4 border-b border-gray-700">
         {defaultValues?.id ? "Edit Header" : "Create New Header"}

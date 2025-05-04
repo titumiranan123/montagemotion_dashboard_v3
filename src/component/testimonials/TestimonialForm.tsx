@@ -12,6 +12,7 @@ interface ITestimonial {
   designation: string;
   message: string;
   image: string;
+  category:"message"|"video_message"
   video_message?: string;
   type: 'main' | 'shorts' | 'talking' | 'podcast' | 'graphic' | 'advertising' | 'website';
 }
@@ -53,7 +54,8 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
   const [imageUploadProgress, setImageUploadProgress] = useState(0);
   const [videoUploadProgress, setVideoUploadProgress] = useState(0);
   
-  const selectedType = watch('type');
+  const category = watch('category');
+  console.log(category)
   const currentImage = watch('image');
   const currentVideo = watch('video_message');
 
@@ -172,8 +174,8 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-4 md:p-6">
-      <div className="bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+    <div className=" bg-black/5  p-4 md:p-6">
+      <div className="bg-gray-800  rounded-xl shadow-lg overflow-hidden w-full">
         {/* Form Header */}
         <div className=" p-6">
           <h1 className="text-2xl md:text-3xl font-bold text-white">
@@ -184,14 +186,14 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
           </p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmitHandler)} className="p-6 space-y-8">
+        <form onSubmit={handleSubmit(onSubmitHandler)} className="p-6 space-y-8 lg:w-[1000px] w-full">
           {/* Basic Information Section */}
           <div className="space-y-6">
             <h2 className="text-xl font-semibold text-white border-b border-gray-700 pb-2">
               Basic Information
             </h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
@@ -252,6 +254,25 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
                   <option value="graphic">Graphic</option>
                   <option value="advertising">Advertising</option>
                   <option value="website">Website</option>
+                </select>
+                {errors.type && (
+                  <p className="mt-1 text-sm text-red-400">{errors.type.message}</p>
+                )}
+              </div>
+              {/* Category */}
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Category <span className="text-red-500">*</span>
+                </label>
+                <select
+                  {...register('category', { required: 'Category is required' })}
+                  className={`w-full bg-gray-700 text-white rounded-lg px-4 py-3 border ${
+                    errors.type ? 'border-red-500' : 'border-gray-600 focus:border-blue-500'
+                  } focus:ring-2 focus:ring-blue-500 focus:outline-none transition`}
+                >
+                  <option value="message">Message Testimonial</option>
+                  <option value="video_message">Video Testimonial</option>
+            
                 </select>
                 {errors.type && (
                   <p className="mt-1 text-sm text-red-400">{errors.type.message}</p>
@@ -368,7 +389,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
               </div>
 
               {/* Video Upload */}
-              <div className="space-y-4">
+            {category === 'video_message' &&  <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">
                     Video Message (Optional)
@@ -468,7 +489,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
                     className="w-full bg-gray-700 text-white rounded-lg px-4 py-3 border border-gray-600 focus:border-purple-500 focus:ring-2 focus:ring-purple-500 focus:outline-none transition"
                   />
                 </div>
-              </div>
+              </div>}
             </div>
           </div>
 

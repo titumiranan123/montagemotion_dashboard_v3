@@ -25,13 +25,15 @@ export interface IHeader {
 }
 
 export interface IService {
-  id: string;
   title: string;
   description: string;
   image: string;
-  isPublish: boolean;
+  isPublish: string;
+  href: string;
   position: number;
+  is_active: boolean;
 }
+
 
 export interface IPackage {
   id?: number;
@@ -58,17 +60,58 @@ export interface IFeature{
 }
 
 export interface faqitem {
-  id?:string
-  question: string;
-  answer: string;
-  isVisible: boolean;
-  position:number
-}
+
+    id?:string
+    faq_id:string
+    question: string;
+    answer: string;
+    is_visible: boolean;
+    position:number
+  }
+  
 
 export interface IFaq {
   id?: string;
   title:string
   sub_title:string
+  is_visible:boolean
   faqs: faqitem[]
-  type: "main" |"shorts" | "talking" | "podcast" | "graphic" | "advertising" | "website" ;  
+  type: "main" |"shorts" | "talking" | "podcast" | "graphic" | "advertising" | "website" ; 
 }
+
+
+export interface MemberProfile {
+  id?:string
+  name: string;
+  role: "Team Member" | "Influencer";
+  designation?: string; // for Team Member
+  username?: string; // for Influencer
+  photourl: string;
+  bio?: string;
+  location?: string;
+  email?: string;
+  phone?: string;
+
+  // Influencer specific
+  niche?: string;
+  followers?: number;
+  platforms?: string[]; // ["Instagram", "YouTube"]
+  collaborationtype?: string[]; // ["Paid Promotion", "Affiliate Marketing"]
+  engagementrate?: number;
+  portfoliolinks?: string[];
+
+  // Team Member specific
+  skills?: string[];
+
+  // Common social links
+  sociallinks?: {
+    instagram?: string;
+    facebook?: string;
+    linkedin?: string;
+    twitter?: string;
+    tiktok?: string;
+    youtube?: string;
+  };
+}
+
+

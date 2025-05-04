@@ -11,9 +11,8 @@ interface IWorkFormProps {
   onCancel?: () => void;
 }
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
-
 
 const ServiceForm: React.FC<IWorkFormProps> = ({
   onSubmit,
@@ -37,56 +36,54 @@ const ServiceForm: React.FC<IWorkFormProps> = ({
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [imageuploadProgress, setImageUploadProgress] = useState(0);
   const currentImage = watch('image');
-  const handleImageUpload = useCallback(
-    async (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0];
-      if (!file) return;
 
-      if (!ALLOWED_FILE_TYPES.includes(file.type)) {
-        Swal.fire('Invalid File', 'Only JPG, PNG, and WEBP images are allowed', 'error');
-        return;
-      }
+  const handleImageUpload = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-      if (file.size > MAX_FILE_SIZE) {
-        Swal.fire('File Too Large', 'Maximum file size is 5MB', 'error');
-        return;
-      }
+    if (!ALLOWED_FILE_TYPES.includes(file.type)) {
+      Swal.fire('Invalid File', 'Only JPG, PNG, and WEBP images are allowed', 'error');
+      return;
+    }
 
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImagePreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+    if (file.size > MAX_FILE_SIZE) {
+      Swal.fire('File Too Large', 'Maximum file size is 5MB', 'error');
+      return;
+    }
 
-      setIsUploadingImage(true);
-      try {
-        const formData = new FormData();
-        formData.append('file', file);
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImagePreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
 
-        const response = await api_url.post<{ url: string }>('/api/upload', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-          onUploadProgress: (progressEvent) => {
-            const percentCompleted = Math.round((progressEvent.loaded * 100) / (progressEvent.total || 1));
-            setImageUploadProgress(percentCompleted)
-          },
-        });
-        setValue('image', response.data.url, { shouldValidate: true });
-        await Swal.fire('Success!', 'Image uploaded successfully', 'success');
-      } catch (error: any) {
-        setImagePreview(currentImage || null);
-        await Swal.fire('Upload Failed', 'Failed to upload image', 'error');
-      } finally {
-        setIsUploadingImage(false);
-      }
-    },
-    [currentImage, setValue]
-  );
+    setIsUploadingImage(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await api_url.post<{ url: string }>('/api/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+        onUploadProgress: (progressEvent) => {
+          const percentCompleted = Math.round((progressEvent.loaded * 100) / (progressEvent.total || 1));
+          setImageUploadProgress(percentCompleted);
+        },
+      });
+      setValue('image', response.data.url, { shouldValidate: true });
+      await Swal.fire('Success!', 'Image uploaded successfully', 'success');
+    } catch (error: any) {
+      setImagePreview(currentImage || null);
+      await Swal.fire('Upload Failed', 'Failed to upload image', 'error');
+    } finally {
+      setIsUploadingImage(false);
+    }
+  }, [currentImage, setValue]);
 
   const onSubmitHandler = async (data: IService) => {
     try {
-        onSubmit(data)
-        reset()
-        onCancel?.()
+      onSubmit(data);
+      reset();
+      onCancel?.();
     } catch (error) {
       const err = error as Error;
       await Swal.fire('Error!', err.message || 'Failed to submit form', 'error');
@@ -98,79 +95,74 @@ const ServiceForm: React.FC<IWorkFormProps> = ({
     setValue('image', '', { shouldValidate: true });
   };
 
-
-
   return (
-    <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-6 grid grid-cols-1  max-w-4xl gap-7 mx-auto p-5 mt-20 w-full">
+    <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-6 grid grid-cols-1 max-w-4xl gap-7 mx-auto p-5 mt-20 w-full">
       <div className="space-y-4">
-      <h1 className=' text-white font-bold text-2xl'>Create Service</h1>
-        {/* Name */}
-        <div >
-          <label className="block text-sm font-medium text-gray-100 mb-1">
-            Name <span className="text-red-500">*</span>
-          </label>
+        <h1 className='text-white font-bold text-2xl'>Create Service</h1>
+
+        {/* Title */}
+        <div>
+          <label className="block text-sm font-medium text-gray-100 mb-1">Title <span className="text-red-500">*</span></label>
           <input
-            {...register('title', {
-              required: 'Title is required',
-              minLength: { value: 2, message: 'Name must be at least 2 characters' },
-            })}
+            {...register('title', { required: 'Title is required', minLength: { value: 2, message: 'Title too short' } })}
             type="text"
-            placeholder="John Doe"
-            className={`w-full rounded-md p-2 border ${
-              errors.title ? 'border-red-500' : 'border-gray-300'
-            }`}
+            className={`w-full rounded-md p-2 border ${errors.title ? 'border-red-500' : 'border-gray-300'}`}
           />
           {errors.title && <p className="text-sm text-red-600 mt-1">{errors.title.message}</p>}
         </div>
 
         {/* Description */}
         <div>
-          <label className="block text-sm font-medium text-gray-100 mb-1">
-          Description <span className="text-red-500">*</span>
-          </label>
+          <label className="block text-sm font-medium text-gray-100 mb-1">Description <span className="text-red-500">*</span></label>
           <input
-            {...register('description', {
-              required: 'Description is required',
-              minLength: { value: 2, message: 'Designation must be at least 2 characters' },
-            })}
+            {...register('description', { required: 'Description is required' })}
             type="text"
-            placeholder="CEO, Company Inc."
-            className={`w-full rounded-md p-2 border ${
-              errors.description ? 'border-red-500' : 'border-gray-300'
-            }`}
+            className={`w-full rounded-md p-2 border ${errors.description ? 'border-red-500' : 'border-gray-300'}`}
           />
           {errors.description && <p className="text-sm text-red-600 mt-1">{errors.description.message}</p>}
         </div>
-      </div>
-   {/* Name */}
-   <div className='flex items-center gap-2 w-[300px]'>
-          
+
+        {/* Href */}
+        <div>
+          <label className="block text-sm font-medium text-gray-100 mb-1">Link (href) <span className="text-red-500">*</span></label>
           <input
-            {...register('isPublish', {
-              required: 'Publish is required',
-              minLength: { value: 2, message: 'Publish must be at least 2 characters' },
-            })}
-            type="checkbox"
-            placeholder="John Doe"
-            className={`w-[16px] h-[16px] rounded-md  border ${
-              errors.isPublish ? 'border-red-500' : 'border-gray-300'
-            }`}
-          /><label className="block text-sm font-medium text-gray-100 ">
-          Is Publish <span className="text-red-500">*</span>
-        </label>
-          {errors.isPublish && <p className="text-sm text-red-600 mt-1">{errors.isPublish.message}</p>}
+            {...register('href', { required: 'Href is required' })}
+            type="text"
+            placeholder="https://example.com"
+            className={`w-full rounded-md p-2 border ${errors.href ? 'border-red-500' : 'border-gray-300'}`}
+          />
+          {errors.href && <p className="text-sm text-red-600 mt-1">{errors.href.message}</p>}
         </div>
+
+      
+
+        {/* Is Publish */}
+        <div className='flex items-center gap-2'>
+          <input
+            {...register('isPublish')}
+            type="checkbox"
+            className="w-4 h-4 border-gray-300 rounded"
+          />
+          <label className="text-sm text-gray-100">Is Publish</label>
+        </div>
+
+        {/* Is Active */}
+        <div className='flex items-center gap-2'>
+          <input
+            {...register('is_active')}
+            type="checkbox"
+            className="w-4 h-4 border-gray-300 rounded"
+          />
+          <label className="text-sm text-gray-100">Is Active</label>
+        </div>
+      </div>
+
       {/* Image Upload */}
       <div>
-      <h2 className='text-white font-[600] text-lg'>Image upload progress: {imageuploadProgress}%</h2>
-        <label className="block mt-1 text-sm font-medium text-gray-100 mb-1">
-          Thumbnail  <span className="text-red-500">*</span>
-        </label>
+        <h2 className='text-white font-[600] text-lg'>Image upload progress: {imageuploadProgress}%</h2>
+        <label className="block mt-1 text-sm font-medium text-gray-100 mb-1">Thumbnail <span className="text-red-500">*</span></label>
         <div className="flex items-center gap-4 mt-2">
-          <label
-            htmlFor="image-upload"
-            className={`cursor-pointer flex-1 ${isUploadingImage ? 'opacity-50 pointer-events-none' : ''}`}
-          >
+          <label htmlFor="image-upload" className={`cursor-pointer flex-1 ${isUploadingImage ? 'opacity-50 pointer-events-none' : ''}`}>
             <div className="flex flex-col items-center justify-center px-6 py-8 border-2 border-dashed border-gray-300 rounded-md hover:border-gray-400">
               {imagePreview ? (
                 <div className="relative group">
@@ -188,13 +180,7 @@ const ServiceForm: React.FC<IWorkFormProps> = ({
                 </div>
               ) : (
                 <>
-                  <svg
-                    className="mx-auto h-12 w-12 text-gray-400"
-                    stroke="currentColor"
-                    fill="none"
-                    viewBox="0 0 48 48"
-                    aria-hidden="true"
-                  >
+                  <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
                     <path
                       d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
                       strokeWidth={2}
@@ -217,24 +203,19 @@ const ServiceForm: React.FC<IWorkFormProps> = ({
             />
           </label>
         </div>
+
         <div className='mt-5'>
-          <label className="block text-sm font-medium text-gray-100 mb-1">
-            Thumbnail URL :   
-          </label>
+          <label className="block text-sm font-medium text-gray-100 mb-1">Thumbnail URL</label>
           <input
             {...register('image')}
             type="text"
-            placeholder="CEO, Company Inc."
-            className={`w-full rounded-md p-2 border ${
-              errors.image ? 'border-red-500' : 'border-gray-300'
-            }`}
+            className={`w-full rounded-md p-2 border ${errors.image ? 'border-red-500' : 'border-gray-300'}`}
           />
           {errors.image && <p className="text-sm text-red-600 mt-1">{errors.image.message}</p>}
         </div>
       </div>
 
-   
-      {/* Submit/Cancel */}
+      {/* Buttons */}
       <div className="flex justify-end gap-4">
         {onCancel && (
           <button
@@ -256,6 +237,5 @@ const ServiceForm: React.FC<IWorkFormProps> = ({
     </form>
   );
 };
-
 
 export default ServiceForm;

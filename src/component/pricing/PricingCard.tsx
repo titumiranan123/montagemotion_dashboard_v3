@@ -91,11 +91,12 @@ const PackageCard = ({ pkg, refetch }: PackageCardProps) => {
   const handleUpdatePackage = async () => {
     setIsLoading(true);
     try {
-      await api_url.put(`/api/pricing/${pkg.id}`, editPackageData);
+      await api_url.patch(`/api/pricing/${pkg.id}`, editPackageData);
       setIsEditing(false);
       refetch();
       toast.success("Package updated successfully!");
     } catch (err: any) {
+      console.log(err)
       toast.error(err.message || "Failed to update package");
     } finally {
       setIsLoading(false);
@@ -113,9 +114,9 @@ const PackageCard = ({ pkg, refetch }: PackageCardProps) => {
   const handleUpdateFeature = async (featureId: string) => {
     setIsLoading(true);
     try {
-      await api_url.put(`/api/pricing/feature/${pkg.id}/${featureId}`, editFeatureData);
-      setIsEditingFeature(null);
+      await api_url.patch(`/api/pricing/feature/${featureId}`, editFeatureData);
       refetch();
+      setIsEditingFeature(null);
       toast.success("Feature updated successfully!");
     } catch (err: any) {
       toast.error(err.message || "Failed to update feature");
@@ -139,10 +140,11 @@ const PackageCard = ({ pkg, refetch }: PackageCardProps) => {
 
     if (result.isConfirmed) {
       try {
-        await api_url.delete(`/api/pricing/feature/${pkg.id}/${featureId}`);
+        await api_url.delete(`/api/pricing/feature/${featureId}`);
         refetch();
         toast.success("Feature deleted successfully");
       } catch (error) {
+        console.log(error)
         toast.error("Failed to delete feature");
       }
     }
@@ -153,7 +155,7 @@ const PackageCard = ({ pkg, refetch }: PackageCardProps) => {
     
     setIsLoading(true);
     try {
-      await api_url.post(`/api/pricing/feature/${pkg.id}`, {
+      await api_url.post(`/api/pricing/${pkg.id}/feature`, {
         feature: newFeature,
         is_active: true,
       });

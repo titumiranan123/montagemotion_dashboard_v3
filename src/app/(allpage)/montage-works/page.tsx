@@ -14,8 +14,8 @@ interface IVideo {
   description: string;
   thumbnail: string;
   video_link: string;
-  isVisible: boolean;
-  isFeature: boolean;
+  is_visible: boolean;
+  is_feature: boolean;
   position?: number;
   type: "main" | "shorts" | "talking" | "podcast" | "graphic" | "advertising" | "website";
 }
@@ -24,7 +24,7 @@ const Works = () => {
   const [isWork, setWorkModal] = useState(false);
   const [editData, setEditData] = useState<IVideo | null>(null);
   const [activeFilter, setActiveFilter] = useState("main");
-  const { data = [], isLoading } = useWorks();
+  const { data = [], isLoading,refetch } = useWorks();
   const [parent, tapes, setTapes] = useDragAndDrop<HTMLDivElement, IVideo>(data || []);
   const [hasChanges, setHasChanges] = useState(false);
 
@@ -40,7 +40,10 @@ const Works = () => {
 
   const handleSubmit = async (data: any) => {
     try {
+      console.log(data)
+      console.log(`/api/works${data.id ? `/${data.id}` : ""}`)
       const res = await api_url.post(`/api/works${data.id ? `/${data.id}` : ""}`, data);
+      refetch()
       Swal.fire({
         title: res.data.message,
         icon: "success",
@@ -51,6 +54,7 @@ const Works = () => {
       setWorkModal(false);
       setEditData(null);
     } catch (err: any) {
+      console.log(err)
       Swal.fire({
         title: "Something went wrong!",
         text: err.message,
@@ -69,7 +73,7 @@ const Works = () => {
     }));
 
     try {
-      await api_url.put("/api/works",  payload );
+      await api_url.patch("/api/works/positions",  payload );
       Swal.fire({
         title: "Positions updated!",
         icon: "success",
@@ -77,6 +81,7 @@ const Works = () => {
         color: '#fff',
         confirmButtonColor: '#6366f1'
       });
+      refetch()
       setHasChanges(false);
     } catch (err: any) {
       Swal.fire({
@@ -95,7 +100,7 @@ const Works = () => {
     : tapes?.filter((item) => item.type === activeFilter);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-4 md:p-8">
+    <div className="min-h-screen   text-gray-100 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
@@ -152,7 +157,7 @@ const Works = () => {
               ))}
             </div>
           ) : filteredData?.length > 0 ? (
-            <div ref={parent} className="grid z-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div ref={parent} className="grid z-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
               {filteredData?.map((works) => (
                 <VideoCard 
                   key={works.id} 

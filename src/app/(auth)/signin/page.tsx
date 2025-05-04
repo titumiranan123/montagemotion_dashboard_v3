@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { FiMail, FiLock, FiEye, FiEyeOff, FiLoader } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
 import { redirect } from "next/navigation";
+
 type LoginFormValues = {
   email: string;
   password: string;
@@ -14,14 +14,18 @@ type LoginFormValues = {
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormValues>();
-  const [isLoading, setLoading] = useState(false);
+
+ 
   const onSubmit = async (data: LoginFormValues) => {
     setLoading(true);
+
     const res: any = await signIn("credentials", {
       ...data,
       redirect: false,
@@ -32,7 +36,7 @@ const LoginPage = () => {
     if (res?.ok) {
       toast.success("Login successful!");
       setLoading(false);
-      redirect('/')
+      redirect("/");
     } else {
       toast.error("Login failed. Please check your credentials.");
       setLoading(false);
@@ -51,10 +55,7 @@ const LoginPage = () => {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* Email */}
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 Email address
               </label>
               <div className="relative">
@@ -70,18 +71,13 @@ const LoginPage = () => {
                 />
               </div>
               {errors.email && (
-                <p className="text-sm text-red-500 mt-1">
-                  {errors.email.message}
-                </p>
+                <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>
               )}
             </div>
 
             {/* Password */}
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                 Password
               </label>
               <div className="relative">
@@ -110,40 +106,11 @@ const LoginPage = () => {
                 </button>
               </div>
               {errors.password && (
-                <p className="text-sm text-red-500 mt-1">
-                  {errors.password.message}
-                </p>
+                <p className="text-sm text-red-500 mt-1">{errors.password.message}</p>
               )}
             </div>
 
-            {/* Remember me + Forgot Password */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 text-[#1FB5DD] focus:ring-[#1FB5DD] border-gray-300 rounded"
-                />
-                <label
-                  htmlFor="remember-me"
-                  className="ml-2 block text-sm text-gray-700"
-                >
-                  Remember me
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <Link
-                  href="/forgot-password"
-                  className="font-medium text-[#1FB5DD] hover:text-[#1FB5DD]/80"
-                >
-                  Forgot password?
-                </Link>
-              </div>
-            </div>
-
-            {/* Submit button */}
+            {/* Submit Button */}
             <div>
               <button
                 type="submit"
@@ -161,40 +128,6 @@ const LoginPage = () => {
               </button>
             </div>
           </form>
-
-          {/* Social buttons */}
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
-                  Or continue with
-                </span>
-              </div>
-            </div>
-
-            <div className="mt-6 grid grid-cols-2 gap-3">
-              <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
-                Google
-              </button>
-              <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
-                GitHub
-              </button>
-            </div>
-          </div>
-
-          {/* Sign up link */}
-          <div className="mt-6 text-center text-sm text-gray-600">
-            Don't have an account?{" "}
-            <Link
-              href="/register"
-              className="font-medium text-[#1FB5DD] hover:text-[#1FB5DD]/80"
-            >
-              Sign up
-            </Link>
-          </div>
         </div>
       </div>
     </div>

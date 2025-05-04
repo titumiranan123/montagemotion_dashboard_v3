@@ -120,14 +120,14 @@ const [editData,setEditData] = useState<StoryData>()
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
+      <div className="min-h-screen   text-white flex items-center justify-center">
         <div className="animate-pulse text-xl">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen   text-white">
       <main className="container mx-auto px-6 py-12">
         <div className="flex justify-between items-center mb-12">
           <h1 className="text-3xl font-bold">Our Story</h1>

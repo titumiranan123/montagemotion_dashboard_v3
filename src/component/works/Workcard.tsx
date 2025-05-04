@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import ReactPlayer from 'react-player'
-import { FiEdit2, FiTrash2, FiEye, FiEyeOff, FiStar } from 'react-icons/fi'
+import { FiEdit2, FiTrash2, FiEye, FiEyeOff, FiStar, FiMove } from 'react-icons/fi'
 import Swal from 'sweetalert2'
 import { api_url } from '@/hook/Apiurl'
 
@@ -11,8 +11,8 @@ interface IVideo {
   description: string;
   thumbnail: string;
   video_link: string;
-  isVisible: boolean;
-  isFeature: boolean;
+  is_visible: boolean;
+  is_feature: boolean;
   position?: number;
   type: "main" | "shorts" | "talking" | "podcast" | "graphic" | "advertising" | "website";
 }
@@ -20,7 +20,6 @@ interface IVideo {
 interface VideoCardProps {
   video: IVideo;
   onEdit: (video: IVideo) => void;
-  onDelete: (id: string) => void;
   onToggleVisibility?: (id: string, isVisible: boolean) => void;
   onToggleFeature?: (id: string, isFeature: boolean) => void;
 }
@@ -28,7 +27,6 @@ interface VideoCardProps {
 const VideoCard = ({ 
   video, 
   onEdit, 
-  onDelete,
   onToggleVisibility,
   onToggleFeature
 }: VideoCardProps) => {
@@ -63,8 +61,6 @@ const VideoCard = ({
           timer: 2000,
           showConfirmButton: false
         });
-        
-        onDelete(id);
       } catch (error) {
         console.error('Error deleting video:', error);
         Swal.fire({
@@ -77,18 +73,23 @@ const VideoCard = ({
   };
 
   return (
-    <div className="flex flex-col bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-200">
-      {/* Video Player Section */}
-      <div className="relative pt-[56.25%] bg-black">
+    <div className="flex bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-200 w-[500px] z-10">
+      {/* Drag Handle */}
+      <div className="flex items-center justify-center px-3 bg-gray-50 cursor-move hover:bg-gray-100 border-r border-gray-200 w-10">
+        <FiMove className="text-gray-400" size={20} />
+      </div>
+
+      {/* Video Player Section - Fixed aspect ratio (16:9) */}
+      <div className="relative w-64 h-36 flex-shrink-0 bg-black">
         <ReactPlayer
           url={video.video_link}
           playing={false}
           light={video.thumbnail}
           playIcon={
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="bg-black bg-opacity-50 rounded-full p-3">
+              <div className="bg-black bg-opacity-50 rounded-full p-2">
                 <svg
-                  className="w-10 h-10 text-white"
+                  className="w-8 h-8 text-white"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -117,29 +118,6 @@ const VideoCard = ({
           }}
         />
         
-        {/* Status Badges */}
-        <div className="absolute top-2 right-2 flex gap-2">
-          {onToggleVisibility && (
-            <button 
-              onClick={() => onToggleVisibility(video.id!, !video.isVisible)}
-              className={`p-2 rounded-full ${video.isVisible ? 'text-green-600 bg-green-50' : 'text-gray-500 bg-gray-50'}`}
-              aria-label={video.isVisible ? 'Visible' : 'Hidden'}
-            >
-              {video.isVisible ? <FiEye size={16} /> : <FiEyeOff size={16} />}
-            </button>
-          )}
-          
-          {onToggleFeature && (
-            <button 
-              onClick={() => onToggleFeature(video.id!, !video.isFeature)}
-              className={`p-2 rounded-full ${video.isFeature ? 'text-yellow-600 bg-yellow-50' : 'text-gray-500 bg-gray-50'}`}
-              aria-label={video.isFeature ? 'Featured' : 'Not featured'}
-            >
-              <FiStar size={16} />
-            </button>
-          )}
-        </div>
-        
         {/* Type Badge */}
         <div className="absolute bottom-2 left-2 px-2 py-1 bg-indigo-100 text-indigo-800 rounded-md text-xs font-medium">
           {video.type.charAt(0).toUpperCase() + video.type.slice(1)}
@@ -147,17 +125,44 @@ const VideoCard = ({
       </div>
 
       {/* Video Info Section */}
-      <div className="p-4 flex flex-col">
-        <h3 className="text-lg font-semibold text-gray-900 mb-1 line-clamp-1">
-          {video.title}
-        </h3>
-        <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-          {video.description}
-        </p>
+      <div className="flex-1 p-4 flex flex-col min-w-0"> {/* min-w-0 prevents flex overflow */}
+        <div className="flex justify-between items-start mb-2 gap-2">
+          <div className="min-w-0"> {/* Prevent text overflow */}
+            <h3 className="text-lg font-semibold text-gray-900 truncate">
+              {video.title}
+            </h3>
+            <p className="text-gray-600 text-sm line-clamp-2">
+              {video.description}
+            </p>
+          </div>
+          
+          {/* Status Badges */}
+          <div className="flex gap-2 flex-shrink-0">
+            {onToggleVisibility && (
+              <button 
+                onClick={() => onToggleVisibility(video.id!, !video.is_visible)}
+                className={`p-2 rounded-full ${video.is_visible ? 'text-green-600 bg-green-50' : 'text-gray-500 bg-gray-50'}`}
+                aria-label={video.is_visible ? 'Visible' : 'Hidden'}
+              >
+                {video.is_visible ? <FiEye size={16} /> : <FiEyeOff size={16} />}
+              </button>
+            )}
+            
+            {onToggleFeature && (
+              <button 
+                onClick={() => onToggleFeature(video.id!, !video.is_feature)}
+                className={`p-2 rounded-full ${video.is_feature ? 'text-yellow-600 bg-yellow-50' : 'text-gray-500 bg-gray-50'}`}
+                aria-label={video.is_feature ? 'Featured' : 'Not featured'}
+              >
+                <FiStar size={16} />
+              </button>
+            )}
+          </div>
+        </div>
         
         <div className="mt-auto flex justify-between items-center">
-          <span className="text-xs text-gray-500">
-            {video.position ? `Position: ${video.position}` : 'Position not set'}
+          <span className="text-xs rounded-full border border-red-500 p-1 w-7 h-7 flex justify-center in-checked: text-gray-500">
+             {video.position || 'Not set'}
           </span>
           
           <div className="flex gap-2">
@@ -174,7 +179,7 @@ const VideoCard = ({
               className="flex items-center gap-1 px-3 py-1.5 text-sm bg-red-50 text-red-600 rounded hover:bg-red-100 transition-colors"
             >
               <FiTrash2 size={16} />
-              Delete
+              
             </button>
           </div>
         </div>

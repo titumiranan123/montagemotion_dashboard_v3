@@ -84,15 +84,16 @@ const ServiceManagement: React.FC = () => {
     }
   };
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-6">
+    <div className="min-h-screen   text-gray-100 p-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-white">
-              Campaign Dashboard
+              Services 
             </h1>
-            <p className="text-gray-400">Manage your advertising campaigns</p>
+            <p className="text-gray-400">Manage your service</p>
           </div>
+          <div className="flex gap-3">
           <button
             onClick={()=>{
               setIsModalOpen(true)
@@ -123,12 +124,11 @@ const ServiceManagement: React.FC = () => {
                 Save Positions
               </button>
             )}
+          </div>
         </div>
 
-        <div className="mb-8 max-w-[1000px] mx-auto">
-          <h2 className="text-xl font-semibold text-white mb-4">
-            Active Campaigns
-          </h2>
+        <div className="mb-8 mt-10 max-w-[1000px] mx-auto">
+         
 
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
