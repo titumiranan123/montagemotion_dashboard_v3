@@ -10,26 +10,11 @@ const authOptions: NextAuthOptions = {
       credentials: {},
       async authorize(credentials: any) {
         let user = null;
-        if (credentials?.Registration) {
-          const { first_name, last_name, email, password }: any = credentials;
-          const res = await fetch(
-            "http://localhost:8000/api/register",
-            {
-              method: "POST",
-              body: JSON.stringify({ first_name, last_name, email, password }),
-              headers: { "Content-Type": "application/json" },
-            }
-          );
-          const response = await res.json();
-          if (res.ok && response) {
-            user = response;
-            return response;
-          }
-          return null;
-        } else if (credentials?.Login) {
+        if (credentials?.Login) {
           const { email, password }: any = credentials;
+          console.log('credentials',credentials)
           const res = await fetch(
-            "http://localhost:8000/api/login",
+            "http://localhost:8001/api/login",
             {
               method: "POST",
               body: JSON.stringify({ email, password }),

@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 import { api_url } from "@/hook/Apiurl";
 
 const Header = () => {
-  const { data, isLoading } = useIntro();
+  const { data, isLoading ,refetch} = useIntro();
   const [isHeader, setHeaderModal] = useState(false);
   const [activeFilter, setActiveFilter] = useState("main");
   const [editData, setEditData] = useState<IHeader>({
@@ -22,10 +22,11 @@ const Header = () => {
     type: "main",
   });
 
-  const filteredData = data?.filter((item: IHeader) => item.type === activeFilter);
+  const filteredData = data?.filter((item: IHeader) => item?.type === activeFilter);
   const handleSubmit = async (data: any) => {
     try {
       const res = await api_url.post(`/api/header`, data);
+      refetch()
       Swal.fire({
         title: res.data.message,
         icon: "success",
@@ -59,15 +60,15 @@ const Header = () => {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-white">
-              Works Gallery
+          Header 
             </h1>
-            <p className="text-gray-400">Manage and showcase client Works</p>
+            <p className="text-gray-400">Manage Main and Landing Page Headers</p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+          <div className="flex mt-5 flex-col sm:flex-row gap-5 md:gap-3 w-full md:w-auto">
             {/* Filter */}
             <select
               onClick={(e: any) => setActiveFilter(e.target.value)}
-              className="flex gap-2 overflow-x-auto pb-2 bg-[#101828] w-[200px] border border-slate-300 rounded-lg p-1"
+              className="flex gap-2 overflow-x-auto pb-2 bg-[#101828] md:w-[200px] w-full border  border-slate-300 rounded-lg p-1"
             >
               {[
                 "main",
@@ -77,13 +78,13 @@ const Header = () => {
                 "graphic",
                 "advertising",
                 "website",
-              ].map((type) => (
+              ]?.map((type) => (
                 <option
                   key={type}
                   value={type}
-                  className={`px-3 py-1 rounded-full text-sm whitespace-nowrap transition-colors ${
+                  className={`px-3 py-1 hover:bg-[#1FB5DD] rounded-full text-sm whitespace-nowrap transition-colors ${
                     activeFilter === type
-                      ? "bg-indigo-600 text-white"
+                      ? "bg-[#1FB5DD] text-white"
                       : "bg-gray-700 text-gray-300 hover:bg-gray-600"
                   }`}
                 >
@@ -103,7 +104,7 @@ const Header = () => {
                 });
                 setHeaderModal(true);
               }}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap"
+              className="bg-[#1FB5DD] hover:bg-[#1FB5DD] text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap"
             >
               + Add Header
             </button>
@@ -114,11 +115,11 @@ const Header = () => {
         ) : (
           <>
             {" "}
-            {filteredData.length > 0 ? (
-              filteredData.map((header: IHeader, idx: number) => (
+            {filteredData?.length > 0 ? (
+              filteredData?.map((header: IHeader, idx: number) => (
                 <div
                   key={idx}
-                  className="relative w-full min-h-screen  overflow-hidden"
+                  className="relative w-full lg:min-h-screen  overflow-hidden"
                   style={{
                     backgroundImage: "url(/assets/logobackgourd.png)",
                     backgroundRepeat: "no-repeat",
@@ -126,7 +127,7 @@ const Header = () => {
                     backgroundSize: "contain",
                   }}
                 >
-                  <div className="max-w-[800px] mx-auto mt-[120px]">
+                  <div className="max-w-[800px] mx-auto lg:mt-[120px] mt-16">
                     <h1 className="text-[#d8d6d6] poppins uppercase z-20 text-[21px] md:text-[45px] lg:text-[64px] font-bold md:leading-[72px] text-center">
                       {header.title}
                     </h1>
@@ -177,7 +178,7 @@ const Header = () => {
                       setEditData(header);
                       setHeaderModal(true);
                     }}
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap justify-end"
+                    className="bg-[#1FB5DD] hover:bg-[#1FB5DD] text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap justify-end mt-10 md:mt-5"
                   >
                     Edit Header
                   </button>

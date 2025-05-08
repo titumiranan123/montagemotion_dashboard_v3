@@ -48,7 +48,6 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
 
   const currentImage = watch("thumbnail");
   const currentVideo = watch("video_link");
-  const currentType = watch("type");
 
   useEffect(() => {
     if (defaultValues) {
@@ -212,7 +211,7 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
             {...register("title", { required: "Title is required" })}
             className={`w-full px-4 py-2.5 rounded-lg bg-gray-800 border ${
               errors.title ? "border-red-500" : "border-gray-700"
-            } text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all`}
+            } text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1FB5DD] focus:border-transparent transition-all`}
             placeholder="Enter header title"
           />
           {errors.title && (
@@ -230,7 +229,7 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
             {...register("type", { required: "Type is required" })}
             className={`w-full px-4 py-2.5 rounded-lg bg-gray-800 border ${
               errors.type ? "border-red-500" : "border-gray-700"
-            } text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent appearance-none`}
+            } text-white focus:outline-none focus:ring-2 focus:ring-[#1FB5DD] focus:border-transparent appearance-none`}
           >
             {typeOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -254,7 +253,7 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
             {...register("description", { required: "Description is required" })}
             className={`w-full px-4 py-2.5 rounded-lg bg-gray-800 border ${
               errors.description ? "border-red-500" : "border-gray-700"
-            } text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all`}
+            } text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1FB5DD] focus:border-transparent transition-all`}
             placeholder="Enter detailed description"
           />
           {errors.description && (
@@ -431,35 +430,7 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
           </div>
         </div>
 
-        {/* Active Status */}
-        <div className="space-y-2 bg-gray-800 p-4 rounded-xl">
-          <label className="block text-sm font-medium text-gray-300">
-            Status <span className="text-red-500">*</span>
-          </label>
-          <div className="mt-2 space-y-2">
-            <label className="flex items-center space-x-3 cursor-pointer">
-              <input
-                type="radio"
-                value="true"
-                {...register("isActive", { required: "Status is required" })}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-600"
-              />
-              <span className="text-gray-300">Active</span>
-            </label>
-            <label className="flex items-center space-x-3 cursor-pointer">
-              <input
-                type="radio"
-                value="false"
-                {...register("isActive")}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-600"
-              />
-              <span className="text-gray-300">Inactive</span>
-            </label>
-          </div>
-          {errors.isActive && (
-            <p className="mt-1 text-sm text-red-400">{errors.isActive.message}</p>
-          )}
-        </div>
+     
       </div>
 
       {/* Form Actions */}
@@ -476,7 +447,7 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
         <button
           type="submit"
           disabled={isSubmitting}
-          className="px-6 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+          className="px-6 py-2.5 rounded-lg bg-[#1FB5DD] text-white  transition-colors focus:outline-none focus:ring-2 focus:ring-[#1FB5DD] focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
         >
           {isSubmitting ? (
             <>

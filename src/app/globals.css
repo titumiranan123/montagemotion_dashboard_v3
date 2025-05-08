@@ -10,7 +10,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(51, 30, 240);
+  background-color: #1FB5DD;
   border-radius: 6px;
 }
 .swal2-container{

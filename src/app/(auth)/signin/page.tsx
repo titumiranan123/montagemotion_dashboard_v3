@@ -23,25 +23,28 @@ const LoginPage = () => {
   } = useForm<LoginFormValues>();
 
  
-  const onSubmit = async (data: LoginFormValues) => {
-    setLoading(true);
+ const onSubmit = async (data: LoginFormValues) => {
+  setLoading(true);
 
-    const res: any = await signIn("credentials", {
-      ...data,
-      redirect: false,
-      callbackUrl: "/",
-      Login: true,
-    });
-    console.log(res, "responce");
-    if (res?.ok) {
-      toast.success("Login successful!");
-      setLoading(false);
-      redirect("/");
-    } else {
-      toast.error("Login failed. Please check your credentials.");
-      setLoading(false);
-    }
-  };
+  const res: any = await signIn("credentials", {
+    ...data,
+    redirect: false,
+    callbackUrl: "/",
+    Login: true,
+  });
+  console.log(res, "responce");
+  if (res?.ok) {
+    toast.success("Login successful!");
+    setLoading(false);
+    redirect("/");
+  } else {
+    toast.error("Login failed. Please check your credentials.");
+    setLoading(false);
+  }
+};
+
+
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1FB5DD] to-[#1FDDB5] flex items-center justify-center p-4">

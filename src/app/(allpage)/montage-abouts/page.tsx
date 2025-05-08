@@ -40,7 +40,6 @@ const [editData,setEditData] = useState<StoryData>()
   const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
   const { data: aboutData, isLoading } = useAbout();
-  console.log(aboutData);
   const handleContentChange = (value: string) => {
     setValue("description", value, { shouldDirty: true });
   };
@@ -93,20 +92,20 @@ const [editData,setEditData] = useState<StoryData>()
     },
     [setValue]
   );
-
   const handleRemoveImage = () => {
     setValue("image", "", { shouldDirty: true });
   };
+
   useEffect(() => {
     if (editData) {
       reset(editData);
     }
   }, [editData, reset]);
-  
   const handleEditClick = () => {
     setEditData(aboutData);
     setIsEditing(!isEditing);
   };
+
   const onSubmit = async (data: StoryData) => {
     try {
       const response = await api_url.post("/api/about", data);
@@ -170,11 +169,11 @@ const [editData,setEditData] = useState<StoryData>()
             </div>
 
             <div className="space-y-6">
-              <h3 className="text-4xl font-bold">{aboutData.title}</h3>
+              <h3 className="text-4xl font-bold">{aboutData?.title}</h3>
 
               <div
                 className="prose prose-invert max-w-none text-gray-300 text-lg leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: aboutData.description }}
+                dangerouslySetInnerHTML={{ __html: aboutData?.description }}
               />
             </div>
           </div>
@@ -190,12 +189,12 @@ const [editData,setEditData] = useState<StoryData>()
                   <input
                     {...register("title", { required: "Title is required" })}
                     className={`w-full bg-gray-700 rounded-lg p-3 border ${
-                      errors.title ? "border-red-500" : "border-gray-600"
+                      errors?.title ? "border-red-500" : "border-gray-600"
                     } focus:border-blue-500 focus:ring-2 focus:ring-blue-500`}
                   />
-                  {errors.title && (
+                  {errors?.title && (
                     <p className="mt-1 text-sm text-red-500">
-                      {errors.title.message}
+                      {errors?.title?.message}
                     </p>
                   )}
                 </div>
@@ -306,7 +305,7 @@ const [editData,setEditData] = useState<StoryData>()
                       <div>
                         <MyTextEditor
                           error={error?.message || ""}
-                          value={field.value}
+                          value={field?.value}
                           onChange={(value) => {
                             field.onChange(value);
                             handleContentChange(value);
@@ -314,7 +313,7 @@ const [editData,setEditData] = useState<StoryData>()
                         />
                         {error && (
                           <p className="mt-1 text-sm text-red-600">
-                            {error.message}
+                            {error?.message}
                           </p>
                         )}
                       </div>
