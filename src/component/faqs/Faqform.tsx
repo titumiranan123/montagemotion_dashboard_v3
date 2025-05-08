@@ -127,7 +127,7 @@ export const FaqForm = ({ initialData, onSubmit, onCancel, isLoading }: FaqFormP
             {...register("type", { required: "Type is required" })}
             className={`w-full px-4 py-2.5 rounded-lg bg-gray-800 border ${
               errors.type ? "border-red-500" : "border-gray-700"
-            } text-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent appearance-none`}
+            } text-white focus:outline-none focus:ring-2 focus:ring-[#1FB5DD] focus:border-transparent appearance-none`}
           >
             {typeOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -146,7 +146,7 @@ export const FaqForm = ({ initialData, onSubmit, onCancel, isLoading }: FaqFormP
             type="checkbox"
             id="is_visible"
             {...register("is_visible")}
-            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            className="h-4 w-4 text-[#1FB5DD] focus:ring-blue-500 border-gray-300 rounded"
           />
           <label
             htmlFor="is_visible"
@@ -164,7 +164,7 @@ export const FaqForm = ({ initialData, onSubmit, onCancel, isLoading }: FaqFormP
           <button
             type="button"
             onClick={addFaqItem}
-            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-[#1FB5DD]    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             <FaPlus className="mr-2" />
             Add Item
@@ -192,7 +192,7 @@ export const FaqForm = ({ initialData, onSubmit, onCancel, isLoading }: FaqFormP
                     type="button"
                     onClick={() => moveItemUp(index)}
                     disabled={index === 0}
-                    className="text-gray-500 hover:text-blue-600 disabled:opacity-30"
+                    className="text-gray-500 hover:text-[#1FB5DD] disabled:opacity-30"
                   >
                     <FaArrowUp />
                   </button>
@@ -200,7 +200,7 @@ export const FaqForm = ({ initialData, onSubmit, onCancel, isLoading }: FaqFormP
                     type="button"
                     onClick={() => moveItemDown(index)}
                     disabled={index === fields.length - 1}
-                    className="text-gray-500 hover:text-blue-600 disabled:opacity-30"
+                    className="text-gray-500 hover:text-[#1FB5DD] disabled:opacity-30"
                   >
                     <FaArrowDown />
                   </button>
@@ -259,7 +259,7 @@ export const FaqForm = ({ initialData, onSubmit, onCancel, isLoading }: FaqFormP
                   type="checkbox"
                   id={`faqs.${index}.is_visible`}
                   {...register(`faqs.${index}.is_visible`)}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-[#1FB5DD] focus:ring-blue-500 border-gray-300 rounded"
                 />
                 <label
                   htmlFor={`faqs.${index}.is_visible`}
@@ -286,7 +286,7 @@ export const FaqForm = ({ initialData, onSubmit, onCancel, isLoading }: FaqFormP
         <button
           type="submit"
           disabled={isLoading}
-          className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+          className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#1FB5DD]    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
         >
           {isLoading ? "Saving..." : "Save FAQ"}
         </button>

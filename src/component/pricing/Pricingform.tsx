@@ -243,7 +243,7 @@ const PricingForm = () => {
                   type="checkbox"
                   id={`visible-${pkgIndex}`}
                   {...register(`packages.${pkgIndex}.is_visible`)}
-                  className="h-4 w-4 text-blue-600 rounded"
+                  className="h-4 w-4 text-[#1FB5DD] rounded"
                 />
                 <label htmlFor={`visible-${pkgIndex}`} className="ml-2 text-sm text-gray-700">
                   Visible to customers
@@ -298,7 +298,7 @@ const PricingForm = () => {
                       type="checkbox"
                       id={`active-${pkgIndex}-${featureIndex}`}
                       {...register(`packages.${pkgIndex}.features.${featureIndex}.is_active`)}
-                      className="h-4 w-4 text-blue-600 rounded"
+                      className="h-4 w-4 text-[#1FB5DD] rounded"
                     />
                     <label
                       htmlFor={`active-${pkgIndex}-${featureIndex}`}
@@ -326,13 +326,13 @@ const PricingForm = () => {
           <button
             type="button"
             onClick={addPackage}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-[#1FB5DD]"
           >
             Add New Package
           </button>
           <button
             type="submit"
-            className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+            className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-[#1FB5DD]"
           >
             Save All Packages
           </button>

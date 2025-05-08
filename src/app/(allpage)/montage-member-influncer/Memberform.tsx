@@ -207,7 +207,7 @@ export function MemberProfileForm({
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2.5">
                   <div
-                    className="bg-blue-600 h-2.5 rounded-full"
+                    className="bg-[#1FB5DD] h-2.5 rounded-full"
                     style={{ width: `${imageUploadProgress}%` }}
                   ></div>
                 </div>
@@ -390,7 +390,7 @@ export function MemberProfileForm({
                           watch("platforms")?.includes(platform) || false
                         }
                         onChange={() => handleArrayInput("platforms", platform)}
-                        className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                        className="h-4 w-4 text-[#1FB5DD] border-gray-300 rounded"
                       />
                       <span className="ml-2 text-gray-300">{platform}</span>
                     </label>
@@ -421,7 +421,7 @@ export function MemberProfileForm({
                       onChange={() =>
                         handleArrayInput("collaborationtype", type)
                       }
-                      className="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                      className="h-4 w-4 text-[#1FB5DD] border-gray-300 rounded"
                     />
                     <span className="ml-2 text-gray-300">{type}</span>
                   </label>
@@ -549,7 +549,7 @@ export function MemberProfileForm({
       <div className="flex justify-end">
         <button
           type="submit"
-          className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className="px-4 py-2 bg-[#1FB5DD] text-white rounded-md    focus:outline-none focus:ring-2 focus:ring-[#1FB5DD] focus:ring-offset-2"
         >
           Save Profile
         </button>

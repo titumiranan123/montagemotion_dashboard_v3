@@ -100,7 +100,7 @@ const Shortcard = ({
               setEditData(data);
               setTestimonial(true);
             }}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+            className="flex items-center gap-2 px-4 py-2 bg-[#1FB5DD] text-white rounded-lg    transition-colors text-sm"
           >
             <FaEdit size={14} />
             Edit

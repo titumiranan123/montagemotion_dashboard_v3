@@ -55,12 +55,12 @@ const PackageGrid = () => {
     <div className="max-w-7xl mx-auto px-4 py-12">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-white">Pricing Dashboard</h1>
+          <h1 className="text-3xl font-bold ">Pricing Dashboard</h1>
           <p className="text-gray-400">Manage your Pricing</p>
         </div>
         <Link
           href={"/create-pricing"}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg transition-all duration-200 flex items-center gap-2"
+          className="bg-[#1FB5DD]    text-white font-medium py-2 px-6 rounded-lg transition-all duration-200 flex items-center gap-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@ const PackageGrid = () => {
         {isHaschange && (
           <button
             onClick={savePositions}
-            className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg"
+            className="bg-[#1FB5DD] hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg"
           >
             Save Positions
           </button>

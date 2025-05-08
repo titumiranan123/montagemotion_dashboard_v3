@@ -141,7 +141,7 @@ const VideoCard = ({
             {onToggleVisibility && (
               <button 
                 onClick={() => onToggleVisibility(video.id!, !video.is_visible)}
-                className={`p-2 rounded-full ${video.is_visible ? 'text-green-600 bg-green-50' : 'text-gray-500 bg-gray-50'}`}
+                className={`p-2 rounded-full ${video.is_visible ? 'text-[#1FB5DD] bg-green-50' : 'text-gray-500 bg-gray-50'}`}
                 aria-label={video.is_visible ? 'Visible' : 'Hidden'}
               >
                 {video.is_visible ? <FiEye size={16} /> : <FiEyeOff size={16} />}
@@ -168,7 +168,7 @@ const VideoCard = ({
           <div className="flex gap-2">
             <button
               onClick={() => onEdit(video)}
-              className="flex items-center gap-1 px-3 py-1.5 text-sm bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition-colors"
+              className="flex items-center gap-1 px-3 py-1.5 text-sm bg-blue-50 text-[#1FB5DD] rounded hover:bg-blue-100 transition-colors"
             >
               <FiEdit2 size={16} />
               Edit

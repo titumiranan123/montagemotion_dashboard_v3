@@ -53,7 +53,7 @@ const BlogCardHorizontal = ({
             {blog.is_publish !== undefined && (
               <button 
                 onClick={() => onTogglePublish?.(blog.id!, !blog.is_publish)}
-                className={`p-2 rounded-full ${blog.is_publish ? 'text-green-600 bg-green-50' : 'text-gray-500 bg-gray-50'}`}
+                className={`p-2 rounded-full ${blog.is_publish ? 'text-[#1FB5DD] bg-green-50' : 'text-gray-500 bg-gray-50'}`}
                 aria-label={blog.is_publish ? 'Published' : 'Unpublished'}
               >
                 {blog.is_publish ? <FiEye /> : <FiEyeOff />}
@@ -87,7 +87,7 @@ const BlogCardHorizontal = ({
         <div className="mt-auto flex gap-2 pt-4">
           <button
             onClick={() => onEdit(blog)}
-            className="flex items-center gap-1 px-3 py-1.5 text-sm bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition-colors"
+            className="flex items-center gap-1 px-3 py-1.5 text-sm bg-blue-50 text-[#1FB5DD] rounded hover:bg-blue-100 transition-colors"
           >
             <FiEdit2 size={16} />
             Edit

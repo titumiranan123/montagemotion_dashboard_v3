@@ -88,7 +88,7 @@ const ServiceManagement: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-white">
+            <h1 className="text-3xl font-bold ">
               Services 
             </h1>
             <p className="text-gray-400">Manage your service</p>
@@ -99,7 +99,7 @@ const ServiceManagement: React.FC = () => {
               setIsModalOpen(true)
               setCurrentService(null)
             }}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg transition-all duration-200 flex items-center gap-2"
+            className="bg-[#1FB5DD]    text-white font-medium py-2 px-6 rounded-lg transition-all duration-200 flex items-center gap-2"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -119,7 +119,7 @@ const ServiceManagement: React.FC = () => {
            {isHaschange && (
               <button
                 onClick={savePositions}
-                className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg"
+                className="bg-[#1FB5DD] hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg"
               >
                 Save Positions
               </button>

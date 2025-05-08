@@ -105,7 +105,7 @@ const Works = () => {
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-white">Works Gallery</h1>
+            <h1 className="text-2xl md:text-3xl font-bold ">Works Gallery</h1>
             <p className="text-gray-400">Manage and showcase client Works</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
@@ -118,7 +118,7 @@ const Works = () => {
                   
                   className={`px-3 py-1 rounded-full text-sm whitespace-nowrap transition-colors ${
                     activeFilter === type
-                      ? "bg-indigo-600 text-white"
+                      ? "bg-[#1FB5DD] text-white"
                       : "bg-gray-700 text-gray-300 hover:bg-gray-600"
                   }`}
                 >
@@ -132,7 +132,7 @@ const Works = () => {
                 setEditData(null);
                 setWorkModal(true);
               }}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap"
+              className="bg-[#1FB5DD]  text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap"
             >
               + Add Works
             </button>
@@ -140,7 +140,7 @@ const Works = () => {
             {hasChanges && (
               <button
                 onClick={savePositions}
-                className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg"
+                className="bg-[#1FB5DD] text-white font-medium py-2 px-4 rounded-lg"
               >
                 Save Positions
               </button>
@@ -178,7 +178,7 @@ const Works = () => {
                   setEditData(null);
                   setWorkModal(true);
                 }}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg"
+                className="bg-[#1FB5DD] hover:bg-[#1FB5DD] text-white font-medium py-2 px-6 rounded-lg"
               >
                 Add Work
               </button>

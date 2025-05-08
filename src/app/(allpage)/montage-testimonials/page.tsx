@@ -116,7 +116,7 @@ const Testimonial = () => {
         {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-white">
+            <h1 className="text-2xl md:text-3xl font-bold ">
               Testimonial Gallery
             </h1>
             <p className="text-gray-400">
@@ -170,7 +170,7 @@ const Testimonial = () => {
                 setEditData(null);
                 setTestimonial(true);
               }}
-              className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap"
+              className="bg-[#1FB5DD]    text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -192,9 +192,33 @@ const Testimonial = () => {
         {/* Content Section */}
         <div className="mb-8">
           {isLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
               {[...Array(8)].map((_, idx) => (
-                <CampaignCardSkeleton key={idx} />
+                 <div key={idx} className="testimonialTextcard flex flex-col gap-8 animate-pulse">
+                 {/* Message Skeleton */}
+                 <div className="space-y-2">
+                   <div className="h-4 bg-gray-200 rounded w-full"></div>
+                   <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                   <div className="h-4 bg-gray-200 rounded w-4/6"></div>
+                 </div>
+                 
+                 {/* Author Info Skeleton */}
+                 <div className="flex justify-start gap-10 items-center">
+                   {/* Image Skeleton */}
+                   <div className="rounded-full w-[64px] h-[64px] bg-gray-200 overflow-hidden"></div>
+                   
+                   <div className="space-y-2">
+                     <div className="h-6 bg-gray-200 rounded w-32"></div>
+                     <div className="h-4 bg-gray-200 rounded w-24"></div>
+                   </div>
+                 </div>
+                 
+                 {/* Action Buttons Skeleton */}
+                 <div className="flex justify-around items-center">
+                   <div className="h-10 bg-gray-200 rounded-md w-36"></div>
+                   <div className="h-10 bg-gray-200 rounded-md w-36"></div>
+                 </div>
+               </div>
               ))}
             </div>
           ) : filteredData?.length > 0 ? (
@@ -246,7 +270,7 @@ const Testimonial = () => {
                   setEditData(null);
                   setTestimonial(true);
                 }}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg"
+                className="bg-[#1FB5DD]    text-white font-medium py-2 px-6 rounded-lg"
               >
                 Add Testimonial
               </button>

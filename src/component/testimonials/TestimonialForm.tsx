@@ -178,7 +178,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
       <div className="bg-gray-800  rounded-xl shadow-lg overflow-hidden w-full">
         {/* Form Header */}
         <div className=" p-6">
-          <h1 className="text-2xl md:text-3xl font-bold text-white">
+          <h1 className="text-2xl md:text-3xl font-bold ">
             {initialData?.id ? 'Edit Testimonial' : 'Create New Testimonial'}
           </h1>
           <p className="text-blue-100 mt-1">
@@ -302,7 +302,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
                       </div>
                       <div className="w-full bg-gray-700 rounded-full h-2.5">
                         <div
-                          className="bg-blue-600 h-2.5 rounded-full"
+                          className="bg-[#1FB5DD] h-2.5 rounded-full"
                           style={{ width: `${imageUploadProgress}%` }}
                         ></div>
                       </div>
@@ -526,7 +526,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
             <button
               type="submit"
               disabled={isSubmitting || isUploadingImage || isUploadingVideo}
-              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-6 py-3 bg-gradient-to-r from-[#1FB5DD] to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
                 <span className="flex items-center justify-center">

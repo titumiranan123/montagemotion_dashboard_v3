@@ -262,7 +262,7 @@ const Workform: React.FC<IWorkFormProps> = ({
       className="space-y-6 grid grid-cols-1 lg:grid-cols-2 max-w-7xl gap-7 mx-auto p-5 mt-10   rounded-lg shadow-lg"
     >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 col-span-1 lg:col-span-2">
-        <h1 className="lg:col-span-3 text-white font-bold text-2xl border-b border-gray-700 pb-4">
+        <h1 className="lg:col-span-3  font-bold text-2xl border-b border-gray-700 pb-4">
           {initialData?.id ? "Edit Work" : "Create Work"}
         </h1>
         
@@ -558,7 +558,7 @@ const Workform: React.FC<IWorkFormProps> = ({
                 {...register("is_visible")}
                 className="sr-only peer"
               />
-              <div className="relative w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+              <div className="relative w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1FB5DD]"></div>
               <span className="ms-3 text-sm font-medium text-gray-300">
                 Visible
               </span>
@@ -572,7 +572,7 @@ const Workform: React.FC<IWorkFormProps> = ({
                 {...register("is_feature")}
                 className="sr-only peer"
               />
-              <div className="relative w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+              <div className="relative w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1FB5DD]"></div>
               <span className="ms-3 text-sm font-medium text-gray-300">
                 Featured
               </span>
@@ -595,7 +595,7 @@ const Workform: React.FC<IWorkFormProps> = ({
         <button
           type="submit"
           disabled={isSubmitting || isUploadingImage || isUploadingVideo}
-          className="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-6 py-2.5 bg-[#1FB5DD] text-white rounded-lg    transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
             <span className="flex items-center justify-center">

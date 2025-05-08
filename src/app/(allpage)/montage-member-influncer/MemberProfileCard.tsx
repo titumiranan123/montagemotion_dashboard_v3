@@ -116,7 +116,7 @@ export function MemberProfileCard({
           />
         </div>
         <div className="p-8">
-          <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
+          <div className="uppercase tracking-wide text-sm text-[#1FB5DD] font-semibold">
             {profile.role}
           </div>
           <h1 className="block mt-1 text-lg leading-tight font-medium text-white">
@@ -269,7 +269,7 @@ export function MemberProfileCard({
                           href={link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-sm text-blue-600 hover:underline"
+                          className="text-sm text-[#1FB5DD] hover:underline"
                         >
                           {link}
                         </a>

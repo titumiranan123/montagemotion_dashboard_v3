@@ -7,7 +7,7 @@ import ServiceForm from "./Serviceform";
 
 interface serviceCardProps {
   service: {
-    id:string
+    id?:string
     title: string;
     description: string;
     image: string;
@@ -139,7 +139,7 @@ const Servicecard: React.FC<serviceCardProps> = ({ service }) => {
             Edit
           </button>
           <button
-            onClick={() => handleDelete(service.id)}
+            onClick={() => service?.id && handleDelete(service.id)}
             className="text-red-400 hover:text-red-600 font-medium text-sm flex items-center transition-colors"
           >
             <svg

@@ -25,6 +25,7 @@ export interface IHeader {
 }
 
 export interface IService {
+  id?:string
   title: string;
   description: string;
   image: string;

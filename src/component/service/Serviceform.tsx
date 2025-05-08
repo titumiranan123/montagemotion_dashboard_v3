@@ -98,7 +98,7 @@ const ServiceForm: React.FC<IWorkFormProps> = ({
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-6 grid grid-cols-1 max-w-4xl gap-7 mx-auto p-5 mt-20 w-full">
       <div className="space-y-4">
-        <h1 className='text-white font-bold text-2xl'>Create Service</h1>
+        <h1 className=' font-bold text-2xl'>Create Service</h1>
 
         {/* Title */}
         <div>
@@ -229,7 +229,7 @@ const ServiceForm: React.FC<IWorkFormProps> = ({
         <button
           type="submit"
           disabled={isSubmitting || isUploadingImage}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+          className="px-4 py-2 bg-[#1FB5DD] text-white rounded    disabled:opacity-50"
         >
           {isSubmitting ? 'Submitting...' : 'Submit'}
         </button>

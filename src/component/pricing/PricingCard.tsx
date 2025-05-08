@@ -177,7 +177,7 @@ const PackageCard = ({ pkg, refetch }: PackageCardProps) => {
         {!isEditing && (
           <button
             onClick={() => setIsEditing(true)}
-            className="p-2 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors"
+            className="p-2 bg-[#1FB5DD] rounded-full    transition-colors"
             title="Edit Package"
           >
             <FiEdit className="text-white" />
@@ -195,7 +195,7 @@ const PackageCard = ({ pkg, refetch }: PackageCardProps) => {
       {/* Price Section */}
       <div
         className={`p-6 text-center border-b ${
-          pkg.pricing_type === "combo" ? "bg-purple-600" : "bg-blue-600"
+          pkg.pricing_type === "combo" ? "bg-purple-600" : "bg-[#1FB5DD]"
         }`}
       >
         {isEditing ? (
@@ -285,7 +285,7 @@ const PackageCard = ({ pkg, refetch }: PackageCardProps) => {
             <button
               onClick={savePositions}
               disabled={isLoading}
-              className="flex items-center gap-1 px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50"
+              className="flex items-center gap-1 px-3 py-1 bg-[#1FB5DD] text-white rounded hover:bg-green-700 disabled:opacity-50"
             >
               <FiSave /> {isLoading ? "Saving..." : "Save Order"}
             </button>
@@ -307,7 +307,7 @@ const PackageCard = ({ pkg, refetch }: PackageCardProps) => {
                     onChange={(e) =>
                       setEditFeatureData({ ...editFeatureData, is_active: e.target.checked })
                     }
-                    className="h-5 w-5 text-blue-600 rounded"
+                    className="h-5 w-5 text-[#1FB5DD] rounded"
                   />
                   <input
                     type="text"
@@ -399,7 +399,7 @@ const PackageCard = ({ pkg, refetch }: PackageCardProps) => {
                 type="checkbox"
                 checked
                 disabled
-                className="h-5 w-5 text-blue-600 rounded mr-2"
+                className="h-5 w-5 text-[#1FB5DD] rounded mr-2"
               />
               <input
                 type="text"
@@ -431,7 +431,7 @@ const PackageCard = ({ pkg, refetch }: PackageCardProps) => {
         {isEditing && (
           <button
             onClick={() => setIsAddingFeature(true)}
-            className="mt-2 flex items-center gap-1 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+            className="mt-2 flex items-center gap-1 px-3 py-1 bg-[#1FB5DD] text-white rounded   "
           >
             <FiPlus /> Add Feature
           </button>
@@ -469,7 +469,7 @@ const PackageCard = ({ pkg, refetch }: PackageCardProps) => {
             <button
               onClick={handleUpdatePackage}
               disabled={isLoading}
-              className="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-4 rounded-md transition-colors disabled:opacity-50"
+              className="flex-1 bg-[#1FB5DD] hover:bg-green-700 text-white font-medium py-3 px-4 rounded-md transition-colors disabled:opacity-50"
             >
               {isLoading ? "Saving..." : "Save Changes"}
             </button>
@@ -477,7 +477,7 @@ const PackageCard = ({ pkg, refetch }: PackageCardProps) => {
         ) : (
           <a
             href={pkg.purchase_link}
-            className="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-md transition-colors"
+            className="block w-full text-center bg-[#1FB5DD]    text-white font-medium py-3 px-4 rounded-md transition-colors"
             target="_blank"
             rel="noopener noreferrer"
           >

@@ -132,7 +132,7 @@ const [editData,setEditData] = useState<StoryData>()
           <h1 className="text-3xl font-bold">Our Story</h1>
           <button
             onClick={handleEditClick}
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors"
+            className="flex items-center gap-2 bg-[#1FB5DD] hover:bg-[#1FB5DD] px-4 py-2 rounded-lg transition-colors"
             disabled={isUploadingImage}
           >
             {isEditing ? <FiX size={20} /> : <FiEdit2 size={20} />}
@@ -190,7 +190,7 @@ const [editData,setEditData] = useState<StoryData>()
                     {...register("title", { required: "Title is required" })}
                     className={`w-full bg-gray-700 rounded-lg p-3 border ${
                       errors?.title ? "border-red-500" : "border-gray-600"
-                    } focus:border-blue-500 focus:ring-2 focus:ring-blue-500`}
+                    } focus:border-[#1FB5DD] focus:ring-2 focus:ring-[#1FB5DD]`}
                   />
                   {errors?.title && (
                     <p className="mt-1 text-sm text-red-500">
@@ -211,7 +211,7 @@ const [editData,setEditData] = useState<StoryData>()
                       </div>
                       <div className="w-full bg-gray-700 rounded-full h-2.5">
                         <div
-                          className="bg-blue-600 h-2.5 rounded-full"
+                          className="bg-[#1FB5DD] h-2.5 rounded-full"
                           style={{ width: `${imageUploadProgress}%` }}
                         ></div>
                       </div>
@@ -250,12 +250,12 @@ const [editData,setEditData] = useState<StoryData>()
                               : ""
                           }`}
                         >
-                          <div className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-600 rounded-xl hover:border-blue-500 transition cursor-pointer">
+                          <div className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-600 rounded-xl hover:border-[#1FB5DD] transition cursor-pointer">
                             <div className="bg-gray-700 p-3 rounded-full mb-3">
                               <FiUpload size={24} className="text-gray-400" />
                             </div>
                             <p className="text-sm text-gray-400 text-center">
-                              <span className="font-medium text-blue-400 hover:text-blue-300 transition">
+                              <span className="font-medium text-[#1FB5DD] hover:text-[#1FB5DD] transition">
                                 Click to upload
                               </span>
                             </p>
@@ -283,7 +283,7 @@ const [editData,setEditData] = useState<StoryData>()
                     <input
                       {...register("image")}
                       placeholder="https://example.com/image.jpg"
-                      className="w-full bg-gray-700 text-white rounded-lg px-4 py-2 border border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-gray-700 text-white rounded-lg px-4 py-2 border border-gray-600 focus:border-[#1FB5DD] focus:ring-2 focus:ring-[#1FB5DD]"
                     />
                   </div>
                 </div>
@@ -334,7 +334,7 @@ const [editData,setEditData] = useState<StoryData>()
                 <button
                   type="submit"
                   disabled={isUploadingImage || !isDirty}
-                  className="flex items-center gap-2 bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg transition-colors disabled:opacity-50"
+                  className="flex items-center gap-2 bg-[#1FB5DD] hover:bg-green-700 px-6 py-3 rounded-lg transition-colors disabled:opacity-50"
                 >
                   <FiSave size={20} />
                   Save Changes

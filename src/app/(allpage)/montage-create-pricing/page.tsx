@@ -123,7 +123,7 @@ const PricingForm = () => {
   return (
     <div className="min-h-screen text-gray-100 p-6">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-white">Pricing Packages Editor</h1>
+        <h1 className="text-3xl font-bold mb-8 ">Pricing Packages Editor</h1>
         
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
           <div className="border border-gray-700 rounded-lg p-6 shadow-lg">
@@ -270,7 +270,7 @@ const PricingForm = () => {
                   type="checkbox"
                   id="visible"
                   {...register("is_visible")}
-                  className="h-5 w-5 text-blue-600 rounded focus:ring-blue-500 border-gray-600 bg-gray-700"
+                  className="h-5 w-5 text-[#1FB5DD] rounded focus:ring-blue-500 border-gray-600 bg-gray-700"
                 />
                 <label htmlFor="visible" className="ml-3 text-sm text-gray-300">
                   Visible to customers
@@ -327,7 +327,7 @@ const PricingForm = () => {
                             type="checkbox"
                             checked={feature.is_present}
                             onChange={(e) => handleFeatureChange(featureIndex, "is_present", e.target.checked)}
-                            className="h-5 w-5 text-blue-600 rounded focus:ring-blue-500 border-gray-600 bg-gray-700"
+                            className="h-5 w-5 text-[#1FB5DD] rounded focus:ring-blue-500 border-gray-600 bg-gray-700"
                           />
                           <span>Is Present</span>
                         </label>
@@ -340,7 +340,7 @@ const PricingForm = () => {
                             type="checkbox"
                             checked={feature.is_active}
                             onChange={(e) => handleFeatureChange(featureIndex, "is_active", e.target.checked)}
-                            className="h-5 w-5 text-blue-600 rounded focus:ring-blue-500 border-gray-600 bg-gray-700"
+                            className="h-5 w-5 text-[#1FB5DD] rounded focus:ring-blue-500 border-gray-600 bg-gray-700"
                           />
                           <span>Is Active</span>
                         </label>
@@ -374,7 +374,7 @@ const PricingForm = () => {
           <div className="flex flex-col sm:flex-row gap-4 pt-4 border-t border-gray-700">
             <button
               type="submit"
-              className="flex items-center justify-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-md transition-colors"
+              className="flex items-center justify-center gap-2 px-6 py-3 bg-[#1FB5DD] hover:bg-green-700 text-white font-medium rounded-md transition-colors"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />

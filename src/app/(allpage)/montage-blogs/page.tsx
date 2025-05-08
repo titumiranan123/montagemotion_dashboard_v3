@@ -89,8 +89,9 @@ const Blogs = () => {
     }));
 
     try {
-        console.log(payload)
-      await api_url.patch("/api/blogs/positions", payload);
+      
+   const res =    await api_url.patch("/api/blogs/positions", payload);
+
       Swal.fire({
         title: "Positions updated!",
         icon: "success",
@@ -214,7 +215,7 @@ console.log(err)
             {hasChanges && (
               <button
                 onClick={savePositions}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg"
+                className="bg-[#1FB5DD]  text-white font-medium py-2 px-4 rounded-lg"
               >
                 Save Positions
               </button>
@@ -224,7 +225,7 @@ console.log(err)
                 setEditData(null);
                 setShowForm(true);
               }}
-              className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg"
+              className="bg-[#1FB5DD]  text-white font-medium py-2 px-4 rounded-lg"
             >
               Add New Blog
             </button>
@@ -234,9 +235,43 @@ console.log(err)
         {/* Content */}
         <div className="mb-8">
           {isLoading ? (
-            <div className="grid grid-cols-1 gap-6">
-              {[...Array(5)].map((_, idx) => (
-                <CampaignCardSkeleton key={idx} />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[...Array(6)].map((_, idx) => (
+                 <div key={idx} className="flex flex-col md:flex-row gap-4 p-4 border border-gray-200 rounded-lg shadow-sm bg-white w-[600px] animate-pulse">
+                 {/* Image Skeleton */}
+                 <div className="w-full md:w-2/4 h-48 relative rounded-lg overflow-hidden bg-gray-200">
+                   <div className="w-full h-full bg-gray-300"></div>
+                 </div>
+                 
+                 {/* Content Skeleton */}
+                 <div className="flex-1 flex flex-col">
+                   <div className="flex justify-between items-start">
+                     {/* Title Skeleton */}
+                     <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+                     
+                     {/* Status indicators Skeleton */}
+                     <div className="flex gap-2">
+                       <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
+                       <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
+                     </div>
+                   </div>
+                   
+                   {/* Short description Skeleton */}
+                   <div className="mt-2 space-y-2">
+                     <div className="h-4 bg-gray-200 rounded w-full"></div>
+                     <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                   </div>
+                   
+                   {/* Date Skeleton */}
+                   <div className="mt-2 h-3 bg-gray-200 rounded w-1/2"></div>
+                   
+                   {/* Action buttons Skeleton */}
+                   <div className="mt-auto flex gap-2 pt-4">
+                     <div className="w-16 h-8 bg-gray-200 rounded"></div>
+                     <div className="w-16 h-8 bg-gray-200 rounded"></div>
+                   </div>
+                 </div>
+               </div>
               ))}
             </div>
           ) : blogs?.length > 0 ? (
@@ -261,7 +296,7 @@ console.log(err)
                   setEditData(null);
                   setShowForm(true);
                 }}
-                className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg"
+                className="bg-[#1FB5DD]  text-white font-medium py-2 px-6 rounded-lg"
               >
                 Add Blog
               </button>

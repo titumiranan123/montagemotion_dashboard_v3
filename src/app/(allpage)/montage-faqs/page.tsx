@@ -7,13 +7,14 @@ import { faqitem, IFaq } from "@/interface/interface";
 import Swal from "sweetalert2";
 import { api_url } from "@/hook/Apiurl";
 import { FaqForm } from "@/component/faqs/Faqform";
+import { FaPlus } from "react-icons/fa";
 
 const Faqs = () => {
   const { data: faqCategories, isLoading, refetch } = useFaq();
   const [activeFilter, setActiveFilter] = useState<string>("main");
   const [isHasChange, setHasChanges] = useState<boolean>(false);
   const [existingData, setExistingData] = useState<IFaq>();
-  const [existingFaqItem, setExistingFaqItem] = useState<faqitem>();
+ 
   const [isItemOpen, setItemOpen] = useState(false);
   const filteredCategories =
     faqCategories?.filter((cat: IFaq) => cat.type === activeFilter) || [];
@@ -75,8 +76,9 @@ const Faqs = () => {
   const handleSubmit = async (data: IFaq) => {
     try {
       const url = data.id ? `/api/faq/${data.id}` : "/api/faq";
-      data.id ? await api_url.put(url, data) : await api_url.post(url, data);
+      data.id ? await api_url.patch(url, data) : await api_url.post(url, data);
       refetch();
+      setItemOpen(!isItemOpen)
       Swal.fire({
         title: data.id ? "FAQ updated!" : "FAQ created!",
         icon: "success",
@@ -180,7 +182,7 @@ const Faqs = () => {
       {/* Header + Filters */}
       <div className="flex justify-between  items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-white">FAQ Dashboard</h1>
+          <h1 className="text-3xl font-bold ">FAQ Dashboard</h1>
           <p className="text-gray-400">Manage your FAQs</p>
         </div>
 
@@ -205,14 +207,13 @@ const Faqs = () => {
               </option>
             ))}
           </select>
-
           {/* Add FAQ Button */}
           <button
             onClick={() => {
               setExistingData(undefined);
               setItemOpen(true);
             }}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg flex items-center gap-2"
+            className="bg-[#1FB5DD]    text-white font-medium py-2 px-6 rounded-lg flex items-center gap-2"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -233,7 +234,7 @@ const Faqs = () => {
           {isHasChange && (
             <button
               onClick={savePositions}
-              className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg"
+              className="bg-[#1FB5DD] hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg"
             >
               Save Positions
             </button>
@@ -243,13 +244,13 @@ const Faqs = () => {
 
       {/* FAQ List */}
       {filteredCategories.map((faq: IFaq) => (
-        <div key={faq.id} className="mb-12">
+        <div key={faq.id} className="mb-12 mt-20">
           <div className="flex justify-center flex-col items-center mb-4">
             <div className="flex justify-center items-center gap-1 flex-col">
-              <h2 className="text-2xl font-bold">{faq.title}</h2>
+              <h1 className="text-2xl font-bold">{faq.title}</h1>
               <p className="text-gray-400">{faq.sub_title}</p>
             </div>
-            <div ref={parent} className="space-y-4">
+            <div ref={parent} className="space-y-4 mt-16">
               {tapes
                 ?.filter((item) => item?.faq_id === faq?.id)
                 .map((item, index) => (
@@ -258,42 +259,23 @@ const Faqs = () => {
             </div>
           </div>
 
-          <div className="flex items-center justify-center">
+          <div className="flex mt-10 items-center gap-4 justify-center">
             <button
               onClick={() => {
                 setExistingData(faq);
                 setItemOpen(true);
               }}
-              className="text-indigo-400 hover:text-indigo-300"
+              className="text-[#1FB5DD] border py-2 px-4 rounded-lg hover:text-indigo-300"
             >
               Edit Category
             </button>
             <button
-              // onClick={() => {
-              //   setExistingFaqItem({
-              //     id: "",
-              //     faq_id: faq.id || "",
-              //     question: "",
-              //     answer: "",
-              //     is_visible: true,
-              //     position: tapes.filter((i) => i.faq_id === faq.id).length + 1,
-              //   });
-              //   setItemOpen(true);
-              // }}
-              className="mt-4 text-indigo-400 hover:text-indigo-300 flex items-center gap-1"
+              onClick={() => {
+                setItemOpen(true);
+              }}
+              className=" text-[#1FB5DD] hover:text-indigo-300 border py-2 px-4 rounded-lg flex items-center gap-1"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
+             <FaPlus />
               Add FAQ Item
             </button>
           </div>

@@ -218,7 +218,7 @@ const Accordion: React.FC<AccordionProp> = ({ item, index }) => {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 disabled:opacity-50"
+                  className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-[#1FB5DD] disabled:opacity-50"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Saving..." : "Save Changes"}

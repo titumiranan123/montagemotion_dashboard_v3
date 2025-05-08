@@ -162,7 +162,7 @@ const BlogForm:React.FC<BlogFormProps> = ({ initialData, onSuccess }) => {
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2.5">
                   <div
-                    className="bg-blue-600 h-2.5 rounded-full"
+                    className="bg-[#1FB5DD] h-2.5 rounded-full"
                     style={{ width: `${imageUploadProgress}%` }}
                   ></div>
                 </div>
@@ -237,7 +237,7 @@ const BlogForm:React.FC<BlogFormProps> = ({ initialData, onSuccess }) => {
               <input
                 type="checkbox"
                 {...register('is_publish')}
-                className="rounded text-blue-600"
+                className="rounded text-[#1FB5DD]"
               />
               <span className="text-sm font-medium text-gray-200">Publish</span>
             </label>
@@ -249,7 +249,7 @@ const BlogForm:React.FC<BlogFormProps> = ({ initialData, onSuccess }) => {
               <input
                 type="checkbox"
                 {...register('is_feature')}
-                className="rounded text-blue-600"
+                className="rounded text-[#1FB5DD]"
               />
               <span className="text-sm font-medium text-gray-200">Featured Post</span>
             </label>
@@ -296,7 +296,7 @@ const BlogForm:React.FC<BlogFormProps> = ({ initialData, onSuccess }) => {
         <button
           type="submit"
           disabled={isSubmitting || !isDirty}
-          className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#1FB5DD]    disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? 'Saving...' : 'Save Blog'}
         </button>

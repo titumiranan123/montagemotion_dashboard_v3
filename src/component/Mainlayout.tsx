@@ -1,11 +1,8 @@
 "use client";
-import {
-  HiUsers,
-  HiSpeakerphone,
-} from "react-icons/hi";
+import { HiUsers, HiSpeakerphone } from "react-icons/hi";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import {
   FiHome,
   FiBriefcase,
@@ -25,6 +22,8 @@ import {
   FiFileText,
   FiCreditCard,
 } from "react-icons/fi";
+import { signOut } from "next-auth/react";
+import toast from "react-hot-toast";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -47,10 +46,18 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     { href: "/montage-services", label: "Services", icon: <FiSettings /> },
     { href: "/montage-works", label: "Works", icon: <FiBriefcase /> },
     { href: "/montage-member-influncer", label: "Members", icon: <HiUsers /> },
-    { href: "/montage-campaing", label: "Campaign Application", icon: <HiSpeakerphone /> }, // changed to better suit campaign
+    {
+      href: "/montage-campaing",
+      label: "Campaign Application",
+      icon: <HiSpeakerphone />,
+    }, // changed to better suit campaign
     { href: "/montage-pricing", label: "Prices", icon: <FiCreditCard /> },
     { href: "/montage-faqs", label: "FAQs", icon: <FiHelpCircle /> },
-    { href: "/montage-testimonials", label: "Testimonials", icon: <FiMessageSquare /> },
+    {
+      href: "/montage-testimonials",
+      label: "Testimonials",
+      icon: <FiMessageSquare />,
+    },
     { href: "/montage-contacts", label: "Contacts", icon: <FiMail /> },
     { href: "/montage-chat", label: "Chat", icon: <FiMessageCircle /> },
   ];
@@ -85,7 +92,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               href="/"
               className="text-xl font-semibold text-[#1FB5DD] hover:opacity-80 transition"
             >
-              NexaDash
+              Montage Motion
             </Link>
           </div>
 
@@ -99,35 +106,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             />
           </div>
 
-          {/* Profile dropdown */}
-          <div className="flex items-center space-x-4">
-            <div className="relative group">
-              <span className="absolute top-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span>
-              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#1FB5DD] to-[#1FDDB5] flex justify-center items-center text-white cursor-pointer">
-                <FiUser />
-              </div>
-              <div className="absolute right-0 mt-2 w-48   rounded-md shadow-lg py-1 z-40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200">
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-gray-800 hover:bg-[#1FB5DD]/10"
-                >
-                  hhf
-                </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-gray-800 hover:bg-[#1FB5DD]/10"
-                >
-                  Settings
-                </a>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-gray-800 hover:bg-[#1FB5DD]/10"
-                >
-                  Logout
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
       </header>
 
@@ -167,6 +145,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               <div className="mt-auto">
                 <div className="border-t border-[#58585833] pt-2">
                   <Link
+                 
                     href="/settings"
                     className={`flex items-center p-3 rounded-lg transition ${
                       pathname === "/settings"
@@ -180,7 +159,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                     {isOpen && <span>Settings</span>}
                   </Link>
 
-                  <button className="flex items-center w-full p-3 rounded-lg text-[#585858] hover:bg-[#1FB5DD]/5 hover:text-[#1FB5DD] transition">
+                  <button  onClick={() => {
+                    signOut();
+                    toast.success("Logout success")
+                    redirect("/signin");
+                  }} className="flex cursor-pointer items-center w-full p-3 rounded-lg text-[#585858] hover:bg-[#1FB5DD]/5 hover:text-[#1FB5DD] transition">
                     <FiLogOut
                       className={`w-5 h-5 ${isOpen ? "mr-3" : "mx-auto"}`}
                     />
