@@ -103,17 +103,7 @@ export function MemberProfileForm({
     setValue(field, values as any);
   };
 
-  // Handle comma-separated input (skills)
-  const handleCommaSeparated = (
-    field: keyof MemberProfile,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const values = e.target.value
-      .split(",")
-      .map((item) => item.trim())
-      .filter((item) => item);
-    setValue(field, values as any);
-  };
+
 
   return (
     <form
@@ -158,8 +148,8 @@ export function MemberProfileForm({
               }`}
             >
               <option value="">Select a role</option>
-              <option value="Team Member">Team Member</option>
-              <option value="Influencer">Influencer</option>
+              <option value="team_member">Team Member</option>
+              <option value="influencer">Influencer</option>
             </select>
             {errors.role && (
               <p className="mt-1 text-sm text-red-600">{errors.role.message}</p>

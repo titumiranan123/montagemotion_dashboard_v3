@@ -35,7 +35,7 @@ const Shortcard = ({
   handleDelete: (id: string) => void;
 }) => {
   return (
-    <div style={{boxShadow:"inset #0A303A 0 0 50px 6px"}} className="flex w-full max-w-3xl h-64 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 ">
+    <div style={{boxShadow:"inset #0A303A 0 0 50px 6px"}} className="flex w-full max-w-3xl h-72 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 ">
       {/* Media Section (Left) */}
       <div className="relative w-2/5 min-w-[256px] h-full ">
         {data.video_message ? (
@@ -88,7 +88,7 @@ const Shortcard = ({
           
           {data.message && (
             <p className="text-gray-600 line-clamp-4 text-sm">
-              {data.message}
+              {data.message.slice(0,40)}{data.message.length > 40 ? ". . . . . ." : ""}
             </p>
           )}
         </div>

@@ -154,7 +154,6 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
 
   const onSubmitHandler = async (data: ITestimonial) => {
     try {
-        console.log(data);
         await onSubmit(data);
     } catch (error) {
       const err = error as Error;
@@ -494,7 +493,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
           </div>
 
           {/* Text Message Section */}
-          <div className="space-y-4">
+      { category !== 'video_message' &&   <div className="space-y-4">
             <h2 className="text-xl font-semibold text-white border-b border-gray-700 pb-2">
               Testimonial Content
             </h2>
@@ -510,7 +509,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
                 className="w-full bg-gray-700 text-white rounded-lg px-4 py-3 border border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
               />
             </div>
-          </div>
+          </div>}
 
           {/* Form Actions */}
           <div className="flex justify-end gap-4 pt-6 border-t border-gray-700">

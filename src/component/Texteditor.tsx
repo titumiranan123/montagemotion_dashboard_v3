@@ -50,7 +50,7 @@ const MyTextEditor = ({
   return (
     <div>
       <JoditEditor
-      className=" text-black"
+      className=" text-white bg-black"
         value={value}
         config={config}
         onBlur={(newContent: string) => onChange(newContent)}
@@ -58,7 +58,7 @@ const MyTextEditor = ({
       {error && <p className="text-red-500 text-sm">{error}</p>}
       <div style={{ marginTop: "20px" }}>
         <h3>Preview:</h3>
-        <div className="text-white p-2" dangerouslySetInnerHTML={{ __html: value }} />
+        <div className="text-white  p-2" dangerouslySetInnerHTML={{ __html: value }} />
       </div>
     </div>
   );

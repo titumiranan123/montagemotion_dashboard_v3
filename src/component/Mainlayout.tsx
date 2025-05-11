@@ -105,7 +105,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               className="w-full pl-10 pr-4 py-2 rounded-lg border border-[#58585833] focus:outline-none focus:ring-2 focus:ring-[#1FB5DD] placeholder:text-[#58585833]"
             />
           </div>
-
         </div>
       </header>
 
@@ -145,7 +144,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               <div className="mt-auto">
                 <div className="border-t border-[#58585833] pt-2">
                   <Link
-                 
                     href="/settings"
                     className={`flex items-center p-3 rounded-lg transition ${
                       pathname === "/settings"
@@ -159,11 +157,14 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                     {isOpen && <span>Settings</span>}
                   </Link>
 
-                  <button  onClick={() => {
-                    signOut();
-                    toast.success("Logout success")
-                    redirect("/signin");
-                  }} className="flex cursor-pointer items-center w-full p-3 rounded-lg text-[#585858] hover:bg-[#1FB5DD]/5 hover:text-[#1FB5DD] transition">
+                  <button
+                    onClick={() => {
+                      signOut();
+                      toast.success("Logout success");
+                      redirect("/signin");
+                    }}
+                    className="flex cursor-pointer items-center w-full p-3 rounded-lg text-[#585858] hover:bg-[#1FB5DD]/5 hover:text-[#1FB5DD] transition"
+                  >
                     <FiLogOut
                       className={`w-5 h-5 ${isOpen ? "mr-3" : "mx-auto"}`}
                     />

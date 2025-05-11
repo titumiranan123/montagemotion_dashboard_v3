@@ -56,7 +56,7 @@ const Member = () => {
             {/* Filter controls */}
             <div className="flex justify-center mb-8 gap-4   bg-[#1FB5DD] text-white px-4 py-2 rounded-md">
               <select className="bg-[#1FB5DD] text-white outline-none focus:outline-none h-8 py-1" onClick={(e: any) => setFilter(e.target.value)}>
-                <option value={"team"}> Team Members</option>
+                <option value={"team_member"}> Team Members</option>
                 <option value={"influencer"}> Influencers</option>
               </select>
             </div>

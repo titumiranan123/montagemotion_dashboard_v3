@@ -463,7 +463,7 @@ const Workform: React.FC<IWorkFormProps> = ({
       </div>
 
       {/* Video Upload */}
-      <div className="bg-gray-800 p-6 rounded-lg shadow">
+   { selectedType !== 'website' &&  <div className="bg-gray-800 p-6 rounded-lg shadow">
         <h2 className="text-white font-semibold text-lg mb-4">
           Video Upload {videoUploadProgress > 0 && `(${videoUploadProgress}%)`}
         </h2>
@@ -546,7 +546,7 @@ const Workform: React.FC<IWorkFormProps> = ({
             className="w-full rounded-md p-2.5 bg-gray-700 border border-gray-600 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
-      </div>
+      </div>}
 
       {/* Visibility and Featured Toggles */}
       <div className="bg-gray-800 p-6 rounded-lg shadow col-span-1 lg:col-span-2">

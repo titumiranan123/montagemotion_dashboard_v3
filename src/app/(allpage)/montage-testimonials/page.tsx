@@ -1,5 +1,5 @@
 "use client";
-import CampaignCardSkeleton from "@/component/service/ServiceSkeleton";
+
 import Shortcard from "@/component/testimonials/Shortcard";
 import TestimonialForm from "@/component/testimonials/TestimonialForm";
 import { api_url } from "@/hook/Apiurl";

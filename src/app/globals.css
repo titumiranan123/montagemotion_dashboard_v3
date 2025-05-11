@@ -29,6 +29,11 @@
 }
 
 
+.jodit-workplace{
+  color: white !important;
+  background-color: black !important;
+}
+
 @layer base {
   h1 {
     background: linear-gradient(

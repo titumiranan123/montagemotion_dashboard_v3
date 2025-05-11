@@ -95,10 +95,8 @@ const Works = () => {
     }
   };
 
-  const filteredData = activeFilter === "main" 
-    ? tapes 
-    : tapes?.filter((item) => item.type === activeFilter);
-
+  const filteredData = tapes?.filter((item) => item.type === activeFilter);
+console.log(filteredData)
   return (
     <div className="min-h-screen   text-gray-100 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
@@ -111,7 +109,7 @@ const Works = () => {
           <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
             {/* Filter */}
             <select onClick={(e:any) => setActiveFilter(e.target.value)} className="flex gap-2 overflow-x-auto pb-2 bg-[#101828] w-[200px] border border-slate-300 rounded-lg p-1">
-              {["all", "main", "shorts", "talking", "podcast", "graphic", "advertising", "website"].map((type) => (
+              {[ "main", "shorts", "talking", "podcast", "graphic", "advertising", "website"].map((type) => (
                 <option
                   key={type}
                   value={type}
@@ -192,7 +190,7 @@ const Works = () => {
           <Workform
             onSubmit={handleSubmit}
             initialData={editData}
-            onCancel={() => setWorkModal(false)}
+            onCancel={() => setWorkModal(true)}
           />
           </div>
         )}
