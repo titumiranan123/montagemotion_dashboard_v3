@@ -62,7 +62,7 @@ const PricingForm = () => {
   const packages = watch("packages");
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log("Form submitted:", data);
+ 
     alert(JSON.stringify(data, null, 2));
   };
 

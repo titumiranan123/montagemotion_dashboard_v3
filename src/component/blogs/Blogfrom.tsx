@@ -103,8 +103,7 @@ const BlogForm:React.FC<BlogFormProps> = ({ initialData, onSuccess }) => {
         await api_url.put(`/api/blogs/${data.id}`, data);
         Swal.fire('Success!', 'Blog updated successfully', 'success');
       } else {
-        // Create new blog
-        console.log(data)
+  
         await api_url.post('/api/blogs', data);
         Swal.fire('Success!', 'Blog created successfully', 'success');
       }

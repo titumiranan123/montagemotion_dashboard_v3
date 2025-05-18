@@ -1,4 +1,4 @@
-import TestimonialForm from "@/component/testimonials/TestimonialForm";
+
 import Image from "next/image";
 import React from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";

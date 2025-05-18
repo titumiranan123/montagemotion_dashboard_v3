@@ -105,14 +105,11 @@ const useItemsStore = create<ItemsStore>((set) => ({
   draggedItem: null,
   
   setDraggedItem: (item) => {
-    console.log('Setting dragged item:', item?.id);
     set({ draggedItem: item });
   },
   
   moveItem: (draggedId, targetPosition) => 
     set((state) => {
-      console.log(`Attempting to move item ${draggedId} to position ${targetPosition}`);
-      
       const items = [...state.items];
       const draggedIndex = items.findIndex(item => item.position === draggedId);
       
@@ -138,9 +135,6 @@ const useItemsStore = create<ItemsStore>((set) => ({
         ...item,
         position: index + 1
       }));
-      
-      console.log('New items order:', updatedItems.map(i => `${i.id}:${i.position}`).join(', '));
-      
       return { items: updatedItems };
     }),
 }));

@@ -102,9 +102,14 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
         setValue("thumbnail", response.data.url, { shouldValidate: true });
         await Swal.fire("Success!", "Image uploaded successfully", "success");
       } catch (error: any) {
-        console.log(error);
+        const err = error as AxiosError;
+        console.error("Image upload failed:", err);
         setImagePreview(currentImage || null);
-        await Swal.fire("Upload Failed", "Failed to upload image", "error");
+        await Swal.fire(
+          "Upload Failed",
+          "Failed to upload image",
+          "error"
+        );
       } finally {
         setIsUploadingImage(false);
       }
@@ -193,7 +198,7 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6 w-full max-w-2xl mx-auto mt-8   rounded-xl shadow-xl p-6 lg:p-8"
+      className="space-y-6 w-full  mt-8   rounded-xl shadow-xl p-6 lg:p-8"
     >
       <h2 className="text-2xl font-bold text-white mb-6 pb-4 border-b border-gray-700">
         {defaultValues?.id ? "Edit Header" : "Create New Header"}
@@ -262,7 +267,7 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
         </div>
 
         {/* Image Upload */}
-        <div className="space-y-4 bg-gray-800 p-4 rounded-xl lg:col-span-2">
+        <div className="space-y-4 bg-gray-800 p-4 rounded-xl ">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-lg font-medium text-white">Thumbnail</h3>
@@ -348,7 +353,7 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
         </div>
 
         {/* Video Upload */}
-        <div className="space-y-4 bg-gray-800 p-4 rounded-xl lg:col-span-2">
+        <div className="space-y-4 bg-gray-800 p-4 rounded-xl ">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-lg font-medium text-white">Video</h3>

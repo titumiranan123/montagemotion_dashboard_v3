@@ -49,11 +49,23 @@ export function MemberProfileCard({
   const handleSubmit = async (formData: MemberProfile) => {
     try {
       const method = await api_url.put(`/api/members/${formData.id}`, formData);
-      console.log(method);
-
+      await Swal.fire({
+        title: method.data.message,
+        icon: "success",
+        background: "#1f2937",
+        color: "#fff",
+        confirmButtonColor: "#6366f1",
+      });
       setIsFormOpen(false);
-    } catch (err) {
-      console.log(err);
+    } catch (err:any) {
+      await Swal.fire({
+        title: "Error!",
+        text: err.response.data.errorMessage[0].message || "Failed to update member",
+        icon: "error",
+        background: "#1f2937",
+        color: "#fff",
+        confirmButtonColor: "#6366f1",
+      });
     }
   };
 

@@ -102,7 +102,6 @@ const Blogs = () => {
       refetch(); // Refresh the data
       setHasChanges(false);
     } catch (err: any) {
-console.log(err)
       Swal.fire({
         title: "Failed to update positions!",
         text: err.responsce.data.errorMessage[0].message,

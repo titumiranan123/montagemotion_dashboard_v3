@@ -74,7 +74,7 @@ const Accordion: React.FC<AccordionProp> = ({ item, index }) => {
       reset()
       toast.success("FAQ updated successfully");
     } catch (error) {
-      console.log(error)
+
       toast.error("Update failed");
     }
   };

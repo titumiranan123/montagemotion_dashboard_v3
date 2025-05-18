@@ -13,7 +13,7 @@ export const api_url = axios.create({
 
 api_url.interceptors.request.use(async (config) => {
   const session:any = await getSession(); 
-  console.log(session?.user?.token,"sesson")
+
   if (session?.user?.token) {
     config.headers.Authorization = `Bearer ${session?.user?.token}`;
   }

@@ -193,8 +193,8 @@ const Header = () => {
         )}
       </div>
       {isHeader && (
-        <div className="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-start justify-center p-4 z-50 overflow-y-auto w-full">
-          <div className="w-full max-w-7xl my-8 relative">
+        <div className="fixed  inset-0 bg-black/20 bg-opacity-80 backdrop-blur-sm flex items-start justify-center p-4 z-50 overflow-y-auto w-full">
+          <div className="w-full max-w-4xl rounded-lg bg-black my-8 relative border">
             <button
               onClick={() => setHeaderModal(false)}
               className="absolute top-8 right-0 m-4 text-3xl text-white hover:text-gray-300"

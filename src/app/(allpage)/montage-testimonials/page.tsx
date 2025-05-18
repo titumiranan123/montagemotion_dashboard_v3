@@ -52,10 +52,10 @@ const Testimonial = () => {
       setTestimonial(false);
       setEditData(null);
     } catch (err: any) {
-      console.log(err);
+   
       Swal.fire({
         title: "Something went wrong!",
-        text: err.message,
+        text: err.responsce.data.errorMessage[0].message,
         icon: "error",
         background: "#1f2937",
         color: "#fff",

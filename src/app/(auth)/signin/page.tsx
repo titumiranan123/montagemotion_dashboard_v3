@@ -32,7 +32,6 @@ const LoginPage = () => {
     callbackUrl: "/",
     Login: true,
   });
-  console.log(res, "responce");
   if (res?.ok) {
     toast.success("Login successful!");
     setLoading(false);

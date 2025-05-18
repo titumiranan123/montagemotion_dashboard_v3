@@ -12,7 +12,6 @@ export const middleware = async (request: NextRequest) => {
 
   const isAuthPage = nextUrl.pathname.startsWith("/signin");
   const isProtected = nextUrl.pathname === "/" || nextUrl.pathname.startsWith("/montage-");
-console.log(token)
   if (isAuthPage && token) {
     return NextResponse.redirect(new URL("/", request.url));
   }

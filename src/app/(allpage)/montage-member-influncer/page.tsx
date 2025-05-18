@@ -34,11 +34,27 @@ const Member = () => {
       const method = isCreating
         ? api_url.post("/api/members", formData)
         : api_url.put("/api/members", formData);
-      console.log(method);
+      const res = await method;
+      refetch();
+      Swal.fire({
+        title: res.data.message,
+        icon: "success",
+        background: "#1f2937",
+        color: "#fff",
+        confirmButtonColor: "#6366f1",
+      });
 
       setIsFormOpen(false);
-    } catch (err) {
-      console.log(err);
+    } catch (err:any) {
+
+      Swal.fire({
+        title: "Something went wrong!",
+        text: err.responsce.data.errorMessage[0].message,
+        icon: "error",
+        background: "#1f2937",
+        color: "#fff",
+        confirmButtonColor: "#6366f1",
+      });
     }
   };
 

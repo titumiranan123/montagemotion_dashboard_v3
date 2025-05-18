@@ -96,7 +96,7 @@ const PackageCard = ({ pkg, refetch }: PackageCardProps) => {
       refetch();
       toast.success("Package updated successfully!");
     } catch (err: any) {
-      console.log(err)
+
       toast.error(err.message || "Failed to update package");
     } finally {
       setIsLoading(false);
@@ -144,7 +144,6 @@ const PackageCard = ({ pkg, refetch }: PackageCardProps) => {
         refetch();
         toast.success("Feature deleted successfully");
       } catch (error) {
-        console.log(error)
         toast.error("Failed to delete feature");
       }
     }

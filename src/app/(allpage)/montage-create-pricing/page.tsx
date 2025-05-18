@@ -84,13 +84,10 @@ const PricingForm = () => {
   }, [tapes]);
 
   const onSubmit: SubmitHandler<IPackage> = async (data) => {
-    console.log("Form submitted:", data);
     try {
-      const res = await api_url.post(`/api/pricing`, data);
-      console.log(res);
+       await api_url.post(`/api/pricing`, data);
       toast.success("Package added successfully 🎉");
     } catch (error) {
-      console.log(error);
       toast.error("Package add failed ❌");
     }
   };

@@ -4,6 +4,7 @@ import ReactPlayer from 'react-player'
 import { FiEdit2, FiTrash2, FiEye, FiEyeOff, FiStar, FiMove } from 'react-icons/fi'
 import Swal from 'sweetalert2'
 import { api_url } from '@/hook/Apiurl'
+import useWorks from '@/hook/useWorks'
 
 interface IVideo {
   id?: string;
@@ -30,6 +31,7 @@ const VideoCard = ({
   onToggleVisibility,
   onToggleFeature
 }: VideoCardProps) => {
+   const {refetch } = useWorks();
   const handleDelete = async (id: string) => {
     const result = await Swal.fire({
       title: 'Are you sure?',
@@ -52,8 +54,8 @@ const VideoCard = ({
           }
         });
 
-        await api_url.delete(`/api/videos/${id}`);
-        
+        await api_url.delete(`/api/works/${id}`);
+        refetch()
         Swal.fire({
           title: 'Deleted!',
           text: 'Your video has been deleted.',

@@ -40,8 +40,6 @@ const Works = () => {
 
   const handleSubmit = async (data: any) => {
     try {
-      console.log(data)
-      console.log(`/api/works${data.id ? `/${data.id}` : ""}`)
       const res = await api_url.post(`/api/works${data.id ? `/${data.id}` : ""}`, data);
       refetch()
       Swal.fire({
@@ -54,7 +52,6 @@ const Works = () => {
       setWorkModal(false);
       setEditData(null);
     } catch (err: any) {
-      console.log(err)
       Swal.fire({
         title: "Something went wrong!",
         text: err.message,
@@ -96,7 +93,6 @@ const Works = () => {
   };
 
   const filteredData = tapes?.filter((item) => item.type === activeFilter);
-console.log(filteredData)
   return (
     <div className="min-h-screen   text-gray-100 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
@@ -186,7 +182,7 @@ console.log(filteredData)
 
         {/* Modal */}
         {isWork && (
-          <div className="fixed inset-0  bg-black bg-opacity-80 backdrop-blur-sm flex items-start justify-center p-4 z-50 overflow-y-scroll">
+          <div className="fixed inset-0  bg-black/20 bg-opacity-80 backdrop-blur-lg flex items-start justify-center p-4 z-50 overflow-y-scroll">
           <Workform
             onSubmit={handleSubmit}
             initialData={editData}

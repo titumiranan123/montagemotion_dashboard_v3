@@ -12,7 +12,7 @@ const authOptions: NextAuthOptions = {
         let user = null;
         if (credentials?.Login) {
           const { email, password }: any = credentials;
-          console.log('credentials',credentials)
+
           const res = await fetch(
             "http://localhost:8001/api/login",
             {

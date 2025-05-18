@@ -55,7 +55,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
   const [videoUploadProgress, setVideoUploadProgress] = useState(0);
   
   const category = watch('category');
-  console.log(category)
+
   const currentImage = watch('image');
   const currentVideo = watch('video_message');
 

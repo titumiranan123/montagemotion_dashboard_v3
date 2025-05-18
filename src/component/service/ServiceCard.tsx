@@ -74,7 +74,7 @@ const Servicecard: React.FC<serviceCardProps> = ({ service }) => {
       });
       setIsUpdateModalOpen(false);
     } catch (err: any) {
-      console.log(err);
+  
       Swal.fire({
         title: "Something went wrong!",
         text: err.message,

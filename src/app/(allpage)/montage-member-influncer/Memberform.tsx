@@ -467,7 +467,7 @@ export function MemberProfileForm({
             name="skills"
             control={control}
             render={({ field }) => {
-              console.log(field.value,"faleoijaoi")
+      
               // Convert string array to React Select format
               const selectValue = Array.isArray(field?.value)
               ? field.value.map((keyword: string) => ({ value: keyword, label: keyword }))

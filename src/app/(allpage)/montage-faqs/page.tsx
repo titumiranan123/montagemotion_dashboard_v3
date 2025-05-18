@@ -48,7 +48,7 @@ const Faqs = () => {
       id: item.id,
       position: index + 1,
     }));
-    console.log(payload);
+
     try {
       await api_url.put("/api/faqitem/positions", payload);
       await refetch();
@@ -61,10 +61,10 @@ const Faqs = () => {
       });
       setHasChanges(false);
     } catch (err: any) {
-      console.log(err);
+ 
       Swal.fire({
         title: "Failed to update!",
-        text: err.message,
+        text: err.responsce.data.errorMessage[0].message,
         icon: "error",
         background: "#1f2937",
         color: "#fff",
@@ -86,11 +86,11 @@ const Faqs = () => {
         color: "#fff",
         confirmButtonColor: "#6366f1",
       });
-    } catch (error: any) {
-      console.log(error);
+    } catch (err: any) {
+   
       Swal.fire({
         title: "Error!",
-        text: error.message,
+        text:err.responsce.data.errorMessage[0].message,
         icon: "error",
         background: "#1f2937",
         color: "#fff",
