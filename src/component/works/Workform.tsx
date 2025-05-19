@@ -23,7 +23,7 @@ interface IWork {
     | "graphic"
     | "advertising"
     | "website";
-  subType?:
+  sub_type?:
     | "full"
     | "short"
     | "hook"
@@ -84,7 +84,7 @@ const Workform: React.FC<IWorkFormProps> = ({
   useEffect(() => {
     const typesWithoutSubType = ["main", "shorts", "talking"];
     if (typesWithoutSubType.includes(selectedType)) {
-      setValue("subType", undefined);
+      setValue("sub_type", undefined);
     }
   }, [selectedType, setValue]);
 
@@ -237,7 +237,6 @@ const Workform: React.FC<IWorkFormProps> = ({
       await onSubmit(data);
     } catch (error) {
       const err = error as Error;
-      console.error("Submission error:", err);
       await Swal.fire(
         "Error!",
         err.message || "Failed to submit form",
@@ -259,7 +258,7 @@ const Workform: React.FC<IWorkFormProps> = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmitHandler)}
-      className="space-y-6 grid grid-cols-1 lg:grid-cols-2 max-w-7xl gap-7 mx-auto p-5 mt-10   rounded-lg shadow-lg"
+      className="space-y-6 h-[600px] overflow-y-auto  grid grid-cols-1 lg:grid-cols-2 max-w-7xl gap-7 mx-auto p-5 mt-10   "
     >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 col-span-1 lg:col-span-2">
         <h1 className="lg:col-span-3  font-bold text-2xl border-b border-gray-700 pb-4">
@@ -347,11 +346,11 @@ const Workform: React.FC<IWorkFormProps> = ({
               Sub Type <span className="text-red-500">*</span>
             </label>
             <select
-              {...register("subType", { 
+              {...register("sub_type", { 
                 required: showSubType ? "Sub Type is required" : false 
               })}
               className={`w-full rounded-md p-2.5 bg-gray-800 border ${
-                errors.subType ? "border-red-500" : "border-gray-700"
+                errors.sub_type ? "border-red-500" : "border-gray-700"
               } text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
             >
               <option value="">Select Sub Type</option>
@@ -361,9 +360,9 @@ const Workform: React.FC<IWorkFormProps> = ({
                 </option>
               ))}
             </select>
-            {errors.subType && (
+            {errors.sub_type && (
               <p className="text-sm text-red-400 mt-1">
-                {errors.subType.message}
+                {errors.sub_type.message}
               </p>
             )}
           </div>
@@ -586,7 +585,7 @@ const Workform: React.FC<IWorkFormProps> = ({
         {onCancel && (
           <button
             type="button"
-            onClick={onCancel}
+            onClick={()=>onCancel()}
             className="px-6 py-2.5 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500"
           >
             Cancel
