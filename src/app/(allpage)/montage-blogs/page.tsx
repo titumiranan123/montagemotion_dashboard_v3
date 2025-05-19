@@ -49,6 +49,7 @@ const Blogs = () => {
       if (data.id) {
         // Update existing blog
         await api_url.put(`/api/blog/${data.id}`, data);
+        refetch()
         Swal.fire({
           title: 'Blog updated successfully!',
           icon: 'success',
@@ -59,6 +60,7 @@ const Blogs = () => {
       } else {
         // Create new blog
         await api_url.post('/api/blog', data);
+       refetch()
         Swal.fire({
           title: 'Blog created successfully!',
           icon: 'success',
@@ -67,7 +69,7 @@ const Blogs = () => {
           confirmButtonColor: '#6366f1'
         });
       }
-      refetch()
+      
       setShowForm(false);
       setEditData(null);
     } catch (err: any) {
@@ -305,7 +307,7 @@ const Blogs = () => {
 
         {/* Blog Form Modal */}
         {showForm && (
-          <div className="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-start justify-center p-4 z-50 overflow-y-auto">
+          <div className="fixed inset-0 overflow-hidden bg-black/20 bg-opacity-80 backdrop-blur-sm flex items-start justify-center p-4 z-50 overflow-y-auto ">
             <div className="w-full max-w-4xl bg-gray-800 rounded-xl p-6">
               <BlogForm
                 initialData={editData || undefined}
@@ -313,6 +315,7 @@ const Blogs = () => {
                   setShowForm(false);
                   setEditData(null);
                 }}
+                refetch={refetch}
                 onSubmit={handleSubmit}
               />
             </div>

@@ -22,15 +22,15 @@ interface BlogFormProps {
     initialData?: IBlog;
     onSuccess?: () => void;
     onSubmit: (data: IBlog) => Promise<void>;
+    refetch: () => void;
   }
-const BlogForm:React.FC<BlogFormProps> = ({ initialData, onSuccess }) => {
+const BlogForm:React.FC<BlogFormProps> = ({ initialData, onSuccess,refetch }) => {
   const { 
     control,
     register,
     handleSubmit,
     reset,
     setValue,
-    watch,
     formState: { errors, isDirty, isSubmitting }
   } = useForm<IBlog>({
     defaultValues: initialData || {
@@ -101,10 +101,11 @@ const BlogForm:React.FC<BlogFormProps> = ({ initialData, onSuccess }) => {
       if (data.id) {
         // Update existing blog
         await api_url.put(`/api/blogs/${data.id}`, data);
+        refetch()
         Swal.fire('Success!', 'Blog updated successfully', 'success');
       } else {
-  
         await api_url.post('/api/blogs', data);
+        refetch()
         Swal.fire('Success!', 'Blog created successfully', 'success');
       }
       onSuccess?.();
@@ -114,7 +115,7 @@ const BlogForm:React.FC<BlogFormProps> = ({ initialData, onSuccess }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 h-[650px] overflow-y-auto p-4">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left Column */}
         <div className="lg:col-span-2 space-y-6">

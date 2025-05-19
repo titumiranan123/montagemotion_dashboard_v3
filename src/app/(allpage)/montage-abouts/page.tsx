@@ -39,7 +39,7 @@ const [editData,setEditData] = useState<StoryData>()
   const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
   const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
-  const { data: aboutData, isLoading } = useAbout();
+  const { data: aboutData, isLoading,refetch } = useAbout();
   const handleContentChange = (value: string) => {
     setValue("description", value, { shouldDirty: true });
   };
@@ -111,6 +111,7 @@ const [editData,setEditData] = useState<StoryData>()
       const response = await api_url.post("/api/about", data);
       setValue("id", response.data.id);
       setIsEditing(false);
+      refetch()
       await Swal.fire("Success!", "Changes saved successfully", "success");
     } catch (error) {
       await Swal.fire("Error!", "Failed to save changes", "error");
@@ -179,9 +180,11 @@ const [editData,setEditData] = useState<StoryData>()
           </div>
         )}
         {isEditing && (
-          <div className="fixed inset-0 bg-black  bg-opacity-50 backdrop-blur-sm flex items-start justify-center p-4 z-50 overflow-y-auto w-full">
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 bg-black max-w-2xl border p-5 rounded-2xl ">
-              <div className="grid grid-cols-1  gap-12">
+          <div className="fixed inset-0 overflow-hidden bg-black/20 bg-opacity-80 backdrop-blur-sm flex items-start justify-center p-4 z-50 overflow-y-auto">
+            <div className="w-full max-w-4xl bg-gray-800 rounded-xl p-6">
+
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 h-[600px] overflow-y-auto p-4">
+              <div className="grid grid-cols-2  gap-12">
                 <div>
                   <label className="block text-lg font-medium mb-2">
                     Title
@@ -222,13 +225,15 @@ const [editData,setEditData] = useState<StoryData>()
                     name="image"
                     control={control}
                     render={({ field }) => (
-                      <div className="grid grid-cols-1 md:grid-cols-2 items-start gap-4">
-                        {field.value && (
-                          <div className="relative w-full rounded-lg overflow-hidden group">
+                      <div className="grid grid-cols-1  items-start gap-4">
+                        {field.value ? (
+                          <div onChange={handleImageUpload} className="relative w-full rounded-lg overflow-hidden group">
                             <Image
+                            
                               src={field.value}
                               alt="Current story image"
-                              fill
+                              width={320}
+                              height={250}
                               className="object-cover"
                             />
                             <button
@@ -240,7 +245,7 @@ const [editData,setEditData] = useState<StoryData>()
                               <FiTrash2 size={16} />
                             </button>
                           </div>
-                        )}
+                        ):
 
                         <label
                           htmlFor="image-upload"
@@ -271,21 +276,11 @@ const [editData,setEditData] = useState<StoryData>()
                             onChange={handleImageUpload}
                             disabled={isUploadingImage}
                           />
-                        </label>
+                        </label>}
                       </div>
                     )}
                   />
 
-                  <div className="mt-4">
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Image URL (alternative)
-                    </label>
-                    <input
-                      {...register("image")}
-                      placeholder="https://example.com/image.jpg"
-                      className="w-full bg-gray-700 text-white rounded-lg px-4 py-2 border border-gray-600 focus:border-[#1FB5DD] focus:ring-2 focus:ring-[#1FB5DD]"
-                    />
-                  </div>
                 </div>
               </div>
 
@@ -341,6 +336,7 @@ const [editData,setEditData] = useState<StoryData>()
                 </button>
               </div>
             </form>
+            </div>
           </div>
         )}
       </main>

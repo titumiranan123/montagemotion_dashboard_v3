@@ -96,7 +96,7 @@ const ServiceForm: React.FC<IWorkFormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-6 grid grid-cols-1 max-w-4xl gap-7 mx-auto p-5 mt-20 w-full">
+    <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-6 h-[600px] overflow-y-auto p-4">
       <div className="space-y-4">
         <h1 className=' font-bold text-2xl'>Create Service</h1>
 

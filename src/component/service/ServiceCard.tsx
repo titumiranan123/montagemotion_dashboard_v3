@@ -16,9 +16,10 @@ interface serviceCardProps {
     position: number;
     is_active: boolean;
   };
+  refetch:()=>void
 }
 
-const Servicecard: React.FC<serviceCardProps> = ({ service }) => {
+const Servicecard: React.FC<serviceCardProps> = ({ service ,refetch}) => {
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
 
   const handleDelete = async (id: string): Promise<void> => {
@@ -43,6 +44,7 @@ const Servicecard: React.FC<serviceCardProps> = ({ service }) => {
     if (result.isConfirmed) {
       try {
         await api_url.delete(`/api/service/${id}`);
+        refetch()
         await Swal.fire({
           title: "Deleted!",
           text: "Your campaign has been deleted.",
@@ -65,6 +67,7 @@ const Servicecard: React.FC<serviceCardProps> = ({ service }) => {
   const handleSubmit = async (data: any) => {
     try {
       const res = await api_url.patch(`/api/service/${data.id}`, data);
+      refetch()
       Swal.fire({
         title: res.data.message,
         icon: "success",
@@ -162,12 +165,14 @@ const Servicecard: React.FC<serviceCardProps> = ({ service }) => {
 
       {/* Update Modal */}
       {isUpdateModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-start justify-center p-4 z-50 overflow-y-scroll">
-          <ServiceForm
+        <div className="fixed inset-0 overflow-hidden bg-black/20 bg-opacity-80 backdrop-blur-sm flex items-start justify-center p-4 z-50 overflow-y-auto">
+         <div className="w-full max-w-4xl bg-gray-800 rounded-xl p-6">
+           <ServiceForm
             initialData={service}
             onCancel={() => setIsUpdateModalOpen(false)}
             onSubmit={handleSubmit}
           />
+         </div>
         </div>
       )}
     </div>

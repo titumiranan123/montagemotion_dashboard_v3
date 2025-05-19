@@ -9,14 +9,11 @@ import { useDragAndDrop } from "@formkit/drag-and-drop/react";
 import { IService } from "@/interface/interface";
 import ServiceForm from "@/component/service/Serviceform";
 
-
-
-
 const ServiceManagement: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isHaschange, setHasChanges] = useState<boolean>(false);
   const [currentService, setCurrentService] = useState<IService | null>(null);
-  const { data: services, isLoading,refetch } = useService();
+  const { data: services, isLoading, refetch } = useService();
   const [parent, tapes, setTapes] = useDragAndDrop<HTMLDivElement, IService>(
     services || []
   );
@@ -25,36 +22,38 @@ const ServiceManagement: React.FC = () => {
       setTapes(services);
     }
   }, [services]);
-   useEffect(() => {
-      setHasChanges(true);
-    }, [tapes]);
-  
- const handleSubmit = async (data: any) => {
-     try {
-       const res = await api_url.post(`/api/service${data.id ? `/${data.id}` : ""}`, data);
-       Swal.fire({
-         title: res.data.message,
-         icon: "success",
-         background: '#1f2937',
-         color: '#fff',
-         confirmButtonColor: '#6366f1'
-       });
-       refetch()
-       setIsModalOpen(false);
-       setCurrentService(null);
-     } catch (err: any) {
-       Swal.fire({
-         title: "Something went wrong!",
-         text: err.message,
-         icon: "error",
-         background: '#1f2937',
-         color: '#fff',
-         confirmButtonColor: '#6366f1'
-       });
-     }
-   };
+  useEffect(() => {
+    setHasChanges(true);
+  }, [tapes]);
 
- 
+  const handleSubmit = async (data: any) => {
+    try {
+      const res = await api_url.post(
+        `/api/service${data.id ? `/${data.id}` : ""}`,
+        data
+      );
+      Swal.fire({
+        title: res.data.message,
+        icon: "success",
+        background: "#1f2937",
+        color: "#fff",
+        confirmButtonColor: "#6366f1",
+      });
+      refetch();
+      setIsModalOpen(false);
+      setCurrentService(null);
+    } catch (err: any) {
+      Swal.fire({
+        title: "Something went wrong!",
+        text: err.message,
+        icon: "error",
+        background: "#1f2937",
+        color: "#fff",
+        confirmButtonColor: "#6366f1",
+      });
+    }
+  };
+
   const savePositions = async () => {
     const payload = tapes.map((item, index) => ({
       id: item.id,
@@ -63,7 +62,7 @@ const ServiceManagement: React.FC = () => {
 
     try {
       await api_url.put("/api/service", payload);
-      refetch()
+      refetch();
       Swal.fire({
         title: "Positions updated!",
         icon: "success",
@@ -88,35 +87,33 @@ const ServiceManagement: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold ">
-              Services 
-            </h1>
+            <h1 className="text-3xl font-bold ">Services</h1>
             <p className="text-gray-400">Manage your service</p>
           </div>
           <div className="flex gap-3">
-          <button
-            onClick={()=>{
-              setIsModalOpen(true)
-              setCurrentService(null)
-            }}
-            className="bg-[#1FB5DD]    text-white font-medium py-2 px-6 rounded-lg transition-all duration-200 flex items-center gap-2"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
+            <button
+              onClick={() => {
+                setIsModalOpen(true);
+                setCurrentService(null);
+              }}
+              className="bg-[#1FB5DD]    text-white font-medium py-2 px-6 rounded-lg transition-all duration-200 flex items-center gap-2"
             >
-              <path
-                fillRule="evenodd"
-                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                clipRule="evenodd"
-              />
-            </svg>
-            New Campaign
-          </button>
-           {/* Save Button */}
-           {isHaschange && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              New Campaign
+            </button>
+            {/* Save Button */}
+            {isHaschange && (
               <button
                 onClick={savePositions}
                 className="bg-[#1FB5DD] hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg"
@@ -128,8 +125,6 @@ const ServiceManagement: React.FC = () => {
         </div>
 
         <div className="mb-8 mt-10 max-w-[1000px] mx-auto">
-         
-
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
               {[...Array(6)].map((_, idx) => (
@@ -137,17 +132,27 @@ const ServiceManagement: React.FC = () => {
               ))}
             </div>
           ) : (
-            <div ref={parent} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            <div
+              ref={parent}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6"
+            >
               {tapes?.map((service: IService) => (
-                <Servicecard key={service.id} service={service} />
+                <Servicecard key={service.id} service={service} refetch={refetch} />
               ))}
             </div>
           )}
         </div>
         {isModalOpen && (
-         <div className="fixed inset-0  bg-black bg-opacity-80 backdrop-blur-sm flex items-start justify-center p-4 z-50 overflow-y-scroll"> <ServiceForm initialData={currentService} onCancel={()=>setIsModalOpen(false)} onSubmit={handleSubmit} /> </div>
+          <div className="fixed inset-0 overflow-hidden bg-black/20 bg-opacity-80 backdrop-blur-sm flex items-start justify-center p-4 z-50 overflow-y-auto">
+            <div className="w-full max-w-4xl bg-gray-800 rounded-xl p-6">
+              <ServiceForm
+                initialData={currentService}
+                onCancel={() => setIsModalOpen(false)}
+                onSubmit={handleSubmit}
+              />
+            </div>
+          </div>
         )}
-        
       </div>
     </div>
   );
