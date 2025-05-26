@@ -95,7 +95,7 @@ const Accordion: React.FC<AccordionProp> = ({ item, index }) => {
           <div className="flex items-center gap-4">
             <button
               onClick={(e) => handleEditClick(e)}
-              className="text-white hover:text-blue-300 transition-colors"
+              className="text-white hover:text-[#1FB5DD] transition-colors"
               aria-label="Edit FAQ"
             >
               <FaEdit size={18} />
@@ -218,7 +218,7 @@ const Accordion: React.FC<AccordionProp> = ({ item, index }) => {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-[#1FB5DD] disabled:opacity-50"
+                  className="px-4 py-2 rounded bg-[#1FB5DD] text-white hover:bg-[#1FB5DD] disabled:opacity-50"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Saving..." : "Save Changes"}

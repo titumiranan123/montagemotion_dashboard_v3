@@ -56,7 +56,6 @@ const Workform: React.FC<IWorkFormProps> = ({
     handleSubmit,
     setValue,
     watch,
-    reset,
     formState: { errors, isSubmitting },
   } = useForm<IWork>({
     defaultValues: {
@@ -282,7 +281,7 @@ const Workform: React.FC<IWorkFormProps> = ({
             placeholder="Project Title"
             className={`w-full rounded-md p-2.5 bg-gray-800 border ${
               errors.title ? "border-red-500" : "border-gray-700"
-            } text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+            } text-white focus:ring-2 focus:ring-[#1FB5DD] focus:border-[#1FB5DD]`}
           />
           {errors.title && (
             <p className="text-sm text-red-400 mt-1">{errors.title.message}</p>
@@ -306,7 +305,7 @@ const Workform: React.FC<IWorkFormProps> = ({
             placeholder="Project description"
             className={`w-full rounded-md p-2.5 bg-gray-800 border ${
               errors.description ? "border-red-500" : "border-gray-700"
-            } text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+            } text-white focus:ring-2 focus:ring-[#1FB5DD] focus:border-[#1FB5DD]`}
           />
           {errors.description && (
             <p className="text-sm text-red-400 mt-1">
@@ -324,7 +323,7 @@ const Workform: React.FC<IWorkFormProps> = ({
             {...register("type", { required: "Type is required" })}
             className={`w-full rounded-md p-2.5 bg-gray-800 border ${
               errors.type ? "border-red-500" : "border-gray-700"
-            } text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+            } text-white focus:ring-2 focus:ring-[#1FB5DD] focus:border-[#1FB5DD]`}
           >
             <option value="main">Main</option>
             <option value="shorts">Shorts</option>
@@ -351,7 +350,7 @@ const Workform: React.FC<IWorkFormProps> = ({
               })}
               className={`w-full rounded-md p-2.5 bg-gray-800 border ${
                 errors.sub_type ? "border-red-500" : "border-gray-700"
-              } text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+              } text-white focus:ring-2 focus:ring-[#1FB5DD] focus:border-[#1FB5DD]`}
             >
               <option value="">Select Sub Type</option>
               {subTypeOptions.map((option) => (
@@ -451,7 +450,7 @@ const Workform: React.FC<IWorkFormProps> = ({
             placeholder="https://example.com/image.jpg"
             className={`w-full rounded-md p-2.5 bg-gray-700 border ${
               errors.thumbnail ? "border-red-500" : "border-gray-600"
-            } text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
+            } text-white focus:ring-2 focus:ring-[#1FB5DD] focus:border-[#1FB5DD]`}
           />
           {errors.thumbnail && (
             <p className="text-sm text-red-400 mt-1">
@@ -542,7 +541,7 @@ const Workform: React.FC<IWorkFormProps> = ({
           <input
             {...register("video_link")}
             placeholder="https://example.com/video.mp4"
-            className="w-full rounded-md p-2.5 bg-gray-700 border border-gray-600 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full rounded-md p-2.5 bg-gray-700 border border-gray-600 text-white focus:ring-2 focus:ring-[#1FB5DD] focus:border-[#1FB5DD]"
           />
         </div>
       </div>}
@@ -557,7 +556,7 @@ const Workform: React.FC<IWorkFormProps> = ({
                 {...register("is_visible")}
                 className="sr-only peer"
               />
-              <div className="relative w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1FB5DD]"></div>
+              <div className="relative w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#1FB5DD] rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1FB5DD]"></div>
               <span className="ms-3 text-sm font-medium text-gray-300">
                 Visible
               </span>
@@ -571,7 +570,7 @@ const Workform: React.FC<IWorkFormProps> = ({
                 {...register("is_feature")}
                 className="sr-only peer"
               />
-              <div className="relative w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-800 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1FB5DD]"></div>
+              <div className="relative w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#1FB5DD] rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#1FB5DD]"></div>
               <span className="ms-3 text-sm font-medium text-gray-300">
                 Featured
               </span>
@@ -593,8 +592,8 @@ const Workform: React.FC<IWorkFormProps> = ({
         )}
         <button
           type="submit"
-          disabled={isSubmitting || isUploadingImage || isUploadingVideo}
-          className="px-6 py-2.5 bg-[#1FB5DD] text-white rounded-lg    transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={isSubmitting }
+          className="px-6 py-2.5 bg-[#1FB5DD] text-white rounded-lg    transition-colors focus:outline-none focus:ring-2 focus:ring-[#1FB5DD] disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
             <span className="flex items-center justify-center">

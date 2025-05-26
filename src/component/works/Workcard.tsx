@@ -170,7 +170,7 @@ const VideoCard = ({
           <div className="flex gap-2">
             <button
               onClick={() => onEdit(video)}
-              className="flex items-center gap-1 px-3 py-1.5 text-sm bg-blue-50 text-[#1FB5DD] rounded hover:bg-blue-100 transition-colors"
+              className="flex items-center gap-1 px-3 py-1.5 text-sm bg-blue-50 text-[#1FB5DD] rounded hover:bg-[#1FB5DD]/20 transition-colors"
             >
               <FiEdit2 size={16} />
               Edit

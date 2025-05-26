@@ -38,7 +38,6 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
     handleSubmit,
     setValue,
     watch,
-    reset,
     formState: { errors, isSubmitting },
   } = useForm<ITestimonial>({
     defaultValues: {
@@ -55,7 +54,6 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
   const [videoUploadProgress, setVideoUploadProgress] = useState(0);
   
   const category = watch('category');
-
   const currentImage = watch('image');
   const currentVideo = watch('video_message');
 
@@ -103,7 +101,6 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
     },
     [currentImage, setValue]
   );
-
   const handleVideoUpload = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
@@ -151,13 +148,11 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
     },
     [currentVideo, setValue]
   );
-
   const onSubmitHandler = async (data: ITestimonial) => {
     try {
         await onSubmit(data);
     } catch (error) {
       const err = error as Error;
-      console.error('Submission error:', err);
       await Swal.fire('Error!', err.message || 'Failed to submit form', 'error');
     }
   };
@@ -173,19 +168,17 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
   };
 
   return (
-    <div className=" bg-black/5  p-4 md:p-6">
+    <div className=" bg-black/5   p-4 md:p-6">
       <div className="bg-gray-800  rounded-xl shadow-lg overflow-hidden w-full">
         {/* Form Header */}
         <div className=" p-6">
           <h1 className="text-2xl md:text-3xl font-bold ">
             {initialData?.id ? 'Edit Testimonial' : 'Create New Testimonial'}
           </h1>
-          <p className="text-blue-100 mt-1">
-            {initialData?.id ? 'Update the testimonial details' : 'Fill in the details to create a new testimonial'}
-          </p>
+         
         </div>
 
-        <form onSubmit={handleSubmit(onSubmitHandler)} className="p-6 space-y-8 lg:w-[1000px] w-full">
+        <form onSubmit={handleSubmit(onSubmitHandler)} className="p-6 space-y-8 lg:w-[1000px] h-[500px] overflow-y-auto w-full">
           {/* Basic Information Section */}
           <div className="space-y-6">
             <h2 className="text-xl font-semibold text-white border-b border-gray-700 pb-2">
@@ -206,8 +199,8 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
                   type="text"
                   placeholder="John Doe"
                   className={`w-full bg-gray-700 text-white rounded-lg px-4 py-3 border ${
-                    errors.name ? 'border-red-500' : 'border-gray-600 focus:border-blue-500'
-                  } focus:ring-2 focus:ring-blue-500 focus:outline-none transition`}
+                    errors.name ? 'border-red-500' : 'border-gray-600 focus:border-[#1FB5DD]'
+                  } focus:ring-2 focus:ring-[#1FB5DD] focus:outline-none transition`}
                 />
                 {errors.name && (
                   <p className="mt-1 text-sm text-red-400">{errors.name.message}</p>
@@ -227,8 +220,8 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
                   type="text"
                   placeholder="CEO, Company Inc."
                   className={`w-full bg-gray-700 text-white rounded-lg px-4 py-3 border ${
-                    errors.designation ? 'border-red-500' : 'border-gray-600 focus:border-blue-500'
-                  } focus:ring-2 focus:ring-blue-500 focus:outline-none transition`}
+                    errors.designation ? 'border-red-500' : 'border-gray-600 focus:border-[#1FB5DD]'
+                  } focus:ring-2 focus:ring-[#1FB5DD] focus:outline-none transition`}
                 />
                 {errors.designation && (
                   <p className="mt-1 text-sm text-red-400">{errors.designation.message}</p>
@@ -243,8 +236,8 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
                 <select
                   {...register('type', { required: 'Type is required' })}
                   className={`w-full bg-gray-700 text-white rounded-lg px-4 py-3 border ${
-                    errors.type ? 'border-red-500' : 'border-gray-600 focus:border-blue-500'
-                  } focus:ring-2 focus:ring-blue-500 focus:outline-none transition`}
+                    errors.type ? 'border-red-500' : 'border-gray-600 focus:border-[#1FB5DD]'
+                  } focus:ring-2 focus:ring-[#1FB5DD] focus:outline-none transition`}
                 >
                   <option value="main">Main Testimonial</option>
                   <option value="shorts">Shorts</option>
@@ -266,8 +259,8 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
                 <select
                   {...register('category', { required: 'Category is required' })}
                   className={`w-full bg-gray-700 text-white rounded-lg px-4 py-3 border ${
-                    errors.type ? 'border-red-500' : 'border-gray-600 focus:border-blue-500'
-                  } focus:ring-2 focus:ring-blue-500 focus:outline-none transition`}
+                    errors.type ? 'border-red-500' : 'border-gray-600 focus:border-[#1FB5DD]'
+                  } focus:ring-2 focus:ring-[#1FB5DD] focus:outline-none transition`}
                 >
                   <option value="message">Message Testimonial</option>
                   <option value="video_message">Video Testimonial</option>
@@ -311,7 +304,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
                     htmlFor="image-upload"
                     className={`block cursor-pointer ${isUploadingImage ? 'opacity-50 pointer-events-none' : ''}`}
                   >
-                    <div className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-600 rounded-xl hover:border-blue-500 transition group">
+                    <div className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-600 rounded-xl hover:border-[#1FB5DD] transition group">
                       {imagePreview ? (
                         <div className="relative w-full">
                           <img
@@ -352,7 +345,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
                             </svg>
                           </div>
                           <p className="text-sm text-gray-400 text-center">
-                            <span className="font-medium text-blue-400 hover:text-blue-300 transition">
+                            <span className="font-medium text-[#1FB5DD] hover:text-[#1FB5DD] transition">
                               Click to upload
                             </span>{' '}
                             or drag and drop
@@ -382,7 +375,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
                     {...register('image')}
                     type="text"
                     placeholder="https://example.com/image.jpg"
-                    className="w-full bg-gray-700 text-white rounded-lg px-4 py-3 border border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
+                    className="w-full bg-gray-700 text-white rounded-lg px-4 py-3 border border-gray-600 focus:border-[#1FB5DD] focus:ring-2 focus:ring-[#1FB5DD] focus:outline-none transition"
                   />
                 </div>
               </div>
@@ -506,7 +499,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
                 {...register('message')}
                 placeholder="Enter the testimonial message here..."
                 rows={5}
-                className="w-full bg-gray-700 text-white rounded-lg px-4 py-3 border border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
+                className="w-full bg-gray-700 text-white rounded-lg px-4 py-3 border border-gray-600 focus:border-[#1FB5DD] focus:ring-2 focus:ring-[#1FB5DD] focus:outline-none transition"
               />
             </div>
           </div>}
@@ -525,7 +518,7 @@ const TestimonialForm: React.FC<ITestimonialFormProps> = ({
             <button
               type="submit"
               disabled={isSubmitting || isUploadingImage || isUploadingVideo}
-              className="px-6 py-3 bg-gradient-to-r from-[#1FB5DD] to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-6 py-3 bg-[#1FB5DD]  transition focus:outline-none focus:ring-2 focus:ring-[#1FB5DD] focus:ring-offset-2 focus:ring-offset-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
                 <span className="flex items-center justify-center">

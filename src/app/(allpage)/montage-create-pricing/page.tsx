@@ -14,7 +14,7 @@ export interface IFeature {
 }
 
 export interface IPackage {
-  id: number;
+
   is_visible: boolean;
   name: "Basic" | "Standard" | "Premium";
   title: string;
@@ -37,7 +37,7 @@ const defaultFeature: IFeature = {
 };
 
 const defaultPackage: IPackage = {
-  id: Date.now(),
+
   is_visible: true,
   name: "Basic",
   title: "",
@@ -65,7 +65,7 @@ const PricingForm = () => {
     {
       group: "features",
       dragHandle: ".drag-handle",
-      plugins: [animations()],
+      // plugins: [animations()],
     }
   );
 
@@ -84,6 +84,7 @@ const PricingForm = () => {
   }, [tapes]);
 
   const onSubmit: SubmitHandler<IPackage> = async (data) => {
+    console.log(data)
     try {
        await api_url.post(`/api/pricing`, data);
       toast.success("Package added successfully 🎉");
@@ -136,7 +137,7 @@ const PricingForm = () => {
                 </label>
                 <select
                   {...register("name")}
-                  className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-[#1FB5DD] focus:border-[#1FB5DD]"
                 >
                   <option value="Basic">Basic</option>
                   <option value="Standard">Standard</option>
@@ -152,7 +153,7 @@ const PricingForm = () => {
                 <input
                   type="text"
                   {...register("title")}
-                  className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-[#1FB5DD] focus:border-[#1FB5DD]"
                 />
               </div>
 
@@ -163,7 +164,7 @@ const PricingForm = () => {
                 </label>
                 <textarea
                   {...register("description")}
-                  className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-[#1FB5DD] focus:border-[#1FB5DD]"
                   rows={3}
                 />
               </div>
@@ -175,7 +176,7 @@ const PricingForm = () => {
                 </label>
                 <select
                   {...register("type")}
-                  className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-[#1FB5DD] focus:border-[#1FB5DD]"
                 >
                   <option value="main">Main</option>
                   <option value="shorts">Shorts</option>
@@ -194,7 +195,7 @@ const PricingForm = () => {
                 </label>
                 <select
                   {...register("pricing_type")}
-                  className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-[#1FB5DD] focus:border-[#1FB5DD]"
                 >
                   <option value="single">Per Unit</option>
                   <option value="combo">Package Deal</option>
@@ -217,7 +218,7 @@ const PricingForm = () => {
                   <input
                     type="number"
                     {...register("price", { valueAsNumber: true })}
-                    className="flex-1 p-3 border-t border-b border-r border-gray-600 rounded-r-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="flex-1 p-3 border-t border-b border-r border-gray-600 rounded-r-md bg-gray-700 text-white focus:ring-2 focus:ring-[#1FB5DD] focus:border-[#1FB5DD]"
                   />
                 </div>
               </div>
@@ -230,7 +231,7 @@ const PricingForm = () => {
                 <input
                   type="text"
                   {...register("unit")}
-                  className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-[#1FB5DD] focus:border-[#1FB5DD]"
                   placeholder="e.g., video, hour, project"
                 />
               </div>
@@ -243,7 +244,7 @@ const PricingForm = () => {
                 <input
                   type="text"
                   {...register("note")}
-                  className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-[#1FB5DD] focus:border-[#1FB5DD]"
                   placeholder="e.g., '4-day delivery'"
                 />
               </div>
@@ -256,7 +257,7 @@ const PricingForm = () => {
                 <input
                   type="url"
                   {...register("purchase_link")}
-                  className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-[#1FB5DD] focus:border-[#1FB5DD]"
                   placeholder="https://..."
                 />
               </div>
@@ -267,7 +268,7 @@ const PricingForm = () => {
                   type="checkbox"
                   id="visible"
                   {...register("is_visible")}
-                  className="h-5 w-5 text-[#1FB5DD] rounded focus:ring-blue-500 border-gray-600 bg-gray-700"
+                  className="h-5 w-5 text-[#1FB5DD] rounded focus:ring-[#1FB5DD] border-gray-600 bg-gray-700"
                 />
                 <label htmlFor="visible" className="ml-3 text-sm text-gray-300">
                   Visible to customers
@@ -282,7 +283,7 @@ const PricingForm = () => {
                 <button
                   type="button"
                   onClick={addFeature}
-                  className="flex items-center gap-2 text-blue-400 hover:text-blue-300 px-3 py-1.5 rounded hover:bg-blue-900/50 transition-colors"
+                  className="flex items-center gap-2 text-[#1FB5DD] hover:text-[#1FB5DD] px-3 py-1.5 rounded hover:bg-[#1FB5DD]/50 transition-colors"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
@@ -312,7 +313,7 @@ const PricingForm = () => {
                           type="text"
                           value={feature.feature}
                           onChange={(e) => handleFeatureChange(featureIndex, "feature", e.target.value)}
-                          className="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                          className="w-full p-2 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-[#1FB5DD] focus:border-[#1FB5DD]"
                           placeholder="Feature description"
                         />
                       </div>
@@ -324,7 +325,7 @@ const PricingForm = () => {
                             type="checkbox"
                             checked={feature.is_present}
                             onChange={(e) => handleFeatureChange(featureIndex, "is_present", e.target.checked)}
-                            className="h-5 w-5 text-[#1FB5DD] rounded focus:ring-blue-500 border-gray-600 bg-gray-700"
+                            className="h-5 w-5 text-[#1FB5DD] rounded focus:ring-[#1FB5DD] border-gray-600 bg-gray-700"
                           />
                           <span>Is Present</span>
                         </label>
@@ -337,7 +338,7 @@ const PricingForm = () => {
                             type="checkbox"
                             checked={feature.is_active}
                             onChange={(e) => handleFeatureChange(featureIndex, "is_active", e.target.checked)}
-                            className="h-5 w-5 text-[#1FB5DD] rounded focus:ring-blue-500 border-gray-600 bg-gray-700"
+                            className="h-5 w-5 text-[#1FB5DD] rounded focus:ring-[#1FB5DD] border-gray-600 bg-gray-700"
                           />
                           <span>Is Active</span>
                         </label>

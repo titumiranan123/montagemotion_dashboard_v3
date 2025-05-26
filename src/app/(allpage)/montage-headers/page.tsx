@@ -23,7 +23,7 @@ const defaultHeaderData: IHeader = {
 
 const Header = () => {
   const { data, isLoading, refetch } = useIntro();
-  console.log(data, "header");
+
   const [isHeaderModalOpen, setHeaderModalOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState("main");
   const [editData, setEditData] = useState<IHeader>(defaultHeaderData);

@@ -34,6 +34,7 @@ const Testimonial = () => {
   });
   const { data, isLoading, refetch } = useTestimonial();
   const handleSubmit = async (data: any) => {
+    console.log(data)
     try {
       let res;
       if (data.id) {
@@ -41,7 +42,8 @@ const Testimonial = () => {
       } else {
         res = await api_url.post("/api/testimonials", data);
       }
-      refetch();
+      console.log(res)
+      // refetch();
       Swal.fire({
         title: res.data.message,
         icon: "success",
@@ -49,8 +51,8 @@ const Testimonial = () => {
         color: "#fff",
         confirmButtonColor: "#6366f1",
       });
-      setTestimonial(false);
-      setEditData(null);
+      // setTestimonial(false);
+      // setEditData(null);
     } catch (err: any) {
    
       Swal.fire({

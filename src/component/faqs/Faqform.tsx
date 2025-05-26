@@ -99,7 +99,7 @@ export const FaqForm = ({ initialData, onSubmit, onCancel, isLoading }: FaqFormP
           </label>
           <input
             {...register("title", { required: "Title is required" })}
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            className="w-full p-2 border border-gray-300 rounded-md focus:ring-[#1FB5DD] focus:border-[#1FB5DD]"
           />
           {errors.title && (
             <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
@@ -113,7 +113,7 @@ export const FaqForm = ({ initialData, onSubmit, onCancel, isLoading }: FaqFormP
           </label>
           <input
             {...register("sub_title")}
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            className="w-full p-2 border border-gray-300 rounded-md focus:ring-[#1FB5DD] focus:border-[#1FB5DD]"
           />
         </div>
 
@@ -146,7 +146,7 @@ export const FaqForm = ({ initialData, onSubmit, onCancel, isLoading }: FaqFormP
             type="checkbox"
             id="is_visible"
             {...register("is_visible")}
-            className="h-4 w-4 text-[#1FB5DD] focus:ring-blue-500 border-gray-300 rounded"
+            className="h-4 w-4 text-[#1FB5DD] focus:ring-[#1FB5DD] border-gray-300 rounded"
           />
           <label
             htmlFor="is_visible"
@@ -164,7 +164,7 @@ export const FaqForm = ({ initialData, onSubmit, onCancel, isLoading }: FaqFormP
           <button
             type="button"
             onClick={addFaqItem}
-            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-[#1FB5DD]    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-[#1FB5DD]    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1FB5DD]"
           >
             <FaPlus className="mr-2" />
             Add Item
@@ -224,7 +224,7 @@ export const FaqForm = ({ initialData, onSubmit, onCancel, isLoading }: FaqFormP
                     {...register(`faqs.${index}.question`, {
                       required: "Question is required",
                     })}
-                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full p-2 border border-gray-300 rounded-md focus:ring-[#1FB5DD] focus:border-[#1FB5DD]"
                   />
                   {errors.faqs?.[index]?.question && (
                     <p className="mt-1 text-sm text-red-600">
@@ -244,7 +244,7 @@ export const FaqForm = ({ initialData, onSubmit, onCancel, isLoading }: FaqFormP
                   {...register(`faqs.${index}.answer`, {
                     required: "Answer is required",
                   })}
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 min-h-[100px]"
+                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-[#1FB5DD] focus:border-[#1FB5DD] min-h-[100px]"
                 />
                 {errors.faqs?.[index]?.answer && (
                   <p className="mt-1 text-sm text-red-600">
@@ -259,7 +259,7 @@ export const FaqForm = ({ initialData, onSubmit, onCancel, isLoading }: FaqFormP
                   type="checkbox"
                   id={`faqs.${index}.is_visible`}
                   {...register(`faqs.${index}.is_visible`)}
-                  className="h-4 w-4 text-[#1FB5DD] focus:ring-blue-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-[#1FB5DD] focus:ring-[#1FB5DD] border-gray-300 rounded"
                 />
                 <label
                   htmlFor={`faqs.${index}.is_visible`}
@@ -279,14 +279,14 @@ export const FaqForm = ({ initialData, onSubmit, onCancel, isLoading }: FaqFormP
           type="button"
           onClick={onCancel}
           disabled={isLoading}
-          className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-300  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-300  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1FB5DD]"
         >
           Cancel
         </button>
         <button
           type="submit"
           disabled={isLoading}
-          className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#1FB5DD]    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+          className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#1FB5DD]    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1FB5DD] disabled:opacity-50"
         >
           {isLoading ? "Saving..." : "Save FAQ"}
         </button>

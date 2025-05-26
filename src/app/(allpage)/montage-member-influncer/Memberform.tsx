@@ -237,12 +237,12 @@ export function MemberProfileForm({
                         isUploadingImage ? "opacity-50 pointer-events-none" : ""
                       }`}
                     >
-                      <div className="flex flex-col items-center justify-center p-4 border-2 border-dashed lg:w-[350px] lg:h-[250px] border-gray-300 rounded-md hover:border-blue-500 transition cursor-pointer">
+                      <div className="flex flex-col items-center justify-center p-4 border-2 border-dashed lg:w-[350px] lg:h-[250px] border-gray-300 rounded-md hover:border-[#1FB5DD] transition cursor-pointer">
                         <div className="bg-gray-100 p-2 rounded-full mb-2">
                           <FiUpload size={20} className="text-gray-500" />
                         </div>
                         <p className="text-sm text-gray-600 text-center">
-                          <span className="font-medium text-blue-500 hover:text-blue-400 transition">
+                          <span className="font-medium text-[#1FB5DD] hover:text-[#1FB5DD] transition">
                             Click to upload
                           </span>
                         </p>

@@ -110,7 +110,7 @@ const Servicecard: React.FC<serviceCardProps> = ({ service ,refetch}) => {
           <h3 className="text-2xl font-montserrat font-semibold text-white">
             {service.title}
           </h3>
-          <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+          <span className="text-xs bg-[#1FB5DD]/20 text-[#1FB5DD] px-2 py-1 rounded-full">
             #{service.position}
           </span>
         </div>
@@ -124,7 +124,7 @@ const Servicecard: React.FC<serviceCardProps> = ({ service ,refetch}) => {
         <div className="flex justify-between items-center border-gray-600 pt-4">
           <button
             onClick={() => setIsUpdateModalOpen(true)}
-            className="text-white hover:text-blue-400 font-medium text-sm flex items-center transition-colors"
+            className="text-white hover:text-[#1FB5DD] font-medium text-sm flex items-center transition-colors"
           >
             <svg
               className="w-4 h-4 mr-1"

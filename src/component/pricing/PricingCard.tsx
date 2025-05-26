@@ -375,7 +375,7 @@ const PackageCard = ({ pkg, refetch }: PackageCardProps) => {
                     <div className="ml-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
                         onClick={() => handleEditFeature(feature)}
-                        className="p-1 text-blue-500 hover:text-blue-400"
+                        className="p-1 text-[#1FB5DD] hover:text-[#1FB5DD]"
                       >
                         <FiEdit size={14} />
                       </button>

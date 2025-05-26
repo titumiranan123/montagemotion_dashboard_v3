@@ -377,7 +377,7 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
               type="text"
               className={`w-full px-4 py-2 rounded-lg bg-gray-700 border ${
                 errors.thumbnail ? "border-red-500" : "border-gray-600"
-              } text-white focus:outline-none focus:ring-1 focus:ring-blue-500`}
+              } text-white focus:outline-none focus:ring-1 focus:ring-[#1FB5DD]`}
               placeholder="https://example.com/image.jpg"
             />
             {errors.thumbnail && (
@@ -463,7 +463,7 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
             <input
               {...register("video_link")}
               type="text"
-              className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-1 focus:ring-[#1FB5DD]"
               placeholder="https://example.com/video.mp4"
             />
           </div>

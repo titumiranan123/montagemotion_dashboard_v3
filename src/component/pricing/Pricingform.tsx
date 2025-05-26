@@ -257,7 +257,7 @@ const PricingForm = () => {
                 <button
                   type="button"
                   onClick={() => addFeature(pkgIndex)}
-                  className="text-blue-500 hover:text-blue-700"
+                  className="text-[#1FB5DD] hover:text-[#1FB5DD]"
                 >
                   Add Feature
                 </button>
@@ -326,7 +326,7 @@ const PricingForm = () => {
           <button
             type="button"
             onClick={addPackage}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-[#1FB5DD]"
+            className="px-4 py-2 bg-[#1FB5DD] text-white rounded-md hover:bg-[#1FB5DD]"
           >
             Add New Package
           </button>

@@ -247,7 +247,7 @@ console.log(initialData)
             <div className="flex justify-end mt-4">
               <button
                 type="submit"
-                className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+                className="px-6 py-2 bg-[#1FB5DD] hover:bg-[#1FB5DD] text-white rounded-md"
               >
                 Save SEO Meta
               </button>
