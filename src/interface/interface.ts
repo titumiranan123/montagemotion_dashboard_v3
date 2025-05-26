@@ -11,7 +11,9 @@ export interface IHeader {
   id?: string;
   title: string;
   description: string;
+  book_link: string;
   thumbnail: string;
+  alt: string;
   video_link: string;
   isActive?: string;
   type:

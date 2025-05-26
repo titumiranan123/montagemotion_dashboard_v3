@@ -118,6 +118,14 @@ const Works = () => {
           <p className="text-gray-400">Manage and showcase client Works</p>
         </div>
         <div className="flex gap-4">
+          {!hasChanges && (
+              <button
+                onClick={savePositions}
+                className="bg-[#1FB5DD]/90 text-white px-4 py-2 rounded"
+              >
+                Save Positions
+              </button>
+            )}
           <select
             value={activeFilter}
             onChange={(e) => setActiveFilter(e.target.value as IVideo["type"])}
@@ -144,19 +152,12 @@ const Works = () => {
                 setEditData(null);
                 setWorkModal(true);
               }}
-              className="bg-blue-500 text-white px-4 py-2 rounded"
+              className="bg-[#1FB5DD] text-white px-4 py-2 rounded"
             >
               + Add Work
             </button>
 
-            {hasChanges && (
-              <button
-                onClick={savePositions}
-                className="bg-green-600 text-white px-4 py-2 rounded"
-              >
-                Save Positions
-              </button>
-            )}
+            
           </div>
         </div>
       </div>
@@ -183,8 +184,8 @@ const Works = () => {
 
       {/* Modal */}
       {isWork && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start p-8">
-          <div className="bg-gray-900 p-6 rounded w-full max-w-2xl">
+        <div style={{zIndex:99999}} className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start p-8">
+          <div className="bg-gray-900 p-6 rounded w-full max-w-4xl">
             <Workform
               initialData={editData}
               onCancel={() => setWorkModal(false)}

@@ -198,7 +198,7 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6 w-full  mt-8   rounded-xl shadow-xl p-6 lg:p-8"
+      className="space-y-6 w-full  mt-8   rounded-xl shadow-xl p-6 lg:p-8 h-[580px] overflow-y-scroll"
     >
       <h2 className="text-2xl font-bold text-white mb-6 pb-4 border-b border-gray-700">
         {defaultValues?.id ? "Edit Header" : "Create New Header"}
@@ -263,6 +263,40 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
           />
           {errors.description && (
             <p className="mt-1 text-sm text-red-400">{errors.description.message}</p>
+          )}
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="book_link" className="block text-sm font-medium text-gray-300">
+            Book Link <span className="text-red-500">*</span>
+          </label>
+          <input
+            id="book_link"
+            type="text"
+            {...register("book_link", { required: "Book link is required" })}
+            className={`w-full px-4 py-2.5 rounded-lg bg-gray-800 border ${
+              errors.title ? "border-red-500" : "border-gray-700"
+            } text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1FB5DD] focus:border-transparent transition-all`}
+            placeholder="Enter Meeting bookig link"
+          />
+          {errors.book_link && (
+            <p className="mt-1 text-sm text-red-400">{errors.book_link.message}</p>
+          )}
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="alt" className="block text-sm font-medium text-gray-300">
+            Alt <span className="text-red-500">*</span>
+          </label>
+          <input
+            id="alt"
+            type="text"
+            {...register("alt", { required: "Alt is required" })}
+            className={`w-full px-4 py-2.5 rounded-lg bg-gray-800 border ${
+              errors.alt ? "border-red-500" : "border-gray-700"
+            } text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1FB5DD] focus:border-transparent transition-all`}
+            placeholder="Enter header title"
+          />
+          {errors.alt && (
+            <p className="mt-1 text-sm text-red-400">{errors.alt.message}</p>
           )}
         </div>
 

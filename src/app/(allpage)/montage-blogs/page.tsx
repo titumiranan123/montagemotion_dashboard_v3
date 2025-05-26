@@ -1,6 +1,5 @@
 'use client';
 import { useDragAndDrop } from "@formkit/drag-and-drop/react";
-import CampaignCardSkeleton from "@/component/service/ServiceSkeleton";
 import { api_url } from "@/hook/Apiurl";
 import Swal from "sweetalert2";
 import React, { useEffect, useState } from "react";
@@ -15,6 +14,7 @@ interface IBlog {
   short_description: string;
   description: string;
   image: string;
+  alt:string
   is_publish?: boolean;
   is_feature?: boolean;
   is_position?:number
@@ -309,6 +309,7 @@ const Blogs = () => {
         {showForm && (
           <div className="fixed inset-0 overflow-hidden bg-black/20 bg-opacity-80 backdrop-blur-sm flex items-start justify-center p-4 z-50 overflow-y-auto ">
             <div className="w-full max-w-4xl bg-gray-800 rounded-xl p-6">
+               
               <BlogForm
                 initialData={editData || undefined}
                 onSuccess={() => {

@@ -98,7 +98,9 @@ const ServiceForm: React.FC<IWorkFormProps> = ({
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-6 h-[600px] overflow-y-auto p-4">
       <div className="space-y-4">
-        <h1 className=' font-bold text-2xl'>Create Service</h1>
+         <h2 className="text-2xl font-bold text-white mb-6 pb-4 border-b border-gray-700">
+        {initialData?.id ? "Edit Service" : "Create New Service"}
+      </h2>
 
         {/* Title */}
         <div>
@@ -124,7 +126,7 @@ const ServiceForm: React.FC<IWorkFormProps> = ({
 
         {/* Href */}
         <div>
-          <label className="block text-sm font-medium text-gray-100 mb-1">Link (href) <span className="text-red-500">*</span></label>
+          <label className="block text-sm font-medium text-gray-100 mb-1">Link ( N.B. : Developer only)   <span className="text-red-500">*</span></label>
           <input
             {...register('href', { required: 'Href is required' })}
             type="text"

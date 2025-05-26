@@ -5,7 +5,7 @@ const useAbout = () => {
         queryKey:["about"],
         queryFn:async ()=>{
         const res = await api_url.get('/api/about')
-        return res.data.data
+        return res?.data?.data.length>0 ? res?.data?.data[0] :res?.data?.data
         }
     })
     return {data,isLoading,isError,refetch}

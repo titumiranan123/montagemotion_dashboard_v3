@@ -1,11 +1,12 @@
 import Image from "next/image";
-import { FiEdit2, FiTrash2, FiEye, FiEyeOff, FiStar, FiMove } from "react-icons/fi";
+import { FiEdit2, FiTrash2, FiEye, FiEyeOff, FiStar } from "react-icons/fi";
 interface IBlog {
   id?: string;
   title: string;
   short_description: string;
   description: string;
   image: string;
+  alt:string
   is_publish?: boolean;
   is_feature?: boolean;
   is_position?:number
@@ -34,7 +35,7 @@ const BlogCardHorizontal = ({
       <div className="w-full z-20 md:w-2/4 h-48 relative rounded-lg overflow-hidden">
         <Image
           src={blog.image}
-          alt={blog.title}
+          alt={blog.alt}
           fill
           className="object-cover"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

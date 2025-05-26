@@ -12,7 +12,6 @@ import ProfileCardSkeleton from "./ProfileSkeleton";
 const Member = () => {
   const [filter, setFilter] = useState<"team" | "team" | "influencer">("team");
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [editedMember,setEditMember] = useState<MemberProfile>()
   const [isCreating, setIsCreating] = useState(false);
   const { data, isLoading, refetch } = useMembers();
   // Filter members
