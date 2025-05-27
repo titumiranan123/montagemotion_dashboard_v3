@@ -14,7 +14,7 @@ const authOptions: NextAuthOptions = {
           const { email, password }: any = credentials;
 
           const res = await fetch(
-            "http://localhost:8001/api/login",
+            `${process.env.NEXT_PUBLIC_API_URL}/api/login`,
             {
               method: "POST",
               body: JSON.stringify({ email, password }),

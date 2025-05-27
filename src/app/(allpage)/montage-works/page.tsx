@@ -94,8 +94,8 @@ const Works = () => {
         color: "#fff",
         confirmButtonColor: "#6366f1",
       });
-      setWorkModal(false);
-      setEditData(null);
+      // setWorkModal(false);
+      // setEditData(null);
     } catch (err: any) {
       Swal.fire({
         title: "Something went wrong!",

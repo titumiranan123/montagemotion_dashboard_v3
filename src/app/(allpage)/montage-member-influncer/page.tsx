@@ -18,9 +18,9 @@ const Member = () => {
   const filteredMembers =
     data?.length > 0 &&
     data?.filter((member: Partial<MemberProfile>) => {
-      return member.role === (filter === "team" ? "Team Member" : "Influencer");
+      return member?.role === (filter === "team" ? "team_member" : "influencer");
     });
-
+console.log("filteredMembers", filteredMembers,data);
   // Handle create new member
   const handleCreateNew = () => {
     setIsCreating(true);
@@ -59,7 +59,7 @@ const Member = () => {
 
 
 
-  if (isLoading) return <div className="text-center py-12">Loading...</div>;
+ 
 
   return (
     <div className="min-h-screen py-8 px-4">
@@ -87,14 +87,14 @@ const Member = () => {
         {/* Members grid */}
         <div className="grid grid-cols-1 md:grid-cols-2  gap-6">
         {
-            isLoading ? [...Array(4)].map((_,idx)=> <ProfileCardSkeleton key={idx} />) : 
+            isLoading ? [...Array(4)]?.map((_,idx)=> <ProfileCardSkeleton key={idx} />) : 
           filteredMembers?.map((member: Partial<MemberProfile>) => (
-            <MemberProfileCard key={member.id} profile={member} />
+            <MemberProfileCard key={member?.id} profile={member} />
           ))}
         </div>
 
         {/* Empty state */}
-        {filteredMembers.length === 0 && (
+        {filteredMembers?.length === 0 && (
           <div className="text-center py-12">
             <p className="text-gray-300">No members found</p>
           </div>

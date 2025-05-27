@@ -86,7 +86,7 @@ export interface IFaq {
 export interface MemberProfile {
   id?:string
   name: string;
-  role: "Team Member" | "Influencer";
+  role: "team_member" | "influencer";
   designation?: string; // for Team Member
   username?: string; // for Influencer
   photourl: string;
