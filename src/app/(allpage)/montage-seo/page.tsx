@@ -20,7 +20,6 @@ const SeoMetaForm: React.FC = () => {
 
   const initialData: SeoMeta | undefined =
     data?.find((seo: SeoMeta) => seo.page_name === activeFilter);
-console.log(initialData)
   useEffect(() => {
     if (initialData) {
       reset(initialData);
@@ -57,7 +56,6 @@ console.log(initialData)
 
   const onSubmit = async (formData: SeoMeta) => {
     try {
-      console.log(formData);
       const res = await api_url.post(`/api/seo`, formData);
       refetch();
       Swal.fire({

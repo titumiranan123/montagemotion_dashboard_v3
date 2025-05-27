@@ -14,7 +14,7 @@ const Faqs = () => {
   const [activeFilter, setActiveFilter] = useState<string>("main");
   const [isHasChange, setHasChanges] = useState<boolean>(false);
   const [existingData, setExistingData] = useState<IFaq>();
- 
+
   const [isItemOpen, setItemOpen] = useState(false);
   const filteredCategories =
     faqCategories?.filter((cat: IFaq) => cat.type === activeFilter) || [];
@@ -61,7 +61,6 @@ const Faqs = () => {
       });
       setHasChanges(false);
     } catch (err: any) {
- 
       Swal.fire({
         title: "Failed to update!",
         text: err.responsce.data.errorMessage[0].message,
@@ -78,7 +77,7 @@ const Faqs = () => {
       const url = data.id ? `/api/faq/${data.id}` : "/api/faq";
       data.id ? await api_url.patch(url, data) : await api_url.post(url, data);
       refetch();
-      setItemOpen(!isItemOpen)
+      // setItemOpen(!isItemOpen);
       Swal.fire({
         title: data.id ? "FAQ updated!" : "FAQ created!",
         icon: "success",
@@ -87,10 +86,9 @@ const Faqs = () => {
         confirmButtonColor: "#6366f1",
       });
     } catch (err: any) {
-   
       Swal.fire({
         title: "Error!",
-        text:err.responsce.data.errorMessage[0].message,
+        text: err.responsce.data.errorMessage[0].message,
         icon: "error",
         background: "#1f2937",
         color: "#fff",
@@ -173,16 +171,12 @@ const Faqs = () => {
     return <div className="text-white text-center py-8">Loading FAQs...</div>;
   }
 
-  if (!faqCategories?.length) {
-    return <div className="text-white text-center py-8">No FAQs available</div>;
-  }
-
   return (
     <div className="text-gray-100 p-4 md:p-8">
       {/* Header + Filters */}
       <div className="flex justify-between  items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold ">FAQ Dashboard</h1>
+          <h1 className="text-4xl font-bold ">FAQ Dashboard</h1>
           <p className="text-gray-400">Manage your FAQs</p>
         </div>
 
@@ -243,44 +237,52 @@ const Faqs = () => {
       </div>
 
       {/* FAQ List */}
-      {filteredCategories.map((faq: IFaq) => (
-        <div key={faq.id} className="mb-12 mt-20">
-          <div className="flex justify-center flex-col items-center mb-4">
-            <div className="flex justify-center items-center gap-1 flex-col">
-              <h1 className="text-2xl font-bold">{faq.title}</h1>
-              <p className="text-gray-400">{faq.sub_title}</p>
-            </div>
-            <div ref={parent} className="space-y-4 mt-16">
-              {tapes
-                ?.filter((item) => item?.faq_id === faq?.id)
-                .map((item, index) => (
-                  <Accordion key={item?.id} item={item} index={index} />
-                ))}
-            </div>
-          </div>
+      {faqCategories?.length > 0 ? (
+        <>
+          {filteredCategories?.map((faq: IFaq) => (
+            <div key={faq?.id} className="mb-12 mt-20">
+              <div className="flex justify-center flex-col items-center mb-4">
+                <div className="flex justify-center items-center gap-1 flex-col">
+                  <h1 className="text-4xl font-bold">{faq?.title}</h1>
+                  <p className="text-gray-400">{faq?.sub_title}</p>
+                </div>
+                <div ref={parent} className="space-y-4 mt-16">
+                  {tapes
+                    ?.filter((item) => item?.faq_id === faq?.id)
+                    .map((item, index) => (
+                      <Accordion key={item?.id} item={item} index={index} />
+                    ))}
+                </div>
+              </div>
 
-          <div className="flex mt-10 items-center gap-4 justify-center">
-            <button
-              onClick={() => {
-                setExistingData(faq);
-                setItemOpen(true);
-              }}
-              className="text-[#1FB5DD] border py-2 px-4 rounded-lg hover:text-indigo-300"
-            >
-              Edit Category
-            </button>
-            <button
-              onClick={() => {
-                setItemOpen(true);
-              }}
-              className=" text-[#1FB5DD] hover:text-indigo-300 border py-2 px-4 rounded-lg flex items-center gap-1"
-            >
-             <FaPlus />
-              Add FAQ Item
-            </button>
-          </div>
+              <div className="flex mt-10 items-center gap-4 justify-center">
+                <button
+                  onClick={() => {
+                    setExistingData(faq);
+                    setItemOpen(true);
+                  }}
+                  className="text-[#1FB5DD] border py-2 px-4 rounded-lg hover:text-indigo-300"
+                >
+                  Edit Category
+                </button>
+                <button
+                  onClick={() => {
+                    setItemOpen(true);
+                  }}
+                  className=" text-[#1FB5DD] hover:text-indigo-300 border py-2 px-4 rounded-lg flex items-center gap-1"
+                >
+                  <FaPlus />
+                  Add FAQ Item
+                </button>
+              </div>
+            </div>
+          ))}
+        </>
+      ) : (
+        <div className="text-center py-12">
+          <p className="text-gray-300">No FAQs found</p>
         </div>
-      ))}
+      )}
 
       {/* Modals */}
       {isItemOpen && (

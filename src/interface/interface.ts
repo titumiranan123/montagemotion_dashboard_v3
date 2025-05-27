@@ -84,38 +84,19 @@ export interface IFaq {
 
 
 export interface MemberProfile {
-  id?:string
+  id?: string;
   name: string;
   role: "team_member" | "influencer";
-  designation?: string; // for Team Member
-  username?: string; // for Influencer
+  designation?: string;
   photourl: string;
-  bio?: string;
-  location?: string;
   email?: string;
   phone?: string;
-
-  // Influencer specific
-  niche?: string;
-  followers?: number;
-  platforms?: string[]; // ["Instagram", "YouTube"]
-  collaborationtype?: string[]; // ["Paid Promotion", "Affiliate Marketing"]
-  engagementrate?: number;
-  portfoliolinks?: string[];
-
-  // Team Member specific
-  skills?: string[];
-
-  // Common social links
-  sociallinks?: {
-    instagram?: string;
-    facebook?: string;
-    linkedin?: string;
-    twitter?: string;
-    tiktok?: string;
-    youtube?: string;
-  };
+  bio?: string;
+  position?: number;
+  created_at?: string;
+  updated_at?: string;
 }
+
 
 
 export default interface ITestimonial {

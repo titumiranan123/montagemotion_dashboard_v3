@@ -103,7 +103,6 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
         await Swal.fire("Success!", "Image uploaded successfully", "success");
       } catch (error: any) {
         const err = error as AxiosError;
-        console.error("Image upload failed:", err);
         setImagePreview(currentImage || null);
         await Swal.fire(
           "Upload Failed",
@@ -165,7 +164,6 @@ const HeaderForm: React.FC<IHeaderFormProps> = ({
         await Swal.fire("Success!", "Video uploaded successfully", "success");
       } catch (error: any) {
         const err = error as AxiosError;
-        console.error("Video upload failed:", err);
         setVideoPreview(currentVideo || null);
         await Swal.fire("Upload Failed", "Failed to upload video", "error");
       } finally {

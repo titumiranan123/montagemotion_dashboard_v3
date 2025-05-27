@@ -114,7 +114,6 @@ const useItemsStore = create<ItemsStore>((set) => ({
       const draggedIndex = items.findIndex(item => item.position === draggedId);
       
       if (draggedIndex === -1) {
-        console.warn(`Item with id ${draggedId} not found`);
         return {};
       }
       

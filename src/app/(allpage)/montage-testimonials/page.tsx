@@ -34,7 +34,6 @@ const Testimonial = () => {
   });
   const { data, isLoading, refetch } = useTestimonial();
   const handleSubmit = async (data: any) => {
-    console.log(data)
     try {
       let res;
       if (data.id) {
@@ -42,7 +41,6 @@ const Testimonial = () => {
       } else {
         res = await api_url.post("/api/testimonials", data);
       }
-      console.log(res)
       // refetch();
       Swal.fire({
         title: res.data.message,
@@ -97,7 +95,6 @@ const Testimonial = () => {
           showConfirmButton: false,
         });
       } catch (error) {
-        console.error("Error deleting video:", error);
         Swal.fire({
           title: "Error!",
           text: "Failed to Testimonial the video",
@@ -224,8 +221,8 @@ const Testimonial = () => {
               ))}
             </div>
           ) : filteredData?.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6 mx-auto max-w-[1000px]">
-              {filteredData.map((testimonial: testimonial) =>
+            <div className="grid grid-cols-1  lg:grid-cols-2 xl:grid-cols-2 gap-6 mx-auto max-w-[1000px]">
+              {filteredData?.map((testimonial: testimonial) =>
                 testimonial.category !== "message" ? (
                   <Shortcard 
                   key={testimonial.id} 

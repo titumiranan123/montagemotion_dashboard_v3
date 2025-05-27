@@ -173,7 +173,7 @@ const Workform: React.FC<IWorkFormProps> = ({
     [currentImage, setValue]
   );
 
-  const handleVideoUpload = useCallback(
+const handleVideoUpload = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
       if (!file) return;
@@ -200,28 +200,30 @@ const Workform: React.FC<IWorkFormProps> = ({
 
       setIsUploadingVideo(true);
       try {
-        const formData = new FormData();
-        formData.append("file", file);
+        
 
-        const response = await api_url.post<{ url: string }>(
-          "/api/upload",
-          formData,
+        const response = await api_url.post(
+          "/api/upload-video",
           {
-            headers: { "Content-Type": "multipart/form-data" },
+            fileName: file.name,
+            contentType: file.type,
+          }, // FormData object (no manual Content-Type!)
+          {
+            withCredentials: true, // Replaces credentials: 'include'
             onUploadProgress: (progressEvent) => {
-              const percentCompleted = Math.round(
-                (progressEvent.loaded * 100) / (progressEvent.total || 1)
-              );
+              // Guard against missing progressEvent.total
+              const percentCompleted = progressEvent.total
+                ? Math.round((progressEvent.loaded * 100) / progressEvent.total)
+                : 0;
               setVideoUploadProgress(percentCompleted);
             },
           }
         );
 
-        setValue("video_link", response.data.url, { shouldValidate: true });
+         setValue("video_link", response.data.url, { shouldValidate: true });
         await Swal.fire("Success!", "Video uploaded successfully", "success");
       } catch (error: any) {
         const err = error as AxiosError;
-        console.error("Video upload failed:", err);
         setVideoPreview(currentVideo || null);
         await Swal.fire("Upload Failed", "Failed to upload video", "error");
       } finally {

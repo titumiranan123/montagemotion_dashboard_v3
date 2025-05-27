@@ -64,7 +64,6 @@ const VideoCard = ({
           showConfirmButton: false
         });
       } catch (error) {
-        console.error('Error deleting video:', error);
         Swal.fire({
           title: 'Error!',
           text: 'Failed to delete the video',

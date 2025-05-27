@@ -117,7 +117,6 @@ const OurStoryPage = () => {
       const response = await api_url.post("/api/about", data);
       setIsEditing(false);
       refetch();
-      console.log(response)
       await Swal.fire("Success!", "Changes saved successfully", "success");
     } catch (error) {
       await Swal.fire("Error!", "Failed to save changes", "error");

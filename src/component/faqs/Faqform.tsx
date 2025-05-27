@@ -89,7 +89,7 @@ export const FaqForm = ({ initialData, onSubmit, onCancel, isLoading }: FaqFormP
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-slate-900 lg:w-[800px] p-5 rounded-2xl text-white" >
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-slate-900 lg:w-[800px] p-5 rounded-2xl text-white h-[550px] overflow-y-auto" >
       {/* Main FAQ Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Title */}

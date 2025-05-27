@@ -53,7 +53,6 @@ const Servicecard: React.FC<serviceCardProps> = ({ service ,refetch}) => {
           showConfirmButton: false,
         });
       } catch (err) {
-        console.error(err);
         await Swal.fire({
           title: "Error!",
           text: "Failed to delete campaign. Please try again.",

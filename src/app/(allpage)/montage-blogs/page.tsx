@@ -159,7 +159,6 @@ const Blogs = () => {
           color: '#fff'
         });
       } catch (error) {
-        console.error('Error deleting blog:', error);
         Swal.fire({
           title: 'Error!',
           text: 'Failed to delete the blog post',
@@ -176,7 +175,6 @@ const Blogs = () => {
       await api_url.put(`/api/blogs/${id}`, { is_publish });
       refetch(); // Refresh the data
     } catch (error) {
-      console.error('Error toggling publish status:', error);
       Swal.fire({
         title: 'Error!',
         text: 'Failed to update publish status',
@@ -192,7 +190,6 @@ const Blogs = () => {
       await api_url.put(`/api/blogs/${id}`, { is_feature });
       refetch(); // Refresh the data
     } catch (error) {
-      console.error('Error toggling feature status:', error);
       Swal.fire({
         title: 'Error!',
         text: 'Failed to update feature status',

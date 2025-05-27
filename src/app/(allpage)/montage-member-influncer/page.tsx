@@ -16,12 +16,14 @@ const Member = () => {
   const { data, isLoading, refetch } = useMembers();
   // Filter members
   const filteredMembers =
-    data?.length > 0 &&
-    data?.filter((member: Partial<MemberProfile>) => {
-      return member?.role === (filter === "team" ? "team_member" : "influencer");
-    });
-console.log("filteredMembers", filteredMembers,data);
-  // Handle create new member
+    data?.length > 0
+      ? data?.filter((member: Partial<MemberProfile>) => {
+          return (
+            member?.role === (filter === "team" ? "team_member" : "influencer")
+          );
+        })
+      : [];
+
   const handleCreateNew = () => {
     setIsCreating(true);
     setIsFormOpen(true);
@@ -44,8 +46,7 @@ console.log("filteredMembers", filteredMembers,data);
       });
 
       setIsFormOpen(false);
-    } catch (err:any) {
-
+    } catch (err: any) {
       Swal.fire({
         title: "Something went wrong!",
         text: err.responsce.data.errorMessage[0].message,
@@ -57,10 +58,6 @@ console.log("filteredMembers", filteredMembers,data);
     }
   };
 
-
-
- 
-
   return (
     <div className="min-h-screen py-8 px-4">
       <div className="max-w-7xl mx-auto">
@@ -70,7 +67,10 @@ console.log("filteredMembers", filteredMembers,data);
           <div className="flex gap-2.5">
             {/* Filter controls */}
             <div className="flex justify-center mb-8 gap-4   bg-[#1FB5DD] text-white px-4 py-2 rounded-md">
-              <select className="bg-[#1FB5DD] text-white outline-none focus:outline-none h-8 py-1" onClick={(e: any) => setFilter(e.target.value)}>
+              <select
+                className="bg-[#1FB5DD] text-white outline-none focus:outline-none h-8 py-1"
+                onClick={(e: any) => setFilter(e.target.value)}
+              >
                 <option value={"team_member"}> Team Members</option>
                 <option value={"influencer"}> Influencers</option>
               </select>
@@ -86,11 +86,11 @@ console.log("filteredMembers", filteredMembers,data);
 
         {/* Members grid */}
         <div className="grid grid-cols-1 md:grid-cols-2  gap-6">
-        {
-            isLoading ? [...Array(4)]?.map((_,idx)=> <ProfileCardSkeleton key={idx} />) : 
-          filteredMembers?.map((member: Partial<MemberProfile>) => (
-            <MemberProfileCard key={member?.id} profile={member} />
-          ))}
+          {isLoading
+            ? [...Array(4)]?.map((_, idx) => <ProfileCardSkeleton key={idx} />)
+            : filteredMembers?.map((member: Partial<MemberProfile>) => (
+                <MemberProfileCard key={member?.id} profile={member} />
+              ))}
         </div>
 
         {/* Empty state */}
@@ -103,11 +103,9 @@ console.log("filteredMembers", filteredMembers,data);
         {/* Form modal */}
         {isFormOpen && (
           <div className="fixed inset-0 bg-black/5 backdrop-blur-sm flex items-center text-white justify-center p-4 z-50 w-full">
-            <div className="bg-black rounded-lg p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">
-                  {isCreating ? "Create New Member" : "Edit Member"}
-                </h2>
+            <div className="bg-black rounded-lg ">
+              <div className="flex justify-end me-5 mt-5 items-center mb-4">
+               
                 <button
                   onClick={() => setIsFormOpen(false)}
                   className="text-gray-300 hover:text-gray-300"

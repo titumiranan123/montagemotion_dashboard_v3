@@ -43,7 +43,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     { href: "/montage-headers", label: "Header", icon: <FiLayers /> },
     { href: "/montage-abouts", label: "Abouts", icon: <FiInfo /> },
     { href: "/montage-blogs", label: "Blogs", icon: <FiFileText /> },
-    { href: "/montage-services", label: "Services", icon: <FiSettings /> },
+    // { href: "/montage-services", label: "Services", icon: <FiSettings /> },
     { href: "/montage-works", label: "Works", icon: <FiBriefcase /> },
     { href: "/montage-member-influncer", label: "Members", icon: <HiUsers /> },
     {
@@ -59,7 +59,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       icon: <FiMessageSquare />,
     },
     { href: "/montage-contacts", label: "Contacts", icon: <FiMail /> },
-    { href: "/montage-chat", label: "Chat", icon: <FiMessageCircle /> },
+    // { href: "/montage-chat", label: "Chat", icon: <FiMessageCircle /> },
   ];
 
   return (
@@ -143,7 +143,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               </nav>
               <div className="mt-auto">
                 <div className="border-t border-[#58585833] pt-2">
-                  <Link
+                  {/* <Link
                     href="/settings"
                     className={`flex items-center p-3 rounded-lg transition ${
                       pathname === "/settings"
@@ -155,7 +155,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                       className={`w-5 h-5 ${isOpen ? "mr-3" : "mx-auto"}`}
                     />
                     {isOpen && <span>Settings</span>}
-                  </Link>
+                  </Link> */}
 
                   <button
                     onClick={() => {
